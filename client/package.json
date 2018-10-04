@@ -4,8 +4,8 @@
   "description": "Client of group project of comp 3002, 2018 fall. ",
   "authors": [
     {
-      "name":"Zhou Yeheng",
-      "email":"master@evernightfireworks.com"
+      "name": "Zhou Yeheng",
+      "email": "master@evernightfireworks.com"
     }
   ],
   "keywords": [
@@ -78,6 +78,10 @@
     "typescript": "~2.9.2",
     "wait-on": "^3.1.0",
     "webdriver-manager": "^12.0.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@angular/animations": "^6.1.9",
+    "@angular/cdk": "^6.4.7",
+    "ng-zorro-antd": "^1.6.0",
+    "tslib": "^1.9.3"
   }
 }
