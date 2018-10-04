@@ -3,5 +3,10 @@
       "HOME": {
           "TITLE": "应用运作 !"
       }
+  },
+  "LAYOUT":{
+    "HEADER":{
+      "LOGO": "COMP3002"
+    }
   }
 }

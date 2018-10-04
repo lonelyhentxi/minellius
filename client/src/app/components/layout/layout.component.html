@@ -1,0 +1,65 @@
+<nz-layout class="layout">
+  <nz-header class="layout-header">
+    <div nz-row>
+      <div nz-col nzSpan="4">
+        <div class="layout-header-logo">
+          <img src="/assets/img/logo_transparent_main.png">
+          <embed src="/assets/img/minellius.svg" width="132" height="48"
+                 type="image/svg+xml"
+                 pluginspage="http://www.adobe.com/svg/viewer/install/" />
+        </div>
+      </div>
+      <div nz-col nzSpan="19">
+        <nz-divider [nzType]="'vertical'" id="layout-header-divider">
+        </nz-divider>
+      </div>
+      <div nz-col nzSpan="1">
+        <div id="layout-header-close" (click)="closeWindow()">
+          <img src="/assets/img/close.png" alt="close">
+        </div>
+      </div>
+    </div>
+  </nz-header>
+  <br>
+  <nz-layout>
+    <nz-sider [nzWidth]="220" style="background:#fff">
+      <ul nz-menu [nzMode]="'inline'" style="height:100%">
+        <li nz-submenu>
+          <span title><i class="anticon anticon-user"></i>subnav 1</span>
+          <ul>
+            <li nz-menu-item>option1</li>
+            <li nz-menu-item>option2</li>
+            <li nz-menu-item>option3</li>
+            <li nz-menu-item>option4</li>
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title><i class="anticon anticon-laptop"></i>subnav 2</span>
+          <ul>
+            <li nz-menu-item>option5</li>
+            <li nz-menu-item>option6</li>
+            <li nz-menu-item>option7</li>
+            <li nz-menu-item>option8</li>
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title><i class="anticon anticon-notification"></i>subnav 3</span>
+          <ul>
+            <li nz-menu-item>option9</li>
+            <li nz-menu-item>option10</li>
+            <li nz-menu-item>option11</li>
+            <li nz-menu-item>option12</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout style="padding:0 24px 24px" class="layout-main">
+      <nz-breadcrumb style="margin:8px 0;">
+        <nz-breadcrumb-item>List</nz-breadcrumb-item>
+        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-content style="background:#fff; padding: 24px; min-height: 280px;">Content</nz-content>
+    </nz-layout>
+  </nz-layout>
+  <div class="layout-footer"></div>
+</nz-layout>

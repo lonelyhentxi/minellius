@@ -3,5 +3,10 @@
       "HOME": {
           "TITLE": "App works !"
       }
+  },
+  "LAYOUT":{
+    "HEADER":{
+      "LOGO": "COMP3002"
+    }
   }
 }

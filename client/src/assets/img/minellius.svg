@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1320 480">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-自定义大小_1);
+      }
+
+      .cls-2 {
+        fill: #707070;
+        font-size: 296px;
+        font-family: CambriaMath, Cambria Math;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clip-自定义大小_1">
+      <rect width="1320" height="480"/>
+    </clipPath>
+  </defs>
+  <g id="自定义大小_1" data-name="自定义大小 – 1" class="cls-1">
+    <rect class="cls-3" width="1320" height="480"/>
+    <text id="Minellius" class="cls-2" transform="translate(73 356)"><tspan x="0" y="0">Minellius</tspan></text>
+  </g>
+</svg>

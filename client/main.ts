@@ -11,12 +11,34 @@ function createWindow() {
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
-  // Create the browser window.
+  /**
+   * Create the browser window
+   * @TODO: add more sizes
+   */
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height
+    x: 200,
+    y: 200,
+    // !width: size.width,
+    // !height: size.height
+    // set fixed window size, to develop rapidly
+    width: 1280,
+    height: 800,
+    useContentSize: true,
+    // disable resizable, for developing rapidly
+    resizable: false,
+    opacity: 1,
+    // enable native window frame
+    frame: false,
+    transparent: true,
+    // disable maximizable、minimizable and fullscreenable, for developing rapidly
+    maximizable: false,
+    minimizable: false,
+    fullscreenable: false,
+    // integrate node and add dev tools
+    webPreferences: {
+      devTools: true,
+      nodeIntegrationInWorker: true
+    }
   });
 
   if (serve) {
