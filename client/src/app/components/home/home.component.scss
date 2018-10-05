@@ -1,17 +1,53 @@
-.container {
+.app-close {
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 20px;
+  height: 20px;
+  img {
+    height: 20px;
+  }
+  :hover {
+    img {
+      opacity: 0.5 !important;
+      background-color: transparent !important;
+      filter:alpha(opacity=50);
+    }
+  }
+}
+
+.home {
+  border-radius: 4px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: url(../../../assets/background.jpg) no-repeat center fixed;
+  background: url(../../../assets/img/minellius-banner-with-logo.png) no-repeat center fixed;
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
   background-size: cover; /* version standardisée */
-
-  .title {
-    color: white;
-    margin:0;
-    padding:50px 20px;
+  -webkit-app-region: drag;
+  .home-slogan {
+    position: absolute;
+    left: 75px;
+    top: 300px;
+    width: 300px;
+    color: #9096A5;
+    font-size: 1.5em;
+    font-weight: 500;
+    line-height: 1.8em;
   }
-
+  .home-buttons {
+    position: absolute;
+    left: 75px;
+    top: 420px;
+    button {
+      border-radius: 1em;
+      width: 120px;
+      margin-right: 10px;
+      -webkit-app-region: no-drag;
+    }
+  }
 }

@@ -22,7 +22,7 @@ function createWindow() {
     // !height: size.height
     // set fixed window size, to develop rapidly
     width: 1280,
-    height: 800,
+    height: 720,
     useContentSize: true,
     // disable resizable, for developing rapidly
     resizable: false,

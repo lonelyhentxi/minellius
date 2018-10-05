@@ -1,12 +1,16 @@
 {
   "PAGES": {
-      "HOME": {
-          "TITLE": "App works !"
+    "HOME": {
+      "SLOGAN": "A experimental GITHUB data analysis solution",
+      "BUTTONS":{
+        "SIGNIN":"signin",
+        "SIGNUP":"signup",
+        "CONTACTUS":"contact"
       }
+    }
   },
   "LAYOUT":{
     "HEADER":{
-      "LOGO": "COMP3002"
     }
   }
 }
