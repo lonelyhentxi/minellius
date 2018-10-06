@@ -8,10 +8,11 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es2015",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "lib":["dom","dom.iterable","esnext","esnext.array","esnext.asynciterable"]
   },
   "include": [
     "src/**/*"
