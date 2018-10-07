@@ -2,9 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { PathService } from '../shared/path.service';
-import { ConfigService } from '../shared/config.service';
-import { AppController } from '../app.controller';
-import { AppService } from '../app.service';
+import { ConfigService } from '../shared/config/config.service';
 
 describe('MailService', async () => {
   let app: TestingModule;
@@ -15,7 +13,7 @@ describe('MailService', async () => {
     }).compile();
   });
 
-  describe('mailer basic test', () => {
+  describe('mailer send basic test', () => {
 
     it('should send hello!"', async () => {
       const mailService = app.get<MailService>(MailService);
@@ -26,7 +24,6 @@ describe('MailService', async () => {
         text: 'Hello test', // plain text body
         html: '<b>Hello test</b>',
       })).toEqual(undefined);
-
     });
   });
 });
