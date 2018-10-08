@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import { MailService } from './mail.service';
-import { PathService } from '../shared/path.service';
-import { ConfigService } from '../shared/config/config.service';
+import { PathService } from '../util/path/path.service';
+import { ConfigService } from '../configs/services/config.service';
 
 describe('MailService', async () => {
   let app: TestingModule;

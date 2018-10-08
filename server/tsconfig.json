@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "target": "es2015",
     "sourceMap": true,
     "outDir": "./dist",
@@ -16,7 +17,8 @@
     "lib":["dom","dom.iterable","esnext","esnext.array","esnext.asynciterable","es2015"]
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "config/config.ts"
   ],
   "exclude": [
     "node_modules"

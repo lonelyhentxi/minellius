@@ -50,7 +50,8 @@
         "no-trailing-whitespace": false,
         "whitespace":false,
         "typedef-whitespace": false,
-        "no-console": false
+        "no-console": false,
+        "no-var-requires":false
     },
     "rulesDirectory": []
 }
