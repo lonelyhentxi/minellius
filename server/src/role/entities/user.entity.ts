@@ -3,7 +3,7 @@ import {
   IsNotEmpty,
   IsOptional,
   MaxLength,
-  validateSync
+  validateSync,
 } from 'class-validator';
 import * as hashers from 'node-django-hashers';
 import {
@@ -15,7 +15,7 @@ import {
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 import { Group } from '../entities/group.entity';
 import { CustomValidationError } from '../../core/exceptions/custom-validation.error';
@@ -41,16 +41,6 @@ export class User {
   @IsOptional()
   username: string = undefined;
 
-  @Column({ name: 'first_name', length: 30 })
-  @MaxLength(30)
-  @IsOptional()
-  firstName: string = undefined;
-
-  @Column({ name: 'last_name', length: 30 })
-  @MaxLength(30)
-  @IsOptional()
-  lastName: string = undefined;
-
   @Column({ length: 254, unique: true })
   @IsNotEmpty()
   @IsEmail()
@@ -75,12 +65,12 @@ export class User {
     name: 'user_groups',
     joinColumn: {
       name: 'user_id',
-      referencedColumnName: 'id'
+      referencedColumnName: 'id',
     },
     inverseJoinColumn: {
       name: 'group_id',
-      referencedColumnName: 'id'
-    }
+      referencedColumnName: 'id',
+    },
   })
   groups: Group[];
 
@@ -126,8 +116,8 @@ export class User {
           group &&
           group.permissions.filter(
             permission =>
-              permissions.indexOf(permission.name.toLowerCase()) !== -1
-          ).length > 0
+              permissions.indexOf(permission.name.toLowerCase()) !== -1,
+          ).length > 0,
       ).length > 0
     );
   }

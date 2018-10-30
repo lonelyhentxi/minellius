@@ -10,14 +10,14 @@ import {
   Post,
   Put,
   Query,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiImplicitParam,
   ApiImplicitQuery,
   ApiResponse,
-  ApiUseTags
+  ApiUseTags,
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Permissions } from '../decorators/permissions.decorator';
@@ -36,14 +36,16 @@ import { UsersService } from '../services/users.service';
 @Controller('/api/users')
 @UseGuards(AccessGuard)
 export class UsersController {
-  constructor(private readonly service: UsersService) {}
+  constructor(private readonly service: UsersService) {
+  }
+
   @Roles('isSuperuser')
   @Permissions('add_user')
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: HttpStatus.CREATED,
     type: OutUserDto,
-    description: 'The record has been successfully created.'
+    description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
   @Post()
@@ -52,20 +54,21 @@ export class UsersController {
       return plainToClass(
         OutUserDto,
         await this.service.create({
-          item: await plainToClass(User, dto).setPassword(dto.password)
-        })
+          item: await plainToClass(User, dto).setPassword(dto.password),
+        }),
       );
     } catch (error) {
       throw error;
     }
   }
+
   @Roles('isSuperuser')
   @Permissions('change_user')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
     type: OutUserDto,
-    description: 'The record has been successfully updated.'
+    description: 'The record has been successfully updated.',
   })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
   @ApiImplicitParam({ name: 'id', type: Number })
@@ -76,19 +79,20 @@ export class UsersController {
         OutUserDto,
         await this.service.update({
           id,
-          item: await plainToClass(User, dto).setPassword(dto.password)
-        })
+          item: await plainToClass(User, dto).setPassword(dto.password),
+        }),
       );
     } catch (error) {
       throw error;
     }
   }
+
   @Roles('isSuperuser')
   @Permissions('delete_user')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
-    description: 'The record has been successfully deleted.'
+    description: 'The record has been successfully deleted.',
   })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
   @ApiImplicitParam({ name: 'id', type: Number })
@@ -98,20 +102,21 @@ export class UsersController {
       return plainToClass(
         OutUserDto,
         await this.service.delete({
-          id
-        })
+          id,
+        }),
       );
     } catch (error) {
       throw error;
     }
   }
+
   @Roles('isSuperuser')
   @Permissions('read_user')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
     type: OutUserDto,
-    description: ''
+    description: '',
   })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
   @ApiImplicitParam({ name: 'id', type: Number })
@@ -121,51 +126,52 @@ export class UsersController {
       return plainToClass(
         OutUserDto,
         await this.service.findById({
-          id
-        })
+          id,
+        }),
       );
     } catch (error) {
       throw error;
     }
   }
+
   @Roles('isSuperuser')
   @Permissions('read_user')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
     type: OutUsersDto,
-    description: ''
+    description: '',
   })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
   @ApiImplicitQuery({
     name: 'q',
     required: false,
     type: String,
-    description: 'Text for search (default: empty)'
+    description: 'Text for search (default: empty)',
   })
   @ApiImplicitQuery({
     name: 'sort',
     required: false,
     type: String,
-    description: 'Column name for sort (default: -id)'
+    description: 'Column name for sort (default: -id)',
   })
   @ApiImplicitQuery({
     name: 'per_page',
     required: false,
     type: Number,
-    description: 'Number of results to return per page. (default: 10)'
+    description: 'Number of results to return per page. (default: 10)',
   })
   @ApiImplicitQuery({
     name: 'cur_page',
     required: false,
     type: Number,
-    description: 'A page number within the paginated result set. (default: 1)'
+    description: 'A page number within the paginated result set. (default: 1)',
   })
   @ApiImplicitQuery({
     name: 'group',
     required: false,
     type: Number,
-    description: 'Group id for filter data by group. (default: empty)'
+    description: 'Group id for filter data by group. (default: empty)',
   })
   @Get()
   async findAll(
@@ -173,7 +179,7 @@ export class UsersController {
     @Query('per_page', new ParseIntWithDefaultPipe(10)) perPage,
     @Query('q') q,
     @Query('group') group,
-    @Query('sort') sort
+    @Query('sort') sort,
   ) {
     try {
       return plainToClass(
@@ -183,8 +189,8 @@ export class UsersController {
           perPage,
           q,
           sort,
-          group
-        })
+          group,
+        }),
       );
     } catch (error) {
       throw error;

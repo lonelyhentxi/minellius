@@ -7,8 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import {
-  CORE_CONFIG_TOKEN,
-  CustomError, ICoreConfig,
+  CustomError,
 } from '../../core';
 import {
   GroupsService,
@@ -21,24 +20,22 @@ import { map } from 'rxjs/operators';
 import { RedirectUriDto } from '../dto/redirect-uri.dto';
 import { SignInDto } from '../dto/sign-in.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
+import { ConfigService } from '../../configs';
 
 @Injectable()
 export class AuthService {
   private localUri: string;
 
   constructor(
-    @Inject(CORE_CONFIG_TOKEN) private readonly coreConfig: ICoreConfig,
+    private readonly configService: ConfigService,
     private readonly httpService: HttpService,
     private readonly usersService: UsersService,
     private readonly groupsService: GroupsService,
   ) {
-    if (this.coreConfig.port) {
-      this.localUri = `http://${this.coreConfig.domain}:${
-        this.coreConfig.port
-        }`;
-    } else {
-      this.localUri = `http://${this.coreConfig.domain}`;
-    }
+    const config = configService.get();
+    this.localUri = `http://${config.DOMAIN}:${
+      config.PORT
+      }`;
   }
 
   async info(options: { id: number }) {

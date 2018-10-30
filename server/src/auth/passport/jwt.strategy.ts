@@ -1,10 +1,10 @@
 import {
   BadRequestException,
   Injectable,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { GroupsService, User } from '@rucken/role-nestjs';
+import { GroupsService, User } from '../../role';
 import { plainToClass } from 'class-transformer';
 import { Strategy } from 'passport-jwt';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
@@ -14,7 +14,7 @@ import { TokenService } from '../services/token.service';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly tokenService: TokenService,
-    private readonly groupsService: GroupsService
+    private readonly groupsService: GroupsService,
   ) {
     super({
       passReqToCallback: true,
@@ -24,12 +24,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       },
       secretOrKeyProvider: (req, token, done) => {
         const secretKey = this.tokenService.createSecretKey(
-          plainToClass(User, this.tokenService.decode(token))
+          plainToClass(User, this.tokenService.decode(token)),
         );
         done(null, secretKey);
-      }
+      },
     });
   }
+
   public async validate(req, payload: IJwtPayload) {
     try {
       await this.groupsService.preloadAll();
@@ -40,7 +41,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       // const { role } = await this.userService.findById({ id: payload.id });
       const user = plainToClass(User, payload);
       user.groups = user.groups.map(group =>
-        this.groupsService.getGroupByName({ name: group.name })
+        this.groupsService.getGroupByName({ name: group.name }),
       );
       return user;
     } catch (error) {

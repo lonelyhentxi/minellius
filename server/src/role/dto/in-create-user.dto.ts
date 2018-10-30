@@ -16,12 +16,6 @@ export class InCreateUserDto {
   @MaxLength(150)
   @ApiModelProperty()
   username: string;
-  @MaxLength(30)
-  @ApiModelProperty()
-  firstName: string;
-  @MaxLength(30)
-  @ApiModelProperty()
-  lastName: string;
   @MaxLength(254)
   @ApiModelProperty()
   email: string;

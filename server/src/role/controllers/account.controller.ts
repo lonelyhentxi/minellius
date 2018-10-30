@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Post,
   Req,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
@@ -21,7 +21,9 @@ import { AccountService } from '../services/account.service';
 @Controller('/api/account')
 @UseGuards(AccessGuard)
 export class AccountController {
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService) {
+  }
+
   @ApiBearerAuth()
   @Roles('isActive')
   @Permissions('change_profile')
@@ -30,7 +32,7 @@ export class AccountController {
   @ApiResponse({
     status: HttpStatus.OK,
     type: OutAccountDto,
-    description: ''
+    description: '',
   })
   async update(@Req() req, @Body() accountDto: InAccountDto) {
     try {
@@ -38,8 +40,8 @@ export class AccountController {
         OutAccountDto,
         await this.accountService.update({
           id: req.user && req.user.id,
-          user: plainToClass(User, accountDto)
-        })
+          user: plainToClass(User, accountDto),
+        }),
       );
     } catch (error) {
       throw error;

@@ -20,7 +20,7 @@ module.exports = {
       },
     ],
   },
-  mode: "development",
+  mode: 'development',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },

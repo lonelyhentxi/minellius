@@ -4,19 +4,15 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-  Inject,
   Logger,
 } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { CORE_CONFIG_TOKEN } from '../configs/core.config';
 import { CustomValidationError } from '../exceptions/custom-validation.error';
 import { CustomError } from '../exceptions/custom.error';
-import { ICoreConfig } from '../interfaces/core-config.interface';
 
 @Catch(SyntaxError, CustomValidationError, CustomError, HttpException)
 export class CustomExceptionFilter implements ExceptionFilter {
   constructor(
-    @Inject(CORE_CONFIG_TOKEN) private readonly coreConfig: ICoreConfig,
   ) {
   }
 

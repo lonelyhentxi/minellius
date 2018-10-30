@@ -1,15 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from '@rucken/role-nestjs';
+import { User } from '../../role';
 import { decode, sign, verify } from 'jsonwebtoken';
-import { JWT_CONFIG_TOKEN } from '../configs/jwt.config';
 import { IJwtConfig } from '../interfaces/jwt-config.interface';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
+import { ConfigService } from '../../configs';
 
 @Injectable()
 export class TokenService {
   constructor(
-    @Inject(JWT_CONFIG_TOKEN) private readonly jwtConfig: IJwtConfig
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+  }
+
   create(user: User) {
     return sign(
       {
@@ -19,28 +21,33 @@ export class TokenService {
         isSuperuser: user.isSuperuser,
         groups: user.groups.map(group => {
           return { name: group.name };
-        })
+        }),
       },
       this.createSecretKey(user),
       {
-        expiresIn: this.jwtConfig.expirationDelta
-      }
+        expiresIn: this.configService.get().AUTH_JWT_EXPIRATION_DELTA,
+      },
     );
   }
+
   validate(token: string) {
     const data: any = this.decode(token);
     return verify(this.removeHeaderPrefix(token), this.createSecretKey(data));
   }
+
   decode(token: string) {
     return decode(this.removeHeaderPrefix(token)) as IJwtPayload;
   }
+
   removeHeaderPrefix(token: string) {
-    return this.jwtConfig.authHeaderPrefix &&
-      token &&
-      token.split(this.jwtConfig.authHeaderPrefix + ' ').length > 1
-      ? token.split(this.jwtConfig.authHeaderPrefix + ' ')[1]
+    const config = this.configService.get();
+    return config.AUTH_HEADER_PREFIX &&
+    token &&
+    token.split(config.AUTH_HEADER_PREFIX + ' ').length > 1
+      ? token.split(config.AUTH_HEADER_PREFIX + ' ')[1]
       : token;
   }
+
   extractTokenFromRequest(request) {
     const authorizationHeader = request.headers.authorization
       ? String(request.headers.authorization)
@@ -48,19 +55,20 @@ export class TokenService {
     const token = this.removeHeaderPrefix(authorizationHeader);
     return token;
   }
+
   createSecretKey(user: User) {
     return (
-      this.jwtConfig.secretKey +
+      this.configService.get().AUTH_JWT_SECRET_OR_KEY +
       (user
         ? '$' +
-          user.id +
-          '$' +
-          user.isStaff +
-          '$' +
-          user.isActive +
-          '$' +
-          user.isSuperuser +
-          (user.groups ? user.groups.map(group => '$' + group.name) : '')
+        user.id +
+        '$' +
+        user.isStaff +
+        '$' +
+        user.isActive +
+        '$' +
+        user.isSuperuser +
+        (user.groups ? user.groups.map(group => '$' + group.name) : '')
         : '')
     );
   }
