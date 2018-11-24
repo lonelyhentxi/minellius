@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/ng-zorro-antd.css";
 html, body {
   margin: 0;
   padding: 0;
-
   height: 100%;
+  background: rgba(255,255,255,0);
 }

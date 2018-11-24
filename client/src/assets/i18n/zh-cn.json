@@ -1,0 +1,16 @@
+{
+  "PAGES": {
+      "HOME": {
+          "SLOGAN": "一套实验性的 GITHUB 数据分析解决方案",
+        "BUTTONS":{
+          "SIGNIN":"欢迎使用",
+          "SIGNUP":"注册",
+          "CONTACTUS":"联系我们"
+        }
+      }
+  },
+  "LAYOUT":{
+    "HEADER":{
+    }
+  }
+}

@@ -1,5 +1,13 @@
-<div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
+<div class="home">
+  <div class="app-close" (click)="closeWindow()">
+    <img src="/assets/img/close.png" alt="close">
+  </div>
+  <div class="home-slogan">
+    {{"PAGES.HOME.SLOGAN"|translate}}
+  </div>
+  <div class="home-buttons">
+    <button nz-button [nzType]="'primary'">{{"PAGES.HOME.BUTTONS.SIGNIN"|translate}}</button>
+    <button nz-button [nzType]="'ghost'">{{"PAGES.HOME.BUTTONS.SIGNUP"|translate}}</button>
+    <button nz-button [nzType]="'ghost'">{{"PAGES.HOME.BUTTONS.CONTACTUS"|translate}}</button>
+  </div>
 </div>
