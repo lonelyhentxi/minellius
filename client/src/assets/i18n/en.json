@@ -3,14 +3,51 @@
     "HOME": {
       "SLOGAN": "A experimental GITHUB data analysis solution",
       "BUTTONS":{
-        "SIGNIN":"signin",
-        "SIGNUP":"signup",
-        "CONTACTUS":"contact"
+        "SIGNIN":"sign in",
+        "SIGNUP":"sign up",
+        "CONTACTUS":"contact us"
       }
+    },
+    "LOG": {
+      "SLOGAN_ROW1": "Welcome to your",
+      "SLOGAN_ROW2": "exploration world"
+    },
+    "LOGIN": {
+      "TITLE": " Login to system",
+      "PROMPT": "For better service, please enter your information to access data, or register one.",
+      "TOSIGNUP": "to register"
     }
   },
   "LAYOUT":{
     "HEADER":{
+    },
+    "BREADCRUMB": "Function"
+  },
+  "FUNCTION": {
+    "BRIEF": {
+      "NAME": "Brief Introduction"
+    },
+    "PERIOD": {
+      "NAME": "Period Analysis"
+    },
+    "CURRENT": {
+      "NAME": "Current Analysis"
+    },
+    "CONTROL": {
+      "NAME": "Control Panel"
+    },
+    "HELPER": {
+      "NAME": "Help & Feedback"
     }
+  },
+  "COMMON": {
+    "EMAIL": "email",
+    "PASSWORD": "password",
+    "LOGIN": "log in",
+    "SIGNUP": "sign up",
+    "REMEMBER": "remember"
+  },
+  "VALIDATE": {
+    "REQUIRED": "Please input your "
   }
 }

@@ -1,0 +1,28 @@
+.log-in-form {
+  width: 340px;
+  height: 400px;
+
+  h1 {
+    font-weight: 900;
+  }
+
+  p {
+    color: grey;
+    font-weight: 500;
+  }
+
+  .log-in-form-main {
+    max-width: 300px;
+    margin-top: 40px;
+  }
+
+  .log-in-form-forgot {
+    float: right;
+  }
+
+  .log-in-form-button {
+    width: 100%;
+  }
+
+  -webkit-app-region: no-drag;
+}

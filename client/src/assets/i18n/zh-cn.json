@@ -1,16 +1,53 @@
 {
   "PAGES": {
-      "HOME": {
-          "SLOGAN": "一套实验性的 GITHUB 数据分析解决方案",
-        "BUTTONS":{
-          "SIGNIN":"欢迎使用",
-          "SIGNUP":"注册",
-          "CONTACTUS":"联系我们"
-        }
+    "HOME": {
+      "SLOGAN": "一套实验性的 GITHUB 数据分析解决方案",
+      "BUTTONS": {
+        "SIGNIN": "欢迎使用",
+        "SIGNUP": "注册",
+        "CONTACTUS": "联系我们"
       }
-  },
-  "LAYOUT":{
-    "HEADER":{
+    },
+    "LOG": {
+      "SLOGAN_ROW1": "欢迎进入你的",
+      "SLOGAN_ROW2": "探索世界"
+    },
+    "LOGIN": {
+      "TITLE": "登入系统",
+      "PROMPT": "为改进体验，请输入您的信息以登录，或者注册一个账号。",
+      "TOSIGNUP": "去注册"
     }
+  },
+  "LAYOUT": {
+    "HEADER": {
+    },
+    "BREADCRUMB": "功能"
+  },
+  "FUNCTION": {
+    "BRIEF": {
+      "NAME": "首页概览"
+    },
+    "PERIOD": {
+      "NAME": "时段分析"
+    },
+    "CURRENT": {
+      "NAME": "总量分析"
+    },
+    "CONTROL": {
+      "NAME": "控制面板"
+    },
+    "HELPER": {
+      "NAME": "帮助反馈"
+    }
+  },
+  "COMMON": {
+    "EMAIL": "邮箱",
+    "PASSWORD": "密码",
+    "LOGIN": "登录",
+    "SIGNUP": "注册",
+    "REMEMBER": "记住"
+  },
+  "VALIDATE": {
+    "REQUIRED": "请输入你的"
   }
 }

@@ -1,13 +1,18 @@
-<div class="home">
-  <div class="app-exit" (click)="exitApp()">
-    <img src="/assets/img/app_exit.png" alt="close">
-  </div>
+<div class="app-bg home">
+  <app-layout-logo></app-layout-logo>
+  <app-exit-button></app-exit-button>
   <div class="home-slogan">
     {{"PAGES.HOME.SLOGAN"|translate}}
   </div>
   <div class="home-buttons">
-    <button nz-button [nzType]="'primary'">{{"PAGES.HOME.BUTTONS.SIGNIN"|translate}}</button>
-    <button nz-button [nzType]="'ghost'">{{"PAGES.HOME.BUTTONS.SIGNUP"|translate}}</button>
-    <button nz-button [nzType]="'ghost'">{{"PAGES.HOME.BUTTONS.CONTACTUS"|translate}}</button>
+    <button nz-button [nzType]="'primary'" (click)="routeTo('/log')">
+      {{"PAGES.HOME.BUTTONS.SIGNIN"|translate}}
+    </button>
+    <button nz-button [nzType]="'ghost'" (click)="routeTo('/layout')">
+      {{"PAGES.HOME.BUTTONS.SIGNUP"|translate}}
+    </button>
+    <button nz-button [nzType]="'ghost'">
+      {{"PAGES.HOME.BUTTONS.CONTACTUS"|translate}}
+    </button>
   </div>
 </div>

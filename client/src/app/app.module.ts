@@ -1,28 +1,33 @@
 import 'reflect-metadata';
 import '../polyfills';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 
 // NG Translate
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-import { ElectronService } from './providers/electron.service';
+import {ElectronService} from './providers/electron.service';
 
-import { WebviewDirective } from './directives/webview.directive';
+import {WebviewDirective} from './directives/webview.directive';
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
+import {AppComponent} from './app.component';
+import {HomeComponent} from './components/home/home.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { LayoutComponent } from './components/layout/layout.component';
+import {LayoutComponent} from './components/layout/layout.component';
+import {LogComponent} from './components/log/log.component';
+import {ExitButtonComponent} from './components/exit-button/exit-button.component';
+import {LayoutLogoComponent} from './components/layout-logo/layout-logo.component';
+import {LogInComponent} from './components/log/log-in/log-in.component';
+import {SignUpComponent} from './components/log/sign-up/sign-up.component';
 
 registerLocaleData(zh);
 
@@ -36,7 +41,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     WebviewDirective,
-    LayoutComponent
+    LayoutComponent,
+    LogComponent,
+    ExitButtonComponent,
+    LayoutLogoComponent,
+    LogInComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +54,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     NgZorroAntdModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
+    CommonModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -53,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [ElectronService, { provide: NZ_I18N, useValue: zh_CN }],
+  providers: [ElectronService, {provide: NZ_I18N, useValue: zh_CN}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
