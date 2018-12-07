@@ -1,9 +1,7 @@
-import 'zone.js/dist/zone-mix';
 import 'reflect-metadata';
 import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -18,15 +16,14 @@ import { ElectronService } from './providers/electron.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { LayoutComponent } from './components/layout/layout.component';
-
-// 配置 angular i18n
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { LayoutComponent } from './components/layout/layout.component';
+
 registerLocaleData(zh);
 
 // AoT requires an exported function for factories
@@ -45,9 +42,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    // 导入 ng-zorro-antd 模块
     NgZorroAntdModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -55,11 +51,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
   ],
-  providers: [
-    ElectronService, {provide: NZ_I18N, useValue:zh_CN}
-    ],
+  providers: [ElectronService, { provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

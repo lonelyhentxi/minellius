@@ -27,8 +27,8 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render home-slogan', async(() => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('PAGES.HOME.TITLE');
+    expect(compiled.querySelector('.home-slogan').textContent).toContain('PAGES.HOME.SLOGAN');
   }));
 });

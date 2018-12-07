@@ -1,7 +1,7 @@
 import { AngularElectronPage } from './app.po';
 import { browser, element, by } from 'protractor';
 
-describe('angular-electron App', () => {
+describe('minellius-client App', () => {
   let page: AngularElectronPage;
 
   beforeEach(() => {

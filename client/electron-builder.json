@@ -1,11 +1,11 @@
 {
-  "productName": "angular-electron",
+  "productName": "minellius-client",
   "directories": {
     "output": "release/"
   },
     "files": [
         "**/*",
-        "!*.ts",
+        "!**/*.ts",
         "!*.code-workspace",
         "!LICENSE.md",
         "!package.json",
@@ -13,7 +13,7 @@
         "!src/",
         "!e2e/",
         "!hooks/",
-        "!.angular-cli.json",
+        "!angular.json",
         "!_config.yml",
         "!karma.conf.js",
         "!tsconfig.json",
