@@ -1,3 +1,36 @@
-<p>
-  sign-up works!
-</p>
+<div class="sign-up-form">
+  <h1>{{"PAGES.SIGNUP.TITLE"|translate}}</h1>
+  <p>
+    {{"PAGES.SIGNUP.PROMPT"|translate}}
+    <a routerLinkActive="active" routerLink="/log/log-in">{{"PAGES.SIGNUP.TOLOGIN"|translate}}</a>
+  </p>
+  <form nz-form [formGroup]="validateForm" class="sign-up-form-main" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixUser">
+          <input type="text" nz-input formControlName="email" placeholder="{{'COMMON.EMAIL'|translate}}">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">
+          {{"VALIDATE.REQUIRED"|translate}}{{'COMMON.EMAIL'|translate}}
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixLock">
+          <input type="password" nz-input formControlName="password" placeholder="{{'COMMON.PASSWORD'|translate}}">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">
+          {{"VALIDATE.REQUIRED"|translate}}{{'COMMON.PASSWORD'|translate}}
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button class="sign-up-form-button" [nzType]="'primary'">{{'COMMON.SIGNUP'|translate}}</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+</div>

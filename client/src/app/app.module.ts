@@ -28,6 +28,12 @@ import {ExitButtonComponent} from './components/exit-button/exit-button.componen
 import {LayoutLogoComponent} from './components/layout-logo/layout-logo.component';
 import {LogInComponent} from './components/log/log-in/log-in.component';
 import {SignUpComponent} from './components/log/sign-up/sign-up.component';
+import { BriefComponent } from './components/brief/brief.component';
+import { ControlComponent } from './components/control/control.component';
+import { HelperComponent } from './components/helper/helper.component';
+import { PeriodComponent } from './components/period/period.component';
+import { CurrentComponent } from './components/current/current.component';
+import {MenuService} from './providers/menu.service';
 
 registerLocaleData(zh);
 
@@ -47,6 +53,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     LayoutLogoComponent,
     LogInComponent,
     SignUpComponent,
+    BriefComponent,
+    ControlComponent,
+    HelperComponent,
+    PeriodComponent,
+    CurrentComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,11 @@
       "TITLE": "登入系统",
       "PROMPT": "为改进体验，请输入您的信息以登录，或者注册一个账号。",
       "TOSIGNUP": "去注册"
+    },
+    "SIGNUP": {
+      "TITLE": "注册账户",
+      "PROMPT": "如果您没有账号，请注册。",
+      "TOLOGIN": "去登录"
     }
   },
   "LAYOUT": {
@@ -31,7 +36,22 @@
       "NAME": "时段分析"
     },
     "CURRENT": {
-      "NAME": "总量分析"
+      "NAME": "总量分析",
+      "USER": {
+        "NAME": "用户"
+      },
+      "REPO":{
+        "NAME": "仓库"
+      },
+      "LANG": {
+        "NAME": "语言"
+      },
+      "ORG":{
+        "NAME": "组织"
+      },
+      "AREA": {
+        "NAME": "地区"
+      }
     },
     "CONTROL": {
       "NAME": "控制面板"
@@ -45,7 +65,9 @@
     "PASSWORD": "密码",
     "LOGIN": "登录",
     "SIGNUP": "注册",
-    "REMEMBER": "记住"
+    "REMEMBER": "记住",
+    "SELECT": "选择",
+    "MONTH": "月份"
   },
   "VALIDATE": {
     "REQUIRED": "请输入你的"

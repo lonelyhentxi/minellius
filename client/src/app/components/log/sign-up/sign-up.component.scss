@@ -1,0 +1,28 @@
+.sign-up-form {
+  width: 340px;
+  height: 400px;
+
+  h1 {
+    font-weight: 900;
+  }
+
+  p {
+    color: grey;
+    font-weight: 500;
+  }
+
+  .sign-up-form-main {
+    max-width: 300px;
+    margin-top: 40px;
+  }
+
+  .sign-up-form-forgot {
+    float: right;
+  }
+
+  .sign-up-form-button {
+    width: 100%;
+  }
+
+  -webkit-app-region: no-drag;
+}

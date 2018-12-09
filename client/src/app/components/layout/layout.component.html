@@ -3,23 +3,20 @@
     <app-layout-logo></app-layout-logo>
     <app-exit-button></app-exit-button>
   </nz-header>
-  <br>
   <nz-layout class="layout-body">
     <nz-sider [nzWidth]="220">
       <ul nz-menu [nzMode]="'inline'" style="height:100%">
         <li *ngFor="let item of menuItems; let i=index" nz-menu-item [nzSelected]="item.selected" (click)="menuSwitchTo(i)">
-          <i nz-icon [type]="item.icon"></i>
+          <a [routerLink]="item.path"><i nz-icon [type]="item.icon"></i>
           {{item.name|translate}}
+          </a>
         </li>
       </ul>
     </nz-sider>
-    <nz-layout style="padding:0 24px 24px" class="layout-main">
-      <nz-breadcrumb style="margin:8px 0;">
-        <nz-breadcrumb-item>{{"LAYOUT.BREADCRUMB"|translate}}</nz-breadcrumb-item>
-        <nz-breadcrumb-item>{{menuItems[currentMenuItemIndex].name|translate}}</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <nz-content style="background:#fff; padding: 24px; min-height: 280px;">Content</nz-content>
+    <nz-layout class="layout-main">
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
     </nz-layout>
   </nz-layout>
-  <div class="layout-footer"></div>
 </nz-layout>

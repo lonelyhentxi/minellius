@@ -16,6 +16,11 @@
       "TITLE": " Login to system",
       "PROMPT": "For better service, please enter your information to access data, or register one.",
       "TOSIGNUP": "to register"
+    },
+    "SIGNUP": {
+      "TITLE": "Sign up to system",
+      "PROMPT": "If you have no account, please register one. ",
+      "TOLOGIN": "to log in"
     }
   },
   "LAYOUT":{
@@ -31,7 +36,22 @@
       "NAME": "Period Analysis"
     },
     "CURRENT": {
-      "NAME": "Current Analysis"
+      "NAME": "Current Analysis",
+      "USER": {
+        "NAME": "user"
+      },
+      "REPO":{
+        "NAME": "repo"
+      },
+      "LANG": {
+        "NAME": "lang"
+      },
+      "ORG":{
+        "NAME": "org"
+      },
+      "AREA": {
+        "NAME": "area"
+      }
     },
     "CONTROL": {
       "NAME": "Control Panel"
@@ -45,7 +65,9 @@
     "PASSWORD": "password",
     "LOGIN": "log in",
     "SIGNUP": "sign up",
-    "REMEMBER": "remember"
+    "REMEMBER": "remember",
+    "SELECT": "select",
+    "MONTH": "month"
   },
   "VALIDATE": {
     "REQUIRED": "Please input your "

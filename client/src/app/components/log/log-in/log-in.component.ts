@@ -24,7 +24,7 @@ export class LogInComponent implements OnInit {
     this.validateForm = this.formBuilder.group({
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      remember: [true]
+      remember: [false]
     });
   }
 }
