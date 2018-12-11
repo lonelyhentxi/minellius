@@ -7,7 +7,7 @@ export const Config: IConfig = {
   MAILER_PORT:465,
   MAILER_SECURE:true,
   MAILER_USER:"info@evernightfireworks.com",
-  MAILER_PASS:"mmruxkeyzoykdebh",
+  MAILER_PASS:"ss",
   AUTH_JWT_SECRET_OR_KEY:"secretKey",
   AUTH_HEADER_PREFIX: 'JWT',
   AUTH_JWT_EXPIRATION_DELTA: '7 days',

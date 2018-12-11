@@ -8,5 +8,4 @@ import { UtilModule } from '../util/util.module';
   exports:[ConfigService],
 })
 export class ConfigModule {
-
 }

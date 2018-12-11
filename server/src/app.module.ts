@@ -8,23 +8,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     ConfigModule,
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        const config = configService.get();
-        return {
-          type: config.DB_TYPE,
-          host: config.DB_HOSTNAME,
-          port: config.DB_PORT,
-          username: config.DB_USERNAME,
-          password: config.DB_PASSWORD,
-          database: config.DB_NAME,
-          entities: [__dirname +  "/**/*.entity{.ts,.js}"],
+      TypeOrmModule.forRoot({
+          name: "dataConnection",
+          type: 'mysql',
+          host: '127.0.0.1',
+          port: 3306,
+          username: 'root',
+          password:  '',
+          database: 'db_Minellius',
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: true,
-        };
-      },
-    }),
+      }),
     CoreModule,
     RoleModule,
     AuthModule,
