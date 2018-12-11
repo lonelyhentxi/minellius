@@ -1,15 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MenuService} from '../../providers/menu.service';
+import {ActivatedRoute} from '@angular/router';
+import {tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit, OnDestroy {
+export class LayoutComponent implements OnInit,OnDestroy {
 
-  menuItems = [
+  menuItems: { name: string, icon: string, path: string, selected: boolean }[] = [
     {
       name: 'FUNCTION.BRIEF.NAME',
       icon: 'home',
@@ -43,22 +44,33 @@ export class LayoutComponent implements OnInit, OnDestroy {
   ];
 
   currentMenuItemIndex: number;
+  menuSwitcher$: Observable;
 
   constructor(private readonly route: ActivatedRoute) {
   }
 
-  ngOnDestroy(): void {
-
+  ngOnInit() {
+    this.updateMenuItemIndexFromRouter();
   }
 
-  menuSwitchTo(i: number) {
+  ngOnDestroy(): void {
+    this.men
+  }
+
+  menuSwitchTo(path: string) {
+    const i = this.menuItems.findIndex(item => item.path === path);
+    if (i === -1) {
+      return;
+    }
     this.menuItems.forEach(item => item.selected = false);
     this.menuItems[i].selected = true;
     this.currentMenuItemIndex = i;
-    this.getMenuItemIndexFromRouter();
-    // this.router.navigateByUrl(`/layout/${this.menuItems[i].path}`);
   }
 
-  getMenuItemIndexFromRouter() {
+  updateMenuItemIndexFromRouter() {
+    const me = this;
+    const menuSwitcher = this.route.children[0].url.subscribe(lst => me.menuSwitchTo(lst.toString()));
+    this.menuSwitcher$ = menuSwitcher;
+    return menuSwitcher;
   }
 }

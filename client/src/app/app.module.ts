@@ -33,7 +33,6 @@ import { ControlComponent } from './components/control/control.component';
 import { HelperComponent } from './components/helper/helper.component';
 import { PeriodComponent } from './components/period/period.component';
 import { CurrentComponent } from './components/current/current.component';
-import {MenuService} from './providers/menu.service';
 
 registerLocaleData(zh);
 

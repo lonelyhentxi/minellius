@@ -31,7 +31,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'layout/:function',
+    path: 'layout',
     component: LayoutComponent,
     children: [
       {
