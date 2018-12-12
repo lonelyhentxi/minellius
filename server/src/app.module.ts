@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import {ConfigModule} from "./configs";
 
 @Module({
   imports: [
+      ConfigModule,
       TypeOrmModule.forRoot({
-          name: "dataConnection",
           type: 'mysql',
-          host: '127.0.0.1',
+          host: '10.10.4.6',
           port: 3306,
           username: 'root',
-          password:  '',
+          password:  'minellius2018+-',
           database: 'minellius',
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: true,
