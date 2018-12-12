@@ -2,13 +2,15 @@
   <div nz-row class="function-control">
     <div nz-col nzSpan="18">
       <ul nz-menu [nzMode]="'horizontal'" class="function-horizontal-menu">
-        <li *ngFor="let item of menuItems" nz-menu-item [nzSelected]="item.selected">
-          {{'FUNCTION.CURRENT.'+item.name+'.NAME'|translate}}&nbsp;&nbsp;<i nz-icon [type]="item.icon"></i>
+        <li *ngFor="let item of menuItems;let index=index" nz-menu-item [nzSelected]="index===currentMenuItemIndex">
+          {{'FUNCTION.CURRENT.' + item.name + '.NAME'|translate}}&nbsp;&nbsp;<i nz-icon [type]="item.icon"></i>
         </li>
       </ul>
     </div>
     <div nz-col nzSpan="4" nzOffset="2">
-      <nz-month-picker nzPlaceHolder="{{('COMMON.SELECT'|translate)+('COMMON.MONTH'|translate)}}"></nz-month-picker>
     </div>
+  </div>
+  <div class="function-content">
+    <router-outlet></router-outlet>
   </div>
 </div>

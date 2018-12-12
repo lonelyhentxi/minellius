@@ -33,7 +33,22 @@
       "NAME": "首页概览"
     },
     "PERIOD": {
-      "NAME": "时段分析"
+      "NAME": "时段分析",
+      "USER": {
+        "NAME": "用户"
+      },
+      "REPO":{
+        "NAME": "仓库"
+      },
+      "LANG": {
+        "NAME": "语言"
+      },
+      "ORG":{
+        "NAME": "组织"
+      },
+      "AREA": {
+        "NAME": "地区"
+      }
     },
     "CURRENT": {
       "NAME": "总量分析",

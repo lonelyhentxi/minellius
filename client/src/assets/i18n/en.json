@@ -33,7 +33,22 @@
       "NAME": "Brief Introduction"
     },
     "PERIOD": {
-      "NAME": "Period Analysis"
+      "NAME": "Period Analysis",
+      "USER": {
+        "NAME": "user"
+      },
+      "REPO":{
+        "NAME": "repo"
+      },
+      "LANG": {
+        "NAME": "lang"
+      },
+      "ORG":{
+        "NAME": "org"
+      },
+      "AREA": {
+        "NAME": "area"
+      }
     },
     "CURRENT": {
       "NAME": "Current Analysis",

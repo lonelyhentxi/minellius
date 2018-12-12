@@ -1,12 +1,10 @@
 <nz-layout class="app-bg layout">
   <nz-header class="layout-header">
-    <app-layout-logo></app-layout-logo>
-    <app-exit-button></app-exit-button>
   </nz-header>
   <nz-layout class="layout-body">
     <nz-sider [nzWidth]="220">
       <ul nz-menu [nzMode]="'inline'" style="height:100%">
-        <li *ngFor="let item of menuItems; let i=index" nz-menu-item [nzSelected]="item.selected" (click)="menuSwitchTo(i)">
+        <li *ngFor="let item of menuItems;let index=index" nz-menu-item [nzSelected]="index===currentMenuItemIndex">
           <a [routerLink]="item.path"><i nz-icon [type]="item.icon"></i>
           {{item.name|translate}}
           </a>

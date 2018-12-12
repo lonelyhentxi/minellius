@@ -33,6 +33,9 @@ import { ControlComponent } from './components/control/control.component';
 import { HelperComponent } from './components/helper/helper.component';
 import { PeriodComponent } from './components/period/period.component';
 import { CurrentComponent } from './components/current/current.component';
+import {MenuService} from './providers/menu.service';
+import { PeriodDetailComponent } from './components/period/period-detail/period-detail.component';
+import { CurrentDetailComponent } from './components/current/current-detail/current-detail.component';
 
 registerLocaleData(zh);
 
@@ -57,6 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HelperComponent,
     PeriodComponent,
     CurrentComponent,
+    PeriodDetailComponent,
+    CurrentDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [ElectronService, {provide: NZ_I18N, useValue: zh_CN}],
+  providers: [ElectronService, {provide: NZ_I18N, useValue: zh_CN},MenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

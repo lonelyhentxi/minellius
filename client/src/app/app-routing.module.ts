@@ -10,6 +10,8 @@ import {PeriodComponent} from './components/period/period.component';
 import {CurrentComponent} from './components/current/current.component';
 import {ControlComponent} from './components/control/control.component';
 import {HelperComponent} from './components/helper/helper.component';
+import {PeriodDetailComponent} from './components/period/period-detail/period-detail.component';
+import {CurrentDetailComponent} from './components/current/current-detail/current-detail.component';
 
 const routes: Routes = [
   {
@@ -19,9 +21,9 @@ const routes: Routes = [
   {
     path: 'log',
     component: LogComponent,
-    children:[
+    children: [
       {
-        path:'log-in',
+        path: 'log-in',
         component: LogInComponent,
       },
       {
@@ -36,7 +38,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo:'brief',
+        redirectTo: 'brief',
         pathMatch: 'full'
       },
       {
@@ -45,11 +47,57 @@ const routes: Routes = [
       },
       {
         path: 'period',
-        component: PeriodComponent
+        component: PeriodComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'repo',
+            pathMatch: 'full'
+          },
+          {
+            path: 'user',
+            component: PeriodDetailComponent,
+          },
+          {
+            path: 'repo',
+            component: PeriodDetailComponent,
+          },
+          {
+            path: 'lang',
+            component: PeriodDetailComponent,
+          }
+        ]
       },
       {
         path: 'current',
-        component: CurrentComponent
+        component: CurrentComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'repo',
+            pathMatch: 'full'
+          },
+          {
+            path: 'user',
+            component: CurrentDetailComponent,
+          },
+          {
+            path: 'repo',
+            component: CurrentDetailComponent,
+          },
+          {
+            path: 'lang',
+            component: CurrentDetailComponent,
+          },
+          {
+            path: 'org',
+            component: CurrentDetailComponent,
+          },
+          {
+            path: 'area',
+            component: CurrentDetailComponent,
+          },
+        ]
       },
       {
         path: 'control',
@@ -64,7 +112,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: true,
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
-import { ElectronService } from './providers/electron.service';
-import { TranslateService } from '@ngx-translate/core';
-import { AppConfig } from '../environments/environment';
+import {Component} from '@angular/core';
+import {ElectronService} from './providers/electron.service';
+import {TranslateService} from '@ngx-translate/core';
+import {AppConfig} from '../environments/environment';
+import {slideInAnimation} from './animations/slide-in.animation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [slideInAnimation]
 })
 export class AppComponent {
   constructor(public electronService: ElectronService,
-    private translate: TranslateService) {
+              private translate: TranslateService) {
 
     translate.setDefaultLang('zh-cn');
     console.log('AppConfig', AppConfig);

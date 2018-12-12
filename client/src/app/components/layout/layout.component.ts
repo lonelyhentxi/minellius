@@ -1,14 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
+import {MenuService} from '../../providers/menu.service';
+import {MenuComponentInterface} from '../../interfaces/menu-component.interface';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit,OnDestroy {
+export class LayoutComponent implements OnInit, OnDestroy, MenuComponentInterface {
 
   menuItems: { name: string, icon: string, path: string, selected: boolean }[] = [
     {
@@ -44,33 +45,17 @@ export class LayoutComponent implements OnInit,OnDestroy {
   ];
 
   currentMenuItemIndex: number;
-  menuSwitcher$: Observable;
+  menuItem$: Subscription;
 
-  constructor(private readonly route: ActivatedRoute) {
+  constructor(private readonly route: ActivatedRoute, private readonly menuService: MenuService) {
+
   }
 
   ngOnInit() {
-    this.updateMenuItemIndexFromRouter();
+    this.menuService.subscribeMenuItemAutoUpdate(this,this.route);
   }
 
   ngOnDestroy(): void {
-    this.men
-  }
-
-  menuSwitchTo(path: string) {
-    const i = this.menuItems.findIndex(item => item.path === path);
-    if (i === -1) {
-      return;
-    }
-    this.menuItems.forEach(item => item.selected = false);
-    this.menuItems[i].selected = true;
-    this.currentMenuItemIndex = i;
-  }
-
-  updateMenuItemIndexFromRouter() {
-    const me = this;
-    const menuSwitcher = this.route.children[0].url.subscribe(lst => me.menuSwitchTo(lst.toString()));
-    this.menuSwitcher$ = menuSwitcher;
-    return menuSwitcher;
+    this.menuService.unsubscribeMenuItemAutoUpdate(this);
   }
 }
