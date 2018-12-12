@@ -18,7 +18,7 @@ describe('LangEventInfoService', async ()=>{
             const langEventInfoService = app.get<LangEventInfoService>(LangEventInfoService);
             expect(await langEventInfoService.findByEventType({
                 eventType: 0,
-            })).toEqual()
+            })).toEqual('2018,0,1:python')
         });
     })
 })

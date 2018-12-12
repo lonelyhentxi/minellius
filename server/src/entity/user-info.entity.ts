@@ -27,17 +27,29 @@ export class UserInfoEntity{
     @Column()
     lang: string;
 
-    @Column()
-    commits: string;
+    @Column({
+        type:"int",
+        name:"commit"
+    })
+    commits: number;
 
-    @Column()
-    branches: string;
+    @Column({
+        type:"int",
+        name:"branches"
+    })
+    branches: number;
 
-    @Column()
-    releases: string;
+    @Column({
+        type:"int",
+        name:"releases"
+    })
+    releases: number;
 
-    @Column()
-    contributor: string;
+    @Column({
+        type:"int",
+        name:"contributor"
+    })
+    contributor: number;
 
     @Column()
     tag: string;
