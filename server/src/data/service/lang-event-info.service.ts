@@ -1,58 +1,37 @@
 import {Injectable} from "@nestjs/common";
 import {LangEventInfoEntity} from "../../entity/lang-event-info.entity";
-import {Repository, LessThan, MoreThan, Equal, Between} from "typeorm";
-import { InjectRepository } from '@nestjs/typeorm'
+import {Repository} from "typeorm";
+import {InjectRepository} from "@nestjs/typeorm";
 import {QueryLangEventInfoDto} from "../dto/query-lang-event-info.dto";
-import {isNil} from 'lodash';
-import {async} from "rxjs/internal/scheduler/async";
+import {QueryHelperService} from "./query-helper.service";
+import {QueryLimitationDto} from "../dto/query-limitation.dto";
 
 @Injectable()
-export class LangEventInfoService{
+export class LangEventInfoService {
     constructor(
         @InjectRepository(LangEventInfoEntity)
-        private readonly langEventInfoRepo: Repository<LangEventInfoEntity>
-    ){}
-
-    async findByPeriodStart(query:QueryLangEventInfoDto): Promise<LangEventInfoEntity[]>{
-        const where = {
-            period: [MoreThan(query.periodStart)]
-        };
-        if(!isNil(query.periodEnd)){
-            where.period['bfe'] = query.periodEnd
-        }
-        return await this.langEventInfoRepo.find({
-            where:where
-        })
+        private readonly langEventInfoRepo: Repository<LangEventInfoEntity>,
+        private readonly queryHelperService: QueryHelperService,
+    ) {
     }
 
-    async findByPeriodEnd(query:QueryLangEventInfoDto): Promise<LangEventInfoEntity[]>{
-        const where = {
-            period: [LessThan(query.periodEnd)]
-        };
-        if(!isNil(query.periodStart)){
-            where.period['afe'] = query.periodStart
-        }
+    async find(query: QueryLangEventInfoDto, limitQuery:QueryLimitationDto): Promise<LangEventInfoEntity[]> {
+        let where = {};
+        where = this.queryHelperService.genScopeQuery(where, "period", query.periodStart, query.periodEnd);
+        where = this.queryHelperService.genIterableQuery(where, "eventType", query.eventType);
         return await this.langEventInfoRepo.find({
-            where:where
-        })
+            where: where,
+            skip: limitQuery.skip,
+            take: limitQuery.limit,
+        });
     }
 
-    async findBetweenPeriod(query:QueryLangEventInfoDto): Promise<LangEventInfoEntity[]>{
-        const where = {
-            period: [Between(query.periodStart, query.periodEnd)]
-        };
-        return await this.langEventInfoRepo.find({
-            where:where
-        })
+    async count(query: QueryLangEventInfoDto): Promise<number> {
+        let where = {};
+        where = this.queryHelperService.genScopeQuery(where, "period", query.periodStart, query.periodEnd);
+        where = this.queryHelperService.genIterableQuery(where, "eventType", query.eventType);
+        return await this.langEventInfoRepo.count({
+            where: where
+        });
     }
-
-    async findByEventType(query:QueryLangEventInfoDto): Promise<LangEventInfoEntity[]> {
-        const where = {
-            eventType: [Equal(query.eventType)]
-        };
-        return await this.langEventInfoRepo.find({
-            where:where
-        })
-    }
-
 }

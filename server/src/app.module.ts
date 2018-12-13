@@ -7,7 +7,7 @@ import {ConfigModule} from "./configs";
       ConfigModule,
       TypeOrmModule.forRoot({
           type: 'mysql',
-          host: '10.10.4.6',
+          host: process.env.NODE_ENV === "production"? '10.10.4.6':"127.0.0.1",
           port: 3306,
           username: 'root',
           password:  'minellius2018+-',

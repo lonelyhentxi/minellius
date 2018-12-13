@@ -1,119 +1,41 @@
 import {Injectable} from "@nestjs/common";
-import {Repository, LessThan, MoreThan, Equal, Between} from "typeorm";
+import {Repository} from "typeorm";
 import { InjectRepository } from '@nestjs/typeorm'
 import {OriginInfoEntity} from "../../entity/origin-info.entity";
 import {QueryOriginInfoDto} from "../dto/query-origin-info.dto";
-import {isNil} from 'lodash';
-import {options} from "tsconfig-paths/lib/options";
+import {QueryHelperService} from "./query-helper.service";
+import {QueryLimitationDto} from "../dto/query-limitation.dto";
 
 @Injectable()
 export class OriginInfoService {
     constructor(
         @InjectRepository(OriginInfoEntity)
-        private readonly originInfoRepo: Repository<OriginInfoEntity>
+        private readonly originInfoRepo: Repository<OriginInfoEntity>,
+        private readonly queryHelperService: QueryHelperService,
     ){}
 
-    async findByEventTimeStart(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            eventTime: [MoreThan(query.eventTimeStart)]
-        };
-        if(!isNil(query.eventTimeEnd)) {
-            where.eventTime['bfe'] = query.eventTimeEnd;
-        }
+    async find(query: QueryOriginInfoDto, limitQuery: QueryLimitationDto): Promise<OriginInfoEntity[]> {
+        let where = {};
+        where = this.queryHelperService.genScopeQuery(where, "eventTime", query.eventTimeStart, query.eventTimeEnd);
+        where = this.queryHelperService.genIterableQuery(where, "eventType", query.eventType);
+        where = this.queryHelperService.genScopeQuery(where,"updateTime", query.updateTimeStart, query.updateTimeEnd);
+        where = this.queryHelperService.genSingleQuery(where, "mark", query.mark)
         return await this.originInfoRepo.find({
-            where:where
+            where:where,
+            skip: limitQuery.skip,
+            take: limitQuery.limit
         })
     }
 
-    async findByEventTimeEnd(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            eventTime: [LessThan(query.eventTimeEnd)]
-        };
-        if(!isNil(query.eventTimeStart)) {
-            where.eventTime['afe'] = query.eventTimeStart;
-        }
-        return await this.originInfoRepo.find({
+    async count(query: QueryOriginInfoDto): Promise<number> {
+        let where = {};
+        where = this.queryHelperService.genScopeQuery(where, "eventTime", query.eventTimeStart, query.eventTimeEnd);
+        where = this.queryHelperService.genIterableQuery(where, "eventType", query.eventType);
+        where = this.queryHelperService.genScopeQuery(where,"updateTime", query.updateTimeStart, query.updateTimeEnd);
+        where = this.queryHelperService.genSingleQuery(where, "mark", query.mark);
+        return await this.originInfoRepo.count({
             where:where
-        })
+        });
     }
-
-    async findBetweenEventTime(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]>{
-        const where ={
-            eventTime: [Between(query.eventTimeStart, query.eventTimeEnd)]
-        };
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findByUpdateTimeStart(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            updateTime: [LessThan(query.updateTimeEnd)]
-        };
-        if(!isNil(query.updateTimeStart)) {
-            where.updateTime['afe'] = query.updateTimeStart;
-        }
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findByUpdateTimeEnd(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            updateTime: [MoreThan(query.updateTimeStart)]
-        };
-        if(!isNil(query.updateTimeEnd)){
-            where.updateTime['bfe'] = query.updateTimeEnd;
-        }
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findBetweenUpdateTime(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            updateTime: [Between(query.updateTimeStart, query.updateTimeEnd)]
-        };
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findByEventType(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-          const where = {
-              eventType: [Equal(query.eventType)]
-          };
-          return await this.originInfoRepo.find({
-              where:where
-          })
-    }
-
-    async findByUserName(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            userName: [Equal(query.userName)]
-        };
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findByRepoName(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            repoName: [Equal(query.repoName)]
-        };
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findByMark(query:QueryOriginInfoDto): Promise<OriginInfoEntity[]> {
-        const where = {
-            mark: [Equal(query.mark)]
-        };
-        return await this.originInfoRepo.find({
-            where:where
-        })
-    }
-
 
 }

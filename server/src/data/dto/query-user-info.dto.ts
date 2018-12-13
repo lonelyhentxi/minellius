@@ -1,5 +1,6 @@
-import {Column} from "typeorm";
+import {Entity} from "typeorm";
 
+@Entity()
 export class QueryUserInfoDto{
     readonly watchStart?:number;
     readonly watchEnd?:number;
@@ -8,9 +9,9 @@ export class QueryUserInfoDto{
     readonly forkStart?:number;
     readonly forkEnd?:number;
     readonly lang:string;
-    readonly commits:number;
-    readonly branches:number;
-    readonly releases:number;
-    readonly contributor:number;
+    // readonly commits:number;
+    // readonly branches:number;
+    // readonly releases:number;
+    // readonly contributor:number;
     readonly tag:string;
 }

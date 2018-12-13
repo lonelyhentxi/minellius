@@ -1,6 +1,11 @@
-import {Column} from "typeorm";
+import {Entity} from "typeorm";
+import {Length} from "class-validator";
 
+@Entity()
 export class QueryRepoInfoDto {
-    readonly position: String;
-    readonly organization: String;
+    @Length(0,50)
+    readonly position: string;
+
+    @Length(0,50)
+    readonly organization: string;
 }

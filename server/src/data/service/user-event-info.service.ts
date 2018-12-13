@@ -1,56 +1,37 @@
 import {Injectable} from "@nestjs/common";
-import {Repository, LessThan, MoreThan, Equal, Between} from "typeorm";
+import {Repository} from "typeorm";
 import { InjectRepository } from '@nestjs/typeorm'
 import {UserEventInfoEntity} from "../../entity/user-event-info.entity";
 import {QueryUserEventInfoDto} from "../dto/query-user-event-info.dto";
-import {isNil} from 'lodash';
+import {QueryLimitationDto} from "../dto/query-limitation.dto";
+import {QueryHelperService} from "./query-helper.service";
 
 @Injectable()
-export class UserEventInfoService{
+export class UserEventInfoService {
     constructor(
         @InjectRepository(UserEventInfoEntity)
-        private readonly userEventInfoRepo: Repository<UserEventInfoEntity>
-    ){}
-
-    async findByEventTimeStart(query:QueryUserEventInfoDto): Promise<UserEventInfoEntity[]> {
-        const where = {
-            eventTime: [MoreThan(query.eventTimeStart)]
-        };
-        if(!isNil(query.eventTimeEnd)) {
-            where.eventTime['bfe'] = query.eventTimeEnd;
-        }
-        return await this.userEventInfoRepo.find({
-            where:where
-        })
+        private readonly userEventInfoRepo: Repository<UserEventInfoEntity>,
+        private readonly queryHelperService: QueryHelperService,
+    ) {
     }
 
-    async findByEventTimeEnd(query:QueryUserEventInfoDto): Promise<UserEventInfoEntity[]> {
-        const where = {
-            eventTime: [LessThan(query.eventTimeEnd)]
-        };
-        if(!isNil(query.eventTimeStart)) {
-            where.eventTime['afe'] = query.eventTimeStart;
-        }
+    async find(query: QueryUserEventInfoDto, limitQuery: QueryLimitationDto): Promise<UserEventInfoEntity[]> {
+        let where = {};
+        where = this.queryHelperService.genScopeQuery(where, "eventTime", query.eventTimeStart, query.eventTimeEnd);
+        where = this.queryHelperService.genIterableQuery(where, "eventType", query.eventType);
         return await this.userEventInfoRepo.find({
-            where:where
-        })
+            where: where,
+            skip: limitQuery.skip,
+            take: limitQuery.limit,
+        });
     }
 
-    async findBetweenEventTime(query:QueryUserEventInfoDto): Promise<UserEventInfoEntity[]>{
-        const where ={
-            eventTime: [Between(query.eventTimeStart, query.eventTimeEnd)]
-        };
-        return await this.userEventInfoRepo.find({
-            where:where
-        })
-    }
-
-    async findByEventType(query:QueryUserEventInfoDto): Promise<UserEventInfoEntity[]>{
-        const where = {
-            eventType: [Equal(query.eventType)]
-        };
-        return await this.userEventInfoRepo.find({
-            where:where
-        })
+    async count(query: QueryUserEventInfoDto): Promise<number> {
+        let where = {};
+        where = this.queryHelperService.genScopeQuery(where, "eventTime", query.eventTimeStart, query.eventTimeEnd);
+        where = this.queryHelperService.genIterableQuery(where, "eventType", query.eventType);
+        return await this.userEventInfoRepo.count({
+            where: where,
+        });
     }
 }
