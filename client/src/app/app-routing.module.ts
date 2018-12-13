@@ -12,6 +12,7 @@ import {ControlComponent} from './components/control/control.component';
 import {HelperComponent} from './components/helper/helper.component';
 import {PeriodDetailComponent} from './components/period/period-detail/period-detail.component';
 import {CurrentDetailComponent} from './components/current/current-detail/current-detail.component';
+import {CurrentAreaComponent} from './components/current/current-area/current-area.component';
 
 const routes: Routes = [
   {
@@ -95,7 +96,7 @@ const routes: Routes = [
           },
           {
             path: 'area',
-            component: CurrentDetailComponent,
+            component: CurrentAreaComponent,
           },
         ]
       },
