@@ -11,8 +11,18 @@ import {CurrentComponent} from './components/current/current.component';
 import {ControlComponent} from './components/control/control.component';
 import {HelperComponent} from './components/helper/helper.component';
 import {PeriodDetailComponent} from './components/period/period-detail/period-detail.component';
-import {CurrentDetailComponent} from './components/current/current-detail/current-detail.component';
-import {CurrentAreaComponent} from './components/current/current-area/current-area.component';
+import {CurrentUserLocationComponent} from './components/current/current-user-location/current-user-location.component';
+import {CurrentRepoCreateatComponent} from './components/current/current-repo-createat/current-repo-createat.component';
+import {CurrentRepoLangComponent} from './components/current/current-repo-lang/current-repo-lang.component';
+import {CurrentRepoStarComponent} from './components/current/current-repo-star/current-repo-star.component';
+import {CurrentRepoForkComponent} from './components/current/current-repo-fork/current-repo-fork.component';
+import {CurrentRepoSizeComponent} from './components/current/current-repo-size/current-repo-size.component';
+import {CurrentRepoLastPushComponent} from './components/current/current-repo-last-push/current-repo-last-push.component';
+import {CurrentRepoLicenseComponent} from './components/current/current-repo-license/current-repo-license.component';
+import {CurrentIssueCommentComponent} from './components/current/current-issue-comment/current-issue-comment.component';
+import {CurrentUserLangComponent} from './components/current/current-user-lang/current-user-lang.component';
+import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
+import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
 
 const routes: Routes = [
   {
@@ -64,7 +74,7 @@ const routes: Routes = [
             component: PeriodDetailComponent,
           },
           {
-            path: 'lang',
+            path: 'org',
             component: PeriodDetailComponent,
           }
         ]
@@ -75,28 +85,56 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'repo',
+            redirectTo: 'repo/lang',
             pathMatch: 'full'
           },
           {
-            path: 'user',
-            component: CurrentDetailComponent,
+            path: 'repo/createat',
+            component: CurrentRepoCreateatComponent,
           },
           {
-            path: 'repo',
-            component: CurrentDetailComponent,
+            path: 'repo/lang',
+            component: CurrentRepoLangComponent,
           },
           {
-            path: 'lang',
-            component: CurrentDetailComponent,
+            path: 'repo/star',
+            component: CurrentRepoStarComponent,
           },
           {
-            path: 'org',
-            component: CurrentDetailComponent,
+            path: 'repo/fork',
+            component: CurrentRepoForkComponent,
           },
           {
-            path: 'area',
-            component: CurrentAreaComponent,
+            path: 'repo/size',
+            component: CurrentRepoSizeComponent,
+          },
+          {
+            path: 'repo/pushat',
+            component: CurrentRepoLastPushComponent,
+          },
+          {
+            path: 'repo/license',
+            component: CurrentRepoLicenseComponent,
+          },
+          {
+            path: 'issue/comment',
+            component: CurrentIssueCommentComponent,
+          },
+          {
+            path: 'user/lang',
+            component: CurrentUserLangComponent,
+          },
+          {
+            path: 'user/location',
+            component: CurrentUserLocationComponent,
+          },
+          {
+            path: 'user/repo',
+            component: CurrentUserRepoComponent,
+          },
+          {
+            path: 'user/follower',
+            component: CurrentUserFollowerComponent,
           },
         ]
       },

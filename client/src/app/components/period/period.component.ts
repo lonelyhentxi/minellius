@@ -11,25 +11,22 @@ import {MenuComponentInterface} from '../../interfaces/menu-component.interface'
 })
 export class PeriodComponent implements OnInit, OnDestroy, MenuComponentInterface {
 
-  menuItems: { name: string, path: string, icon: string, children?: any, selected: boolean }[] = [
+  menuItems: { name: string, path: string, icon: string }[] = [
     {
       name: 'REPO',
       path: 'repo',
-      icon: 'database',
-      selected: false,
+      icon: 'database'
     },
     {
       name: 'USER',
       path: 'user',
-      icon: 'user',
-      selected: false,
+      icon: 'user'
     },
     {
-      name: 'LANG',
-      path: 'lang',
-      icon: 'code',
-      selected: false,
-    },
+      name: 'ORG',
+      path: 'org',
+      icon: 'usergroup-add'
+    }
   ];
 
   menuItem$: Subscription;

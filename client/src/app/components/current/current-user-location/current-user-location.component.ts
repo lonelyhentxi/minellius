@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CurrentService} from '../../../providers/current.service';
 import {Chart, Frame, Stat} from 'g2';
 import * as worldMap from 'assets/geo/world.geo.json';
@@ -6,10 +6,12 @@ import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-current-area',
-  templateUrl: './current-area.component.html',
-  styleUrls: ['./current-area.component.scss']
+  templateUrl: './current-user-location.component.html',
+  styleUrls: ['./current-user-location.component.scss']
 })
-export class CurrentAreaComponent implements OnInit {
+export class CurrentUserLocationComponent implements OnInit, OnDestroy {
+
+  chart: Chart;
 
   constructor(private readonly currentService: CurrentService, private readonly translator: TranslateService) {
 
@@ -63,14 +65,18 @@ export class CurrentAreaComponent implements OnInit {
 
   ngOnInit() {
     const chart = new Chart({
-      id: 'current-area',
+      id: 'current-user-location',
       width: 1020,
-      height: 550,
-      syncXYScales: false,
+      height: 552,
+      syncXYScales: true,
       margin: [0, 0]
     });
     this.setWorldMapOption(chart);
     chart.render();
+    this.chart = chart;
   }
 
+  ngOnDestroy(): void {
+    this.chart.destroy();
+  }
 }

@@ -10,7 +10,7 @@ export class MenuService {
   constructor() {
   }
 
-  menuSwitchTo<T extends { path: string, selected: boolean }>(menuItems: T[], path: string): number {
+  menuSwitchTo<T extends { path: string }>(menuItems: T[], path: string): number {
     const i = menuItems.findIndex(item => item.path === path);
     if (i === -1) {
       return 0;
@@ -20,7 +20,7 @@ export class MenuService {
 
   subscribeMenuItemAutoUpdate(component: MenuComponentInterface, route: ActivatedRoute) {
     component.menuItem$ = route.firstChild.url.subscribe((urls) => {
-      component.currentMenuItemIndex = this.menuSwitchTo(component.menuItems, urls.join(''));
+      component.currentMenuItemIndex = this.menuSwitchTo(component.menuItems, urls.join('/'));
     });
   }
 

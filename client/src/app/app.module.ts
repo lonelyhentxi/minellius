@@ -36,10 +36,20 @@ import {PeriodComponent} from './components/period/period.component';
 import {CurrentComponent} from './components/current/current.component';
 import {MenuService} from './providers/menu.service';
 import {PeriodDetailComponent} from './components/period/period-detail/period-detail.component';
-import {CurrentDetailComponent} from './components/current/current-detail/current-detail.component';
-import {CurrentAreaComponent} from './components/current/current-area/current-area.component';
+import {CurrentUserLocationComponent} from './components/current/current-user-location/current-user-location.component';
 import {CurrentService} from './providers/current.service';
 import {PeriodService} from './providers/period.service';
+import {CurrentRepoCreateatComponent} from './components/current/current-repo-createat/current-repo-createat.component';
+import {CurrentRepoLangComponent} from './components/current/current-repo-lang/current-repo-lang.component';
+import { CurrentRepoStarComponent } from './components/current/current-repo-star/current-repo-star.component';
+import { CurrentRepoForkComponent } from './components/current/current-repo-fork/current-repo-fork.component';
+import { CurrentRepoSizeComponent } from './components/current/current-repo-size/current-repo-size.component';
+import { CurrentRepoLastPushComponent } from './components/current/current-repo-last-push/current-repo-last-push.component';
+import { CurrentRepoLicenseComponent } from './components/current/current-repo-license/current-repo-license.component';
+import { CurrentIssueCommentComponent } from './components/current/current-issue-comment/current-issue-comment.component';
+import { CurrentUserLangComponent } from './components/current/current-user-lang/current-user-lang.component';
+import { CurrentUserRepoComponent } from './components/current/current-user-repo/current-user-repo.component';
+import { CurrentUserFollowerComponent } from './components/current/current-user-follower/current-user-follower.component';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
@@ -65,8 +75,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     PeriodComponent,
     CurrentComponent,
     PeriodDetailComponent,
-    CurrentDetailComponent,
-    CurrentAreaComponent,
+    CurrentUserLocationComponent,
+    CurrentRepoCreateatComponent,
+    CurrentRepoLangComponent,
+    CurrentRepoStarComponent,
+    CurrentRepoForkComponent,
+    CurrentRepoSizeComponent,
+    CurrentRepoLastPushComponent,
+    CurrentRepoLicenseComponent,
+    CurrentIssueCommentComponent,
+    CurrentUserLangComponent,
+    CurrentUserRepoComponent,
+    CurrentUserFollowerComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +105,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [ElectronService, {provide: NZ_I18N, useValue: zh_CN}, MenuService, CurrentService, PeriodService],
+  providers: [
+    ElectronService,
+    {provide: NZ_I18N, useValue: zh_CN},
+    MenuService,
+    CurrentService,
+    PeriodService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

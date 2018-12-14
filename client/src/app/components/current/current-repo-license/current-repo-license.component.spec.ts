@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CurrentDetailComponent } from './current-detail.component';
+import { CurrentRepoLicenseComponent } from './current-repo-license.component';
 
-describe('CurrentDetailComponent', () => {
-  let component: CurrentDetailComponent;
-  let fixture: ComponentFixture<CurrentDetailComponent>;
+describe('CurrentRepoLicenseComponent', () => {
+  let component: CurrentRepoLicenseComponent;
+  let fixture: ComponentFixture<CurrentRepoLicenseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrentDetailComponent ]
+      declarations: [ CurrentRepoLicenseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CurrentDetailComponent);
+    fixture = TestBed.createComponent(CurrentRepoLicenseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

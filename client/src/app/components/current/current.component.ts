@@ -11,37 +11,67 @@ import {MenuComponentInterface} from '../../interfaces/menu-component.interface'
 })
 export class CurrentComponent implements OnInit, OnDestroy, MenuComponentInterface {
 
-  menuItems:{name:string,path:string,icon:string,children?:any,selected:boolean}[] = [
+  menuItems:{name:string,path:string,icon:string }[] = [
     {
-      name: 'REPO',
-      path: 'repo',
-      icon: 'database',
-      selected: false,
+      name: 'REPO.CREATEAT',
+      path: 'repo/createat',
+      icon: 'github',
     },
     {
-      name: 'USER',
-      path: 'user',
-      icon: 'user',
-      selected: false,
+      name: 'REPO.LANG',
+      path: 'repo/lang',
+      icon: 'bold',
     },
     {
-      name: 'LANG',
-      path: 'lang',
-      icon: 'code',
-      selected: false,
+      name: 'REPO.STAR',
+      path: 'repo/star',
+      icon: 'star'
     },
     {
-      name: 'ORG',
-      path: 'org',
-      icon: 'usergroup-add',
-      selected: false,
+      name: 'REPO.FORK',
+      path: 'repo/fork',
+      icon: 'fork'
     },
     {
-      name: 'AREA',
-      path: 'area',
-      icon: 'global',
-      selected: false,
-    }
+      name: 'REPO.SIZE',
+      path: 'repo/size',
+      icon: 'inbox'
+    },
+    {
+      name: 'REPO.PUSHAT',
+      path: 'repo/pushat',
+      icon: 'upload'
+    },
+    {
+      name: 'REPO.LICENSE',
+      path: 'repo/license',
+      icon: 'audit'
+    },
+    {
+      name: 'ISSUE.COMMENT',
+      path: 'issue/comment',
+      icon: 'message'
+    },
+    {
+      name: 'USER.LANG',
+      path: 'user/lang',
+      icon: 'underline'
+    },
+    {
+      name: 'USER.LOCATION',
+      path: 'user/location',
+      icon: 'global'
+    },
+    {
+      name: 'USER.REPO',
+      path: 'user/repo',
+      icon: 'profile'
+    },
+    {
+      name: 'USER.FOLLOWER',
+      path: 'user/follower',
+      icon: 'contacts'
+    },
   ];
 
   menuItem$: Subscription;

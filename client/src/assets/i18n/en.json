@@ -35,37 +35,64 @@
     "PERIOD": {
       "NAME": "Period Analysis",
       "USER": {
-        "NAME": "user"
+        "NAME": "User"
       },
       "REPO":{
-        "NAME": "repo"
-      },
-      "LANG": {
-        "NAME": "lang"
+        "NAME": "Repo"
       },
       "ORG":{
-        "NAME": "org"
-      },
-      "AREA": {
-        "NAME": "area"
+        "NAME": "Org"
       }
     },
     "CURRENT": {
       "NAME": "Current Analysis",
+      "REPO" : {
+        "CREATEAT": {
+          "NAME": "Create At"
+        },
+        "LANG": {
+          "NAME": "Repo Language",
+          "TITLE": {
+            "TEXT": "Repo Language Analysis"
+          }
+        },
+        "STAR": {
+          "NAME": "Star"
+        },
+        "FORK": {
+          "NAME": "Fork"
+        },
+        "SIZE": {
+          "NAME": "Size"
+        },
+        "PUSHAT": {
+          "NAME": "Last Push"
+        },
+        "LICENSE": {
+          "NAME": "License"
+        }
+      },
+      "ISSUE": {
+        "COMMENT": {
+          "NAME": "Issue Comment"
+        }
+      },
       "USER": {
-        "NAME": "user"
-      },
-      "REPO":{
-        "NAME": "repo"
-      },
-      "LANG": {
-        "NAME": "lang"
-      },
-      "ORG":{
-        "NAME": "org"
-      },
-      "AREA": {
-        "NAME": "area"
+        "LANG": {
+          "NAME": "User Language",
+          "TITLE": {
+            "TEXT": "User Language Analysis"
+          }
+        },
+        "LOCATION": {
+          "NAME": "Location"
+        },
+        "REPO": {
+          "NAME": "Own Repo"
+        },
+        "FOLLOWER": {
+          "NAME": "Follower"
+        }
       }
     },
     "CONTROL": {
@@ -83,7 +110,12 @@
     "REMEMBER": "remember",
     "SELECT": "select",
     "MONTH": "month",
-    "NATION": "nation"
+    "NATION": "area",
+    "USER": "user",
+    "REPO": "repo",
+    "LOCATION": "location",
+    "AREA": "area",
+    "LANG": "language"
   },
   "VALIDATE": {
     "REQUIRED": "Please input your "

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CurrentAreaComponent } from './current-area.component';
+import { CurrentRepoForkComponent } from './current-repo-fork.component';
 
-describe('CurrentAreaComponent', () => {
-  let component: CurrentAreaComponent;
-  let fixture: ComponentFixture<CurrentAreaComponent>;
+describe('CurrentRepoForkComponent', () => {
+  let component: CurrentRepoForkComponent;
+  let fixture: ComponentFixture<CurrentRepoForkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrentAreaComponent ]
+      declarations: [ CurrentRepoForkComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CurrentAreaComponent);
+    fixture = TestBed.createComponent(CurrentRepoForkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

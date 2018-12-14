@@ -37,35 +37,102 @@
       "USER": {
         "NAME": "用户"
       },
-      "REPO":{
+      "REPO": {
         "NAME": "仓库"
       },
-      "LANG": {
-        "NAME": "语言"
-      },
-      "ORG":{
+      "ORG": {
         "NAME": "组织"
-      },
-      "AREA": {
-        "NAME": "地区"
       }
     },
     "CURRENT": {
       "NAME": "总量分析",
+      "REPO": {
+        "CREATEAT": {
+          "NAME": "创库时间",
+          "TITLE": {
+            "TEXT": "代码库创建时间分布"
+          },
+          "PROMPT": {
+            "TEXT": "上界: Q3 + 1.5 * IQR \n下界: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "创建仓库数 个"
+          },
+          "TOOLTIP": {
+            "NAME": "年份",
+            "LOWER": "下界",
+            "UPPER": "上界",
+            "MEDIAN": "中位数"
+          }
+        },
+        "LANG": {
+          "NAME": "库语言",
+          "TITLE": {
+            "TEXT": "库语言统计图"
+          }
+        },
+        "STAR": {
+          "NAME": "Star数",
+          "TITLE": {
+            "TEXT": "代码库得到的Star数"
+          }
+        },
+        "FORK": {
+          "NAME": "Fork数",
+          "TITLE": {
+            "TEXT": "代码库得到的Fork数"
+          }
+        },
+        "SIZE": {
+          "NAME": "库体量",
+          "TITLE": {
+            "TEXT": "库体量漏斗图"
+          }
+        },
+        "PUSHAT": {
+          "NAME": "最后活跃",
+          "TITLE": {
+            "TEXT": "代码库最后活跃时间分布"
+          },
+          "PROMPT": {
+            "TEXT": "上界: Q3 + 1.5 * IQR \n下界: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "仓库数 个"
+          },
+          "TOOLTIP": {
+            "NAME": "年份",
+            "LOWER": "下界",
+            "UPPER": "上界",
+            "MEDIAN": "中位数"
+          }
+        },
+        "LICENSE": {
+          "NAME": "许可证"
+        }
+      },
+      "ISSUE": {
+        "COMMENT": {
+          "NAME": "问题热度",
+          "PROMPT": "问题评论数"
+        }
+      },
       "USER": {
-        "NAME": "用户"
-      },
-      "REPO":{
-        "NAME": "仓库"
-      },
-      "LANG": {
-        "NAME": "语言"
-      },
-      "ORG":{
-        "NAME": "组织"
-      },
-      "AREA": {
-        "NAME": "地区"
+        "LANG": {
+          "NAME": "用户语言",
+          "TITLE": {
+            "TEXT": "用户语言统计图"
+          }
+        },
+        "LOCATION": {
+          "NAME": "所在地"
+        },
+        "REPO": {
+          "NAME": "所有库"
+        },
+        "FOLLOWER": {
+          "NAME": "关注度"
+        }
       }
     },
     "CONTROL": {
@@ -83,9 +150,12 @@
     "REMEMBER": "记住",
     "SELECT": "选择",
     "MONTH": "月份",
-    "NATION": "国家",
+    "NATION": "地区",
     "USER": "用户",
-    "REPO": "仓库"
+    "REPO": "仓库",
+    "LOCATION": "地区",
+    "AREA": "地区",
+    "LANG": "语言"
   },
   "VALIDATE": {
     "REQUIRED": "请输入你的"
