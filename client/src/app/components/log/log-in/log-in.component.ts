@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NzMessageService} from 'ng-zorro-antd';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -15,9 +17,19 @@ export class LogInComponent implements OnInit {
       control.markAsDirty();
       control.updateValueAndValidity();
     }
+    if(this.validateForm.getRawValue().email==='minellius_test'&&this.validateForm.getRawValue().password==='abcdefg') {
+      this.message.create('success','登录成功');
+      this.router.navigateByUrl('layout');
+    } else {
+      this.message.create('warning','用户名或密码错误');
+    }
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private readonly message: NzMessageService,
+    private readonly router: Router,
+              ) {
   }
 
   ngOnInit(): void {

@@ -19,7 +19,7 @@ import {WebviewDirective} from './directives/webview.directive';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
+import {NgZorroAntdModule, NZ_I18N, NZ_MESSAGE_CONFIG, zh_CN} from 'ng-zorro-antd';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import zhExtra from '@angular/common/locales/extra/zh';
@@ -108,6 +108,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     ElectronService,
     {provide: NZ_I18N, useValue: zh_CN},
+    {provide: NZ_MESSAGE_CONFIG, useValue: {nzDuration: 3000}},
     MenuService,
     CurrentService,
     PeriodService,
