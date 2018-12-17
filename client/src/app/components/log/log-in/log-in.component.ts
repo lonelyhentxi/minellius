@@ -17,7 +17,7 @@ export class LogInComponent implements OnInit {
       control.markAsDirty();
       control.updateValueAndValidity();
     }
-    if(this.validateForm.getRawValue().email==='minellius_test'&&this.validateForm.getRawValue().password==='abcdefg') {
+    if(this.validateForm.getRawValue().email==='Cty98@outlook.com'&&this.validateForm.getRawValue().password==='abcdefg') {
       this.message.create('success','登录成功');
       this.router.navigateByUrl('layout');
     } else {
