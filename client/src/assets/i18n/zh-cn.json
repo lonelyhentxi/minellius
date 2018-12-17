@@ -176,7 +176,8 @@
     "NAME": "名称",
     "SEARCH": "搜索",
     "EVENT": "事件",
-    "PERIOD": "时段"
+    "PERIOD": "时段",
+    "USERNAME": "用户名"
   },
   "VALIDATE": {
     "REQUIRED": "请输入你的"

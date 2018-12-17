@@ -48,7 +48,22 @@
       "NAME": "Current Analysis",
       "REPO" : {
         "CREATEAT": {
-          "NAME": "Create At"
+          "NAME": "Create At",
+          "TITLE": {
+            "TEXT": "Repository creation time distribution"
+          },
+          "PROMPT": {
+            "TEXT": "Upper: Q3 + 1.5 * IQR \nLower: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "created repository number"
+          },
+          "TOOLTIP": {
+            "NAME": "year",
+            "LOWER": "lower",
+            "UPPER": "upper",
+            "MEDIAN": "median"
+          }
         },
         "LANG": {
           "NAME": "Repo Language",
@@ -57,24 +72,55 @@
           }
         },
         "STAR": {
-          "NAME": "Star"
+          "NAME": "Star",
+          "TITLE": {
+            "TEXT": "Repository Star Number"
+          }
         },
         "FORK": {
-          "NAME": "Fork"
+          "NAME": "Fork",
+          "TITLE": {
+            "TEXT": "Repository Fork Number"
+          }
         },
         "SIZE": {
-          "NAME": "Size"
+          "NAME": "Size",
+          "TITLE": {
+            "TEXT": "Repository Volume Funnel Chart"
+          }
         },
         "PUSHAT": {
-          "NAME": "Last Push"
+          "NAME": "Last Push",
+          "TITLE": {
+            "TEXT": "Repository Last Push Time Distribution"
+          },
+          "PROMPT": {
+            "TEXT": "upper: Q3 + 1.5 * IQR \nlower: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "repository number"
+          },
+          "TOOLTIP": {
+            "NAME": "year",
+            "LOWER": "lower",
+            "UPPER": "upper",
+            "MEDIAN": "median"
+          }
         },
         "LICENSE": {
-          "NAME": "License"
+          "NAME": "License",
+          "TITLE": {
+            "TEXT": "License Statistics Map"
+          }
         }
       },
       "ISSUE": {
         "COMMENT": {
-          "NAME": "Issue Comment"
+          "NAME": "Issue Comment",
+          "PROMPT": "Issue Comment Number",
+          "TITLE": {
+            "TEXT": "Issue Comment Number"
+          }
         }
       },
       "USER": {
@@ -82,10 +128,22 @@
           "NAME": "Location"
         },
         "REPO": {
-          "NAME": "Own Repo"
+          "NAME": "Owned Repo",
+          "TITLE": {
+            "TEXT": "User Owned Repository"
+          }
         },
         "FOLLOWER": {
-          "NAME": "Follower"
+          "NAME": "Follower",
+          "TITLE": {
+            "TEXT": "Follower Distribution"
+          },
+          "RADIUSAXIS": {
+            "TEXT": "Users"
+          },
+          "ANGLEAXIS": {
+            "TEXT": "Owned Follower"
+          }
         }
       }
     },
@@ -109,7 +167,17 @@
     "REPO": "repo",
     "LOCATION": "location",
     "AREA": "area",
-    "LANG": "language"
+    "LANG": "language",
+    "VALUE": "value",
+    "NUMBER": "number",
+    "WORDSEP": " ",
+    "STAR": "star",
+    "FORK": "fork",
+    "NAME": "name",
+    "SEARCH": "search",
+    "EVENT": "event",
+    "PERIOD": "period",
+    "USERNAME": "username"
   },
   "VALIDATE": {
     "REQUIRED": "Please input your "
