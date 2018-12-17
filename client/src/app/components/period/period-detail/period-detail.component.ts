@@ -6,6 +6,7 @@ import {combineLatest, Subject, Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {enumDestructe} from '../../../functools/enum.functool';
 import {EventType} from '../../../constants/event-type.constant';
+import {shell} from 'electron';
 
 @Component({
   selector: 'app-period-detail',
@@ -37,8 +38,10 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
   filterTrigger$: Subject<number> = new Subject();
   pageTrigger$: Subject<number> = new Subject();
 
-  routeData$ = new Subject();
 
+  period$ = new Subject();
+  period$$: Subscription;
+  routeData$ = new Subject();
   routeData$$: Subscription;
 
   reSearch$$: Subscription;
@@ -66,7 +69,7 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
 
 
   searchName(name: string): void {
-    this.searchTrigger$.next(name);
+    this.searchTrigger$.next(name === '' ? undefined : name);
   }
 
   changPage(target: number) {
@@ -105,6 +108,7 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
   subjectsInit() {
     const snapshotData = this.route.snapshot.data;
     this.routeData$.next(snapshotData);
+    this.period$.next(this.route.snapshot.queryParamMap);
     this.sortTrigger$.next({key: 'period', value: 'descend'});
     this.searchTrigger$.next(undefined);
     this.filterTrigger$.next(undefined);
@@ -113,13 +117,12 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const me = this;
     this.routeData$$ = this.route.data.subscribe(this.routeData$);
-    const period$ = this.routeData$.pipe(
-      map(data => {
-        console.log(data);
-        return data['period'];
-      }));
+    this.period$$ = this.route.queryParamMap.subscribe(this.period$);
+    const period$ = this.period$.pipe(map(val => {
+      return val['params']['period'];
+    }));
     const entityType$ = this.routeData$.pipe(map(val => val['entityType']),
-      withLatestFrom(this.routeData$.pipe(filter(val => !isNil(val['entityType'])))), map((lst) => lst[1]['entityType'])
+      withLatestFrom(me.routeData$.pipe(filter(val => !isNil(val['entityType'])))), map((lst) => lst[1]['entityType'])
     );
     this.reCount$$ = combineLatest(period$, entityType$, me.sortTrigger$, me.searchTrigger$, me.filterTrigger$)
       .pipe(debounceTime(300), tap((opt) => me.changeAspect()))
@@ -134,9 +137,14 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
     this.routeData$$.unsubscribe();
     this.reSearch$$.unsubscribe();
     this.reCount$$.unsubscribe();
+    this.period$$.unsubscribe();
     if (this.searchRes$$) {
       this.searchRes$$.unsubscribe();
     }
+  }
+
+  openExternal(url: string): void {
+    shell.openExternal(url);
   }
 
 }

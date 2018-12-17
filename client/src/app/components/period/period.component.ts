@@ -50,9 +50,10 @@ export class PeriodComponent implements OnInit, OnDestroy, MenuComponentInterfac
   }
 
   dateChangeTriggerRoute(date) {
-    this.route. navigate(['./', {
-      period: date,
-      entityType: this.route.firstChild.snapshot.url.join('/')
-    }], {relativeTo: this.route});
+    this.router.navigate(['./'], {
+      relativeTo: this.route, queryParams: {
+        period: date,
+      }
+    });
   }
 }

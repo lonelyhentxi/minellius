@@ -37,7 +37,7 @@
       <tbody>
       <tr *ngFor="let row of periodEventTable.data">
         <td>{{row.event}}</td>
-        <td>{{row.name}}</td>
+        <td><a (click)="openExternal('https://github.com/'+row.name)">{{row.name}}</a></td>
         <td>{{row.period}}</td>
         <td>{{row.num}}</td>
       </tr>
