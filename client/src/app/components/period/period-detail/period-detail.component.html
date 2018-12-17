@@ -1,3 +1,47 @@
-<p>
-  period-detail works!
-</p>
+<div class="period-detail">
+  <div class="period-detail-body">
+    <nz-table #periodEventTable [nzData]="displayData" [nzSize]="'small'" [nzShowQuickJumper]="true" [nzLoading]="loading"
+      [nzPageSize]="take" [(nzPageIndex)]="currentPage" (nzPageIndexChange)="changPage($event)" [nzFrontPagination]="false" [nzTotal]="maybePages()*take">
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzCustomFilter>
+          {{'COMMON.EVENT'|translate}}
+          <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdownEvent>
+            <i nz-icon type="smile-o" class="ant-table-filter-icon"
+               [class.ant-table-filter-open]="dropdownEvent.nzVisible"
+               nz-dropdown></i>
+            <div class="custom-filter-dropdown">
+              <button nz-button [nzType]="'primary'" (click)="filter(eventType)">{{'COMMON.SEARCH'|translate}}</button>
+              <nz-select [(ngModel)]="eventType" style="width:200px" [nzAllowClear]="true">
+                <nz-option *ngFor="let option of eventTypeList" [nzLabel]="option.text"
+                           [nzValue]="option.name"></nz-option>
+              </nz-select>
+            </div>
+          </nz-dropdown>
+        </th>
+        <th nzCustomFilter>
+          {{'COMMON.NAME'|translate}}
+          <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdownName>
+            <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdownName.nzVisible"
+               nz-dropdown></i>
+            <div class="custom-filter-dropdown">
+              <button nz-button [nzType]="'primary'" (click)="searchName(name)">{{'COMMON.SEARCH'|translate}}</button>
+              <input type="text" nz-input placeholder="{{'COMMON.SEARCH'|translate}}" [(ngModel)]="name">
+            </div>
+          </nz-dropdown>
+        </th>
+        <th nzShowSort nzSortKey="period">{{'COMMON.PERIOD'|translate}}</th>
+        <th nzShowSort nzSortKey="num">{{'COMMON.NUMBER'|translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of periodEventTable.data">
+        <td>{{row.event}}</td>
+        <td>{{row.name}}</td>
+        <td>{{row.period}}</td>
+        <td>{{row.num}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 import {TranslateService} from '@ngx-translate/core';
+import {CurrentService} from '../../../providers/current.service';
 
 @Component({
   selector: 'app-current-repo-fork',
@@ -13,17 +14,13 @@ export class CurrentRepoForkComponent implements OnInit, OnDestroy {
 
   chart: ECharts;
 
-  constructor(private readonly translator: TranslateService) { }
+  constructor(
+    private readonly translator: TranslateService,
+    private readonly currentService:CurrentService,
+    ) { }
 
   ngOnInit() {
-    const dataAxis = ['0', '1-2', '2-5', '5-10', '10-10^2', '10^2+'];
-    const data = [220, 182, 191, 234, 290, 330];
-    const yMax = 500;
-    const dataShadow = [];
-
-    for (let i = 0; i < data.length; i++) {
-      dataShadow.push(yMax);
-    }
+    const { dataAxis, dataSeries } = this.currentService.getRepoForkList();
 
     const option = {
       title: {
@@ -34,10 +31,12 @@ export class CurrentRepoForkComponent implements OnInit, OnDestroy {
       },
       xAxis: {
         data: dataAxis,
+        name: [this.translator.instant('COMMON.FORK'), this.translator.instant('COMMON.NUMBER')]
+          .join(this.translator.instant('COMMON.WORDSEP')),
         axisLabel: {
           inside: false,
           textStyle: {
-            color: '#666'
+            color: '#444'
           }
         },
         axisTick: {
@@ -49,6 +48,10 @@ export class CurrentRepoForkComponent implements OnInit, OnDestroy {
         z: 10
       },
       yAxis: {
+        type: 'log',
+        name: 'log'+
+          [this.translator.instant('COMMON.REPO'), this.translator.instant('COMMON.NUMBER')]
+            .join(this.translator.instant('COMMON.WORDSEP')),
         axisLine: {
           show: false
         },
@@ -61,17 +64,11 @@ export class CurrentRepoForkComponent implements OnInit, OnDestroy {
           }
         }
       },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b} : {c}'
+      },
       series: [
-        { // For shadow
-          type: 'bar',
-          itemStyle: {
-            normal: {color: 'rgba(0,0,0,0.05)'}
-          },
-          barGap:'-100%',
-          barCategoryGap:'40%',
-          data: dataShadow,
-          animation: false
-        },
         {
           type: 'bar',
           itemStyle: {
@@ -96,7 +93,7 @@ export class CurrentRepoForkComponent implements OnInit, OnDestroy {
               )
             }
           },
-          data: data
+          data: dataSeries
         }
       ]
     };

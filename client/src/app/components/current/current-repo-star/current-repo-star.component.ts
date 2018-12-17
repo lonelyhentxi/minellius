@@ -3,6 +3,8 @@ import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 import {TranslateService} from '@ngx-translate/core';
+import {sum, max} from 'lodash';
+import {CurrentService} from '../../../providers/current.service';
 
 @Component({
   selector: 'app-current-repo-star',
@@ -13,17 +15,14 @@ export class CurrentRepoStarComponent implements OnInit, OnDestroy {
 
   chart: ECharts;
 
-  constructor(private readonly translator: TranslateService) { }
+  constructor(
+    private readonly translator: TranslateService,
+    private readonly currentService: CurrentService,
+  ) {
+  }
 
   ngOnInit() {
-    const dataAxis = ['0-10', '10-10^2', '10^2-10^3', '10^3-10^4', '10^4-10^5', '10^5-10^6','10^6+'];
-    const data = [220, 182, 191, 234, 290, 330,10];
-    const yMax = 500;
-    const dataShadow = [];
-
-    for (let i = 0; i < data.length; i++) {
-      dataShadow.push(yMax);
-    }
+    const {dataAxis, dataSeries} = this.currentService.getRepoStarList();
 
     const option = {
       title: {
@@ -34,6 +33,8 @@ export class CurrentRepoStarComponent implements OnInit, OnDestroy {
       },
       xAxis: {
         data: dataAxis,
+        name: [this.translator.instant('COMMON.STAR'), this.translator.instant('COMMON.NUMBER')]
+          .join(this.translator.instant('COMMON.WORDSEP')),
         axisLabel: {
           inside: false,
           textStyle: {
@@ -49,6 +50,10 @@ export class CurrentRepoStarComponent implements OnInit, OnDestroy {
         z: 10
       },
       yAxis: {
+        type: 'log',
+        name: 'log ' +
+          [this.translator.instant('COMMON.REPO'), this.translator.instant('COMMON.NUMBER')]
+            .join(this.translator.instant('COMMON.WORDSEP')),
         axisLine: {
           show: false
         },
@@ -61,17 +66,11 @@ export class CurrentRepoStarComponent implements OnInit, OnDestroy {
           }
         }
       },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b} : {c}'
+      },
       series: [
-        {
-          type: 'bar',
-          itemStyle: {
-            normal: {color: 'rgba(0,0,0,0.05)'}
-          },
-          barGap:'-100%',
-          barCategoryGap:'40%',
-          data: dataShadow,
-          animation: false
-        },
         {
           type: 'bar',
           itemStyle: {
@@ -96,11 +95,11 @@ export class CurrentRepoStarComponent implements OnInit, OnDestroy {
               )
             }
           },
-          data: data
+          data: dataSeries
         }
       ]
     };
-    const chart = echarts.init(document.getElementById('current-repo-star-chart') as HTMLDivElement,'light');
+    const chart = echarts.init(document.getElementById('current-repo-star-chart') as HTMLDivElement, 'light');
     chart.setOption(option as EChartOption);
     this.chart = chart;
   }

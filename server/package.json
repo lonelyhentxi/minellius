@@ -1,11 +1,13 @@
 {
   "name": "minellius",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server of Minellius, group project of comp 3002, 2018 fall. ",
-  "authors": [{
-    "name": "Zhou Yeheng",
-    "email": "master@evernightfireworks.com"
-  }],
+  "authors": [
+    {
+      "name": "Zhou Yeheng",
+      "email": "master@evernightfireworks.com"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
@@ -35,10 +37,12 @@
     "class-transformer": "^0.1.9",
     "class-validator": "^0.9.1",
     "connection-string": "^1.0.1",
+    "dayjs": "^1.7.8",
     "dotenv": "^6.1.0",
     "joi": "^13.7.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
+    "mysql": "^2.16.0",
     "node-django-hashers": "^1.1.6",
     "nodemailer": "^4.6.8",
     "passport": "^0.4.0",

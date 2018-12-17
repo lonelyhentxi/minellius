@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
+import {CurrentService} from '../../../providers/current.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-current-user-repo',
@@ -12,18 +14,24 @@ export class CurrentUserRepoComponent implements OnInit, OnDestroy {
 
   chart: ECharts;
 
-  constructor() { }
+  constructor(
+    private readonly currentService: CurrentService,
+    private readonly translator: TranslateService
+  ) {
+  }
 
   ngOnInit() {
+    const title = this.translator.instant('FUNCTION.CURRENT.USER.REPO.TITLE.TEXT');
+    const [labels,dataSeries] = this.currentService.getUserRepoList();
     const option = {
       title: {
-        text: 'Step Line'
+        text: title
       },
       tooltip: {
         trigger: 'axis'
       },
       legend: {
-        data:['Step Start']
+        data: [title]
       },
       grid: {
         left: '3%',
@@ -38,22 +46,23 @@ export class CurrentUserRepoComponent implements OnInit, OnDestroy {
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: labels
       },
       yAxis: {
-        type: 'value'
+        name: 'log' + [this.translator.instant('COMMON.USER'), this.translator.instant('COMMON.NUMBER')]
+          .join(this.translator.instant('COMMON.WORDSEP')),
+        type: 'log'
       },
       series: [
         {
-          name:'Step Start',
-          type:'line',
-          step: 'start',
-          data:[120, 132, 101, 134, 90, 230, 210]
+          name: title,
+          type: 'line',
+          data: dataSeries
         }
       ]
     };
 
-    const chart = echarts.init(document.getElementById('current-user-repo-chart') as HTMLDivElement,'light');
+    const chart = echarts.init(document.getElementById('current-user-repo-chart') as HTMLDivElement, 'light');
     chart.setOption(option as EChartOption);
     this.chart = chart;
   }

@@ -53,11 +53,6 @@ export class CurrentComponent implements OnInit, OnDestroy, MenuComponentInterfa
       icon: 'message'
     },
     {
-      name: 'USER.LANG',
-      path: 'user/lang',
-      icon: 'underline'
-    },
-    {
       name: 'USER.LOCATION',
       path: 'user/location',
       icon: 'global'

@@ -78,12 +78,6 @@
         }
       },
       "USER": {
-        "LANG": {
-          "NAME": "User Language",
-          "TITLE": {
-            "TEXT": "User Language Analysis"
-          }
-        },
         "LOCATION": {
           "NAME": "Location"
         },

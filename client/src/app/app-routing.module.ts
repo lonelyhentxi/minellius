@@ -20,7 +20,6 @@ import {CurrentRepoSizeComponent} from './components/current/current-repo-size/c
 import {CurrentRepoLastPushComponent} from './components/current/current-repo-last-push/current-repo-last-push.component';
 import {CurrentRepoLicenseComponent} from './components/current/current-repo-license/current-repo-license.component';
 import {CurrentIssueCommentComponent} from './components/current/current-issue-comment/current-issue-comment.component';
-import {CurrentUserLangComponent} from './components/current/current-user-lang/current-user-lang.component';
 import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
 import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
 
@@ -68,14 +67,23 @@ const routes: Routes = [
           {
             path: 'user',
             component: PeriodDetailComponent,
+            data: {
+              entityType: 'user',
+            }
           },
           {
             path: 'repo',
             component: PeriodDetailComponent,
+            data: {
+              entityType: 'repo',
+            }
           },
           {
             path: 'org',
             component: PeriodDetailComponent,
+            data: {
+              entityType: 'org'
+            }
           }
         ]
       },
@@ -119,10 +127,6 @@ const routes: Routes = [
           {
             path: 'issue/comment',
             component: CurrentIssueCommentComponent,
-          },
-          {
-            path: 'user/lang',
-            component: CurrentUserLangComponent,
           },
           {
             path: 'user/location',

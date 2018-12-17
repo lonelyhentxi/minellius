@@ -3,6 +3,9 @@ import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 import 'echarts/theme/macarons';
+import {CurrentService} from '../../../providers/current.service';
+import * as lodash from 'lodash';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-current-user-follower',
@@ -13,25 +16,26 @@ export class CurrentUserFollowerComponent implements OnInit, OnDestroy {
 
   chart: ECharts;
 
-  constructor() {
+  constructor(
+    private readonly currentService: CurrentService,
+    private readonly translator: TranslateService
+  ) {
   }
 
   ngOnInit() {
+    const followerList = this.currentService.getUserFollowerList();
+    const labels = followerList.map(val => val.name);
+    const dataSeries = followerList.map(val => ({
+      value: val.value
+    }));
     const option = {
+      title: {
+        text: this.translator.instant('FUNCTION.CURRENT.USER.FOLLOWER.TITLE.TEXT')
+      },
       angleAxis: {
         interval: 1,
         type: 'category',
-        data: ['喀什市',
-          '疏附县',
-          '疏勒县',
-          '英吉沙县',
-          '泽普县',
-          '岳普湖县',
-          '巴楚县',
-          '伽师县',
-          '叶城县',
-          '莎车县 ',
-        ],
+        data: labels,
         z: 10,
         axisLine: {
           show: true,
@@ -50,9 +54,7 @@ export class CurrentUserFollowerComponent implements OnInit, OnDestroy {
         },
       },
       radiusAxis: {
-        min: 0,
-        max: 100,
-        interval: 20,
+        name: this.translator.instant('FUNCTION.CURRENT.USER.FOLLOWER.RADIUSAXIS.TEXT'),
         axisLine: {
           show: true,
           lineStyle: {
@@ -61,8 +63,9 @@ export class CurrentUserFollowerComponent implements OnInit, OnDestroy {
             type: 'solid'
           },
         },
+        type: 'log',
         axisLabel: {
-          formatter: '{value} %',
+          formatter: '{value}',
           show: true,
           padding: [0, 0, 20, 0],
           color: '#00c7ff',
@@ -76,94 +79,17 @@ export class CurrentUserFollowerComponent implements OnInit, OnDestroy {
           }
         }
       },
+      tooltip: {
+        formatter: '{b}: {c}'
+      },
       polar: {},
       series: [{
         type: 'bar',
-        data: [{
-          value: 87,
-          itemStyle: {
-            normal: {
-              color: '#f54d4d'
-            }
-          }
-        },
-          {
-            value: 80,
-            itemStyle: {
-              normal: {
-                color: '#f87544'
-              }
-            }
-          },
-          {
-            value: 75,
-            itemStyle: {
-              normal: {
-                color: '#ffae00'
-              }
-            }
-          },
-          {
-            value: 69,
-            itemStyle: {
-              normal: {
-                color: '#dcff00'
-              }
-            }
-          },
-          {
-            value: 63,
-            itemStyle: {
-              normal: {
-                color: '#25d053'
-              }
-            }
-          },
-          {
-            value: 54,
-            itemStyle: {
-              normal: {
-                color: '#01fff5'
-              }
-            }
-          },
-          {
-            value: 47,
-            itemStyle: {
-              normal: {
-                color: '#007cff'
-              }
-            }
-          },
-          {
-            value: 40,
-            itemStyle: {
-              normal: {
-                color: '#4245ff'
-              }
-            }
-          },
-          {
-            value: 35,
-            itemStyle: {
-              normal: {
-                color: '#c32eff'
-              }
-            }
-          },
-          {
-            value: 33,
-            itemStyle: {
-              normal: {
-                color: '#ff62e8'
-              }
-            }
-          }
-        ],
+        data: dataSeries,
         coordinateSystem: 'polar',
       }],
     };
-    const chart = echarts.init(document.getElementById('current-user-follower-chart') as HTMLDivElement,'macarons');
+    const chart = echarts.init(document.getElementById('current-user-follower-chart') as HTMLDivElement, 'macarons');
     chart.setOption(option as EChartOption);
     this.chart = chart;
   }

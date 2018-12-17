@@ -1,7 +1,12 @@
 export interface IConfig {
+  readonly NAME: string;
+  readonly DESCRIPTION: string;
+  readonly TITLE: string;
   readonly NODE_ENV: string;
   readonly PORT: number;
+  readonly SWAGGER_PORT: number;
   readonly DOMAIN: string;
+  readonly VERSION: string;
   readonly MAILER_HOST: string;
   readonly MAILER_PORT: number;
   readonly MAILER_SECURE: boolean;

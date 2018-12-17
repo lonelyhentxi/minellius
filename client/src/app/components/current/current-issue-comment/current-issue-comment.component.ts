@@ -3,6 +3,7 @@ import * as echarts from 'echarts';
 import EChartOption = echarts.EChartOption;
 import ECharts = echarts.ECharts;
 import {TranslateService} from '@ngx-translate/core';
+import {CurrentService} from '../../../providers/current.service';
 
 @Component({
   selector: 'app-current-issue-comment',
@@ -13,16 +14,23 @@ export class CurrentIssueCommentComponent implements OnInit, OnDestroy {
 
   chart: ECharts;
 
-  constructor(private readonly translator: TranslateService) {
+  constructor(
+    private readonly translator: TranslateService,
+    private readonly currentService: CurrentService,
+  ) {
   }
 
   ngOnInit() {
     const issueComment = this.translator.instant('FUNCTION.CURRENT.ISSUE.COMMENT.PROMPT');
-    const dataSeries = [['=0', 10, issueComment], ['=1', 15, issueComment], ['=2', 35, issueComment],
-      ['=3', 38, issueComment], ['=4', 22, issueComment], ['=5', 16, issueComment],
-      ['5-10', 7, issueComment], ['10-20', 2, issueComment], ['20-50', 17, issueComment],
-      ['50+', 33, issueComment]];
+    const dataSeries = this.currentService.getIssueCommentList();
+    dataSeries.forEach((val)=>val.push(issueComment));
     const option = {
+      title: {
+        text: this.translator.instant('FUNCTION.CURRENT.ISSUE.COMMENT.TITLE.TEXT'),
+        textStyle: {
+          color:'#666'
+        }
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {

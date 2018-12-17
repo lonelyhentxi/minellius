@@ -12,9 +12,9 @@ import {TranslateService} from '@ngx-translate/core';
 export class CurrentUserLocationComponent implements OnInit, OnDestroy {
 
   chart: Chart;
+  locationData;
 
   constructor(private readonly currentService: CurrentService, private readonly translator: TranslateService) {
-
   }
 
   setWorldMapOption(chart: Chart) {
@@ -43,7 +43,7 @@ export class CurrentUserLocationComponent implements OnInit, OnDestroy {
     /*
       create custom layer
      */
-    const frame = new Frame(this.currentService.getAreaInfo());
+    const frame = new Frame(this.currentService.getUserLocationList());
     frame.addCol('nation', obj => this.translator.instant('GEO.NATIONS.' + obj['name']));
     const userView = chart.createView();
     userView.source(frame, {

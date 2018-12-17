@@ -10,10 +10,11 @@
       </ul>
     </div>
     <div nz-col nzSpan="4" nzOffset="2">
-      <nz-month-picker nzPlaceHolder="{{('COMMON.SELECT'|translate)+('COMMON.MONTH'|translate)}}"></nz-month-picker>
+      <nz-month-picker nzPlaceHolder="{{('COMMON.SELECT'|translate)+('COMMON.MONTH'|translate)}}"
+                       [(ngModel)]="period" (ngModelChange)="dateChangeTriggerRoute($event)">
+      </nz-month-picker>
     </div>
   </div>
-
   <div class="function-content">
     <router-outlet></router-outlet>
   </div>

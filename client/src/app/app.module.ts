@@ -41,15 +41,15 @@ import {CurrentService} from './providers/current.service';
 import {PeriodService} from './providers/period.service';
 import {CurrentRepoCreateatComponent} from './components/current/current-repo-createat/current-repo-createat.component';
 import {CurrentRepoLangComponent} from './components/current/current-repo-lang/current-repo-lang.component';
-import { CurrentRepoStarComponent } from './components/current/current-repo-star/current-repo-star.component';
-import { CurrentRepoForkComponent } from './components/current/current-repo-fork/current-repo-fork.component';
-import { CurrentRepoSizeComponent } from './components/current/current-repo-size/current-repo-size.component';
-import { CurrentRepoLastPushComponent } from './components/current/current-repo-last-push/current-repo-last-push.component';
-import { CurrentRepoLicenseComponent } from './components/current/current-repo-license/current-repo-license.component';
-import { CurrentIssueCommentComponent } from './components/current/current-issue-comment/current-issue-comment.component';
-import { CurrentUserLangComponent } from './components/current/current-user-lang/current-user-lang.component';
-import { CurrentUserRepoComponent } from './components/current/current-user-repo/current-user-repo.component';
-import { CurrentUserFollowerComponent } from './components/current/current-user-follower/current-user-follower.component';
+import {CurrentRepoStarComponent} from './components/current/current-repo-star/current-repo-star.component';
+import {CurrentRepoForkComponent} from './components/current/current-repo-fork/current-repo-fork.component';
+import {CurrentRepoSizeComponent} from './components/current/current-repo-size/current-repo-size.component';
+import {CurrentRepoLastPushComponent} from './components/current/current-repo-last-push/current-repo-last-push.component';
+import {CurrentRepoLicenseComponent} from './components/current/current-repo-license/current-repo-license.component';
+import {CurrentIssueCommentComponent} from './components/current/current-issue-comment/current-issue-comment.component';
+import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
+import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
+import {ConfigService} from './providers/config.service';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
@@ -84,11 +84,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     CurrentRepoLastPushComponent,
     CurrentRepoLicenseComponent,
     CurrentIssueCommentComponent,
-    CurrentUserLangComponent,
     CurrentUserRepoComponent,
     CurrentUserFollowerComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -110,7 +110,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     {provide: NZ_I18N, useValue: zh_CN},
     MenuService,
     CurrentService,
-    PeriodService
+    PeriodService,
+    ConfigService,
   ],
   bootstrap: [AppComponent]
 })

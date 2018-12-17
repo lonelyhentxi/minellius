@@ -108,30 +108,42 @@
           }
         },
         "LICENSE": {
-          "NAME": "许可证"
+          "NAME": "许可证",
+          "TITLE": {
+            "TEXT": "许可证统计力导图"
+          }
         }
       },
       "ISSUE": {
         "COMMENT": {
           "NAME": "问题热度",
-          "PROMPT": "问题评论数"
+          "PROMPT": "问题评论数",
+          "TITLE": {
+            "TEXT": "问题评论数"
+          }
         }
       },
       "USER": {
-        "LANG": {
-          "NAME": "用户语言",
-          "TITLE": {
-            "TEXT": "用户语言统计图"
-          }
-        },
         "LOCATION": {
           "NAME": "所在地"
         },
         "REPO": {
-          "NAME": "所有库"
+          "NAME": "所有库",
+          "TITLE": {
+            "TEXT": "用户所拥有仓库"
+          }
         },
         "FOLLOWER": {
-          "NAME": "关注度"
+          "NAME": "关注度",
+          "TITLE": {
+            "TEXT": "关注数分布"
+          },
+          "RADIUSAXIS": {
+            "TEXT": "用户数量"
+          },
+          "ANGLEAXIS": {
+            "TEXT": "用户拥有的关注者"
+          }
         }
       }
     },
@@ -155,7 +167,16 @@
     "REPO": "仓库",
     "LOCATION": "地区",
     "AREA": "地区",
-    "LANG": "语言"
+    "LANG": "语言",
+    "VALUE": "值",
+    "NUMBER": "数量",
+    "WORDSEP": "",
+    "STAR": "Star",
+    "FORK": "Fork",
+    "NAME": "名称",
+    "SEARCH": "搜索",
+    "EVENT": "事件",
+    "PERIOD": "时段"
   },
   "VALIDATE": {
     "REQUIRED": "请输入你的"
