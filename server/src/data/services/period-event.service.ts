@@ -22,11 +22,11 @@ export class PeriodEventService {
   ) {
   }
 
-  async findOrCount(
-    createPeriodEventQuery: CreatePeriodEventQueryDto, mode: 'count' | 'query'):
-    Promise<number |
+  async find(
+    createPeriodEventQuery: CreatePeriodEventQueryDto):
+    Promise<
       PeriodUserEventEntity[] |
-      PeriodOrgEventEntity[] | PeriodRepoEventEntity> {
+      PeriodOrgEventEntity[] | PeriodRepoEventEntity[]> {
     let repo: Repository<PeriodRepoEventEntity> |
       Repository<PeriodUserEventEntity> | Repository<PeriodOrgEventEntity>;
     if (createPeriodEventQuery.entityType === PeriodEventEntityType.User) {
@@ -52,19 +52,6 @@ export class PeriodEventService {
       take: createPeriodEventQuery.take,
       skip: createPeriodEventQuery.skip,
     };
-
-    if (mode === 'count') {
-      return repo.count(option);
-    } else {
       return repo.find(option);
-    }
-  }
-
-  async find(createPeriodEventQuery: CreatePeriodEventQueryDto) {
-    return await this.findOrCount(createPeriodEventQuery, 'query');
-  }
-
-  async count(createPeriodEventQuery: CreatePeriodEventQueryDto) {
-    return await this.findOrCount(createPeriodEventQuery, 'count');
   }
 }

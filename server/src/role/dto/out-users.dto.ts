@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { MetaDto } from '../../core/dto/meta.dto';
-import { UserDto } from './user.dto';
+import { MetaDto } from '../dto/meta.dto';
+import { UserDto } from '../dto/user.dto';
 
 export class OutUsersDto {
   @Type(() => UserDto)

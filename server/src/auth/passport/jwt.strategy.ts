@@ -1,21 +1,15 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { GroupsService, User } from '../../role';
 import { plainToClass } from 'class-transformer';
 import { Strategy } from 'passport-jwt';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 import { TokenService } from '../services/token.service';
+import { GroupsService, User, UsersService } from '../../role';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private readonly tokenService: TokenService,
-    private readonly groupsService: GroupsService,
-  ) {
+export class MinelliusJwtStrategy extends PassportStrategy(Strategy, 'minellius-jwt') {
+  constructor(private readonly tokenService: TokenService, private readonly groupsService: GroupsService,
+              private readonly userService: UsersService) {
     super({
       passReqToCallback: true,
       jwtFromRequest: req => {
@@ -23,10 +17,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         return token;
       },
       secretOrKeyProvider: (req, token, done) => {
-        const secretKey = this.tokenService.createSecretKey(
-          plainToClass(User, this.tokenService.decode(token)),
-        );
-        done(null, secretKey);
+        let user;
+        try {
+          user = plainToClass(User, this.tokenService.decode(token));
+        } catch (error) {
+        } finally {
+          const secretKey = this.tokenService.createSecretKey(user);
+          done(null, secretKey);
+        }
       },
     });
   }
@@ -38,11 +36,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new BadRequestException('Error in load groups');
     }
     try {
-      // const { role } = await this.userService.findById({ id: payload.id });
-      const user = plainToClass(User, payload);
-      user.groups = user.groups.map(group =>
-        this.groupsService.getGroupByName({ name: group.name }),
-      );
+      let user;
+      try {
+        user = plainToClass(User, payload);
+      } catch (err) {
+
+      }
+      // const { user } = await this.userService.findById({ id: payload.id });
+      user.groups = user.groups.map(group => this.groupsService.getGroupByName({ name: group.name }));
       return user;
     } catch (error) {
       throw new UnauthorizedException();

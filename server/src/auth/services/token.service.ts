@@ -1,21 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from '../../role';
 import { decode, sign, verify } from 'jsonwebtoken';
+import { JWT_CONFIG_TOKEN } from '../configs/jwt.config';
 import { IJwtConfig } from '../interfaces/jwt-config.interface';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
-import { ConfigService } from '../../configs';
+import { User } from '../../role/entities';
 
 @Injectable()
 export class TokenService {
-  constructor(
-    private readonly configService: ConfigService,
-  ) {
+  constructor(@Inject(JWT_CONFIG_TOKEN) private readonly jwtConfig: IJwtConfig) {
   }
 
   create(user: User) {
     return sign(
       {
         id: user.id,
+        username: user.username,
         isStaff: user.isStaff,
         isActive: user.isActive,
         isSuperuser: user.isSuperuser,
@@ -25,7 +24,7 @@ export class TokenService {
       },
       this.createSecretKey(user),
       {
-        expiresIn: this.configService.get().AUTH_JWT_EXPIRATION_DELTA,
+        expiresIn: this.jwtConfig.expirationDelta,
       },
     );
   }
@@ -40,28 +39,25 @@ export class TokenService {
   }
 
   removeHeaderPrefix(token: string) {
-    const config = this.configService.get();
-    return config.AUTH_HEADER_PREFIX &&
-    token &&
-    token.split(config.AUTH_HEADER_PREFIX + ' ').length > 1
-      ? token.split(config.AUTH_HEADER_PREFIX + ' ')[1]
+    return this.jwtConfig.authHeaderPrefix && token && token.split(this.jwtConfig.authHeaderPrefix + ' ').length > 1
+      ? token.split(this.jwtConfig.authHeaderPrefix + ' ')[1]
       : token;
   }
 
   extractTokenFromRequest(request) {
-    const authorizationHeader = request.headers.authorization
-      ? String(request.headers.authorization)
-      : null;
+    const authorizationHeader = request.headers.authorization ? String(request.headers.authorization) : null;
     const token = this.removeHeaderPrefix(authorizationHeader);
     return token;
   }
 
   createSecretKey(user: User) {
     return (
-      this.configService.get().AUTH_JWT_SECRET_OR_KEY +
+      this.jwtConfig.secretKey +
       (user
         ? '$' +
         user.id +
+        '$' +
+        user.username +
         '$' +
         user.isStaff +
         '$' +

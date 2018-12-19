@@ -177,10 +177,62 @@
     "SEARCH": "search",
     "EVENT": "event",
     "PERIOD": "period",
-    "USERNAME": "username"
+    "USERNAME": "username",
+    "SUCCESS": "success"
   },
   "VALIDATE": {
     "REQUIRED": "Please input your "
+  },
+  "ERROR": {
+    "CLIENT_OR_NETWORK": "client or network error: ",
+    "BACKEND": "backend return error code: ",
+    "LOGIN": {
+      "NOTFOUND": "no that account",
+      "INVALID": "invalid account info"
+    },
+    "STATUSTEXT": {
+      "Continue":"Continue",
+      "Switching protocols":"Switching protocols",
+      "OK":"OK",
+      "Created":"Created",
+      "Accepted":"Accepted",
+      "Non-Authoritative Information":"Non-Authoritative Information",
+      "No Content":"No Content",
+      "Reset Content":"Reset Content",
+      "Partial Content":"Partial Content",
+      "Multiple Choices":"Multiple Choices",
+      "Moved Permanently":"Moved Permanently",
+      "Found":"Found",
+      "See Other":"See Other",
+      "Not Modified":"Not Modified",
+      "Use Proxy":"Use Proxy",
+      "Temporary Redirect":"Temporary Redirect",
+      "Bad Request":"Bad Request",
+      "Unauthorized":"Unauthorized",
+      "Payment Required":"Payment Required",
+      "Forbidden":"Forbidden",
+      "Not Found":"Not Found",
+      "Method Not Allowed":"Method Not Allowed",
+      "Not Acceptable":"Not Acceptable",
+      "Proxy Authentication Required":"Proxy Authentication Required",
+      "Request Timeout":"Request Timeout",
+      "Conflict":"Conflict",
+      "Gone":"Gone",
+      "Length Required":"Length Required",
+      "Precondition Failed":"Precondition Failed",
+      "Request Entity Too Large":"Request Entity Too Large",
+      "Request-URI Too Long":"Request-URI Too Long",
+      "Unsupported Media Type":"Unsupported Media Type",
+      "Requested Range Not Suitable":"Requested Range Not Suitable",
+      "Expectation Failed":"Expectation Failed",
+      "Internal Server Error":"Internal Server Error",
+      "Not Implemented":"Not Implemented",
+      "Bad Gateway":"Bad Gateway",
+      "Service Unavailable":"Service Unavailable",
+      "Gateway Timeout":"Gateway Timeout",
+      "HTTP Version Not Supported":"HTTP Version Not Supported",
+      "Unknown Error": "Other Error"
+    }
   },
   "GEO": {
     "NATIONS": {

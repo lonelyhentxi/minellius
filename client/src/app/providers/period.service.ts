@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PeriodEventInterface} from '../interfaces/period-event.interface';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {CreatePeriodEventQueryDto} from '../dtos/create-period-event-query.dto';
 import {PeriodEventEntityType} from '../constants/period-event-entity.constant';
@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {pipeBuild, equalPipe} from '../functools/option-pipe-builder.functool';
 import * as dayjs from 'dayjs';
+import {UserService} from './user.service';
 
 @Injectable()
 export class PeriodService {
@@ -16,6 +17,7 @@ export class PeriodService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly configService: ConfigService,
+    private readonly userService: UserService,
   ) {
   }
 
@@ -24,7 +26,7 @@ export class PeriodService {
     skip: number, take: number
   ): CreatePeriodEventQueryDto {
     const res: CreatePeriodEventQueryDto = pipeBuild({entityType: query[1]},
-      equalPipe('period', query[0], val=>dayjs(val).toISOString()),
+      equalPipe('period', query[0], val => dayjs(val).toISOString()),
       equalPipe('eventType', query[4]),
       equalPipe('name', query[3]),
       equalPipe('skip', skip),
@@ -48,13 +50,15 @@ export class PeriodService {
   }
 
   find(body: CreatePeriodEventQueryDto): Observable<PeriodEventInterface[]> {
+    const me = this;
     const config = this.configService.get();
-    return (<Observable<PeriodEventInterface[]>>this.httpClient.post(config.SERVER_HOST + config.PERIOD_EVENT + config.QUERY, body))
-      .pipe(map(pes => pes.map(val => {
+    return (<Observable<PeriodEventInterface[]>>
+      this.httpClient.post(config.SERVER_HOST + config.PERIOD_EVENT + config.QUERY, this.userService.wrapBody(body), {
+      }))
+      .pipe(map(res => res.map(val => {
           val.event = EventType[val.eventType];
           return val;
         }))
-      );
+      ) as Observable<PeriodEventInterface[]>;
   }
-
 }

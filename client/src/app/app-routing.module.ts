@@ -48,7 +48,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'brief',
+        redirectTo: 'current',
         pathMatch: 'full'
       },
       {

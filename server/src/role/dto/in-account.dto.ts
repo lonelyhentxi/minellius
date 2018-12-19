@@ -20,4 +20,12 @@ export class InAccountDto {
   @MaxLength(150)
   @ApiModelProperty()
   username: string;
+
+  @MaxLength(30)
+  @ApiModelProperty()
+  firstName: string;
+
+  @MaxLength(30)
+  @ApiModelProperty()
+  lastName: string;
 }

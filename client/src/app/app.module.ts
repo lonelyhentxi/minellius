@@ -19,7 +19,7 @@ import {WebviewDirective} from './directives/webview.directive';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
+import {NgZorroAntdModule, NZ_I18N, NZ_MESSAGE_CONFIG, zh_CN} from 'ng-zorro-antd';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import zhExtra from '@angular/common/locales/extra/zh';
@@ -50,12 +50,19 @@ import {CurrentIssueCommentComponent} from './components/current/current-issue-c
 import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
 import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
 import {ConfigService} from './providers/config.service';
+import {UserService} from './providers/user.service';
+import {JwtModule} from '@auth0/angular-jwt';
+import {CookieService} from 'ngx-cookie-service';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
 }
 
 @NgModule({
@@ -89,6 +96,13 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['127.0.0.1:6080'],
+        blacklistedRoutes: ['127.0.0.1:6080/api/auth']
+      }
+    }),
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -108,10 +122,13 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     ElectronService,
     {provide: NZ_I18N, useValue: zh_CN},
+    {provide: NZ_MESSAGE_CONFIG, useValue: {nzDuration: 3000}},
+    CookieService,
     MenuService,
     CurrentService,
     PeriodService,
     ConfigService,
+    UserService,
   ],
   bootstrap: [AppComponent]
 })

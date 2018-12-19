@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { GroupWithPermissionsDto } from './group-with-permissions.dto';
-import { MetaDto } from '../../core/dto/meta.dto';
+import { GroupWithPermissionsDto } from '../dto/group-with-permissions.dto';
+import { MetaDto } from '../dto/meta.dto';
 
 export class OutGroupsDto {
   @Type(() => GroupWithPermissionsDto)

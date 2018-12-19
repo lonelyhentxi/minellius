@@ -1,16 +1,8 @@
 import { IsNotEmpty, MaxLength, validateSync } from 'class-validator';
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Permission } from '../entities/permission.entity';
 import { User } from '../entities/user.entity';
-import { CustomValidationError } from '../../core';
+import { CustomValidationError } from '../exceptions/custom-validation.error';
 
 @Entity()
 export class Group {
@@ -28,19 +20,19 @@ export class Group {
   title: string = undefined;
 
   @ManyToMany(type => Permission, {
-    cascade: ['remove'],
+    cascade: ['remove']
   })
   @JoinTable({
     // not work on run cli migration:
     name: 'group_permissions',
     joinColumn: {
       name: 'group_id',
-      referencedColumnName: 'id',
+      referencedColumnName: 'id'
     },
     inverseJoinColumn: {
       name: 'permission_id',
-      referencedColumnName: 'id',
-    },
+      referencedColumnName: 'id'
+    }
   })
   permissions: Permission[];
 
@@ -50,12 +42,12 @@ export class Group {
     name: 'user_groups',
     joinColumn: {
       name: 'group_id',
-      referencedColumnName: 'id',
+      referencedColumnName: 'id'
     },
     inverseJoinColumn: {
       name: 'user_id',
-      referencedColumnName: 'id',
-    },
+      referencedColumnName: 'id'
+    }
   })
   users: User[];
 

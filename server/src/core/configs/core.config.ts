@@ -1,0 +1,15 @@
+import { ICoreConfig } from '..';
+
+export const defaultCoreConfig: ICoreConfig = {
+  debug: true,
+  name: '[package]',
+  description: '[package]',
+  title: '[package]',
+  port: 6080,
+  swagger_path: 'document',
+  protocol: 'http',
+  domain: 'localhost',
+  version: '[package]',
+  contact_email:'[package]',
+};
+export const CORE_CONFIG_TOKEN: string = 'CoreConfig';

@@ -1,14 +1,7 @@
 import { IsNotEmpty, MaxLength, validateSync } from 'class-validator';
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Permission } from '../entities/permission.entity';
-import { CustomValidationError } from '../../core';
+import { CustomValidationError } from '../exceptions/custom-validation.error';
 
 @Entity({ name: 'content_type' })
 export class ContentType {

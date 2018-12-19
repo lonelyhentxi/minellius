@@ -1,12 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PeriodService} from '../../../providers/period.service';
 import {isNil, unzip} from 'lodash';
-import {debounceTime, filter, map, tap, withLatestFrom} from 'rxjs/operators';
+import {debounceTime, filter, first, map, tap, withLatestFrom} from 'rxjs/operators';
 import {combineLatest, Subject, Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {enumDestructe} from '../../../functools/enum.functool';
 import {EventType} from '../../../constants/event-type.constant';
 import {shell} from 'electron';
+import {NzMessageService} from 'ng-zorro-antd';
+import {errorPrompt} from '../../../functools/error-prompt.functool';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-period-detail',
@@ -51,6 +54,8 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
   constructor(
     private readonly periodService: PeriodService,
     private readonly route: ActivatedRoute,
+    private readonly messageService: NzMessageService,
+    private readonly translator: TranslateService,
   ) {
     this.currentPage = 1;
     this.take = 12;
@@ -92,14 +97,18 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
     }
     const me = this;
     const transformed = this.periodService.transformQuery(query.slice(1, query.length), this.skip, this.take);
-    this.searchRes$$ = this.periodService.find(transformed).subscribe((data) => {
+    this.searchRes$$ = this.periodService.find(transformed).pipe(first()).subscribe((data) => {
       me.displayData = data;
       if (me.maybePages() > me.knownPages) {
         me.knownPages += 1;
       }
       this.loading = false;
+    }, error => {
+      me.messageService.warning(errorPrompt(me.translator, error));
+      this.loading = false;
     });
   }
+
 
   changeAspect() {
     this.knownPages = 1;

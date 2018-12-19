@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsOptional, MaxLength } from 'class-validator';
-import { ContentTypeDto } from './content-type.dto';
+import { ContentTypeDto } from '../dto/content-type.dto';
 
 export class InPermissionDto {
   @IsOptional()

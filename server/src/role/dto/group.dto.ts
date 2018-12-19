@@ -1,4 +1,5 @@
-import { MaxLength } from 'class-validator';
+import { IsNotEmpty, MaxLength } from 'class-validator';
+import { Exclude } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class GroupDto {
