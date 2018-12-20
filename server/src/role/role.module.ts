@@ -3,11 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { controllers } from './controllers';
 import { entities } from './entities';
 import { services } from './services';
+import { AccessGuard } from './guards/access.guard';
 
 @Module({
   imports: [TypeOrmModule.forFeature([...entities])],
   controllers: [...controllers],
-  providers: [...services],
+  providers: [...services,AccessGuard],
   exports: [ ...services],
 })
 export class RoleModule {

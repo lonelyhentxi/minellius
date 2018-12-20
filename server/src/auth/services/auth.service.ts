@@ -1,15 +1,16 @@
-import { BadRequestException, HttpService, Inject, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpService, Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { stringify } from 'querystring';
-import { map } from 'rxjs/operators';
-import { FACEBOOK_CONFIG_TOKEN } from '../configs/facebook.config';
 import { RedirectUriDto } from '../dto/redirect-uri.dto';
 import { SignInDto } from '../dto/sign-in.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
-import { IFacebookConfig } from '../interfaces/facebook-config.interface';
 import { ICoreConfig } from '../../core';
 import { CustomError, GroupsService, User, UsersService } from '../../role';
 import { CORE_CONFIG_TOKEN } from '../../core/configs/core.config';
+import { GITHUB_CONFIG_TOKEN } from '../configs/github.config';
+import { IGithubConfig } from '../interfaces/github-config.interface';
+import { TokenService } from './token.service';
+import { UserTokenDto } from '../dto/user-token.dto';
+import { stringify } from 'flatted/cjs';
 
 @Injectable()
 export class AuthService {
@@ -17,10 +18,11 @@ export class AuthService {
 
   constructor(
     @Inject(CORE_CONFIG_TOKEN) private readonly coreConfig: ICoreConfig,
-    @Inject(FACEBOOK_CONFIG_TOKEN) private readonly fbConfig: IFacebookConfig,
+    @Inject(GITHUB_CONFIG_TOKEN) private readonly ghConfig: IGithubConfig,
     private readonly httpService: HttpService,
     private readonly usersService: UsersService,
     private readonly groupsService: GroupsService,
+    private readonly tokenService: TokenService,
   ) {
     if (this.coreConfig.port) {
       this.localUri = `${this.coreConfig.protocol}://${this.coreConfig.domain}:${this.coreConfig.port}`;
@@ -69,62 +71,73 @@ export class AuthService {
     return this.usersService.create({ item: newUser });
   }
 
-  async requestFacebookRedirectUri(host?: string): Promise<RedirectUriDto> {
+  async requestGithubRedirectUri(host?: string): Promise<RedirectUriDto> {
     const queryParams: string[] = [
-      `client_id=${this.fbConfig.client_id}`,
-      `redirect_uri=${this.fbConfig.oauth_redirect_uri}`,
-      `state=${this.fbConfig.state}`,
+      `client_id=${this.ghConfig.client_id}`,
+      `redirect_uri=${this.ghConfig.oauth_redirect_uri}`,
+      `state=${this.ghConfig.state}`,
+      `scope=user,public_repo`,
     ];
-    const redirect_uri: string = `${this.fbConfig.login_dialog_uri}?${queryParams.join('&')}`.replace('{host}', host);
-    Logger.log(redirect_uri, AuthService.name + ':requestFacebookRedirectUri');
+    const redirect_uri: string = `${this.ghConfig.login_dialog_uri}?${queryParams.join('&')}`.replace('{host}', host);
+    Logger.log(redirect_uri, AuthService.name + ':requestGithubRedirectUri');
     return {
       redirect_uri,
     };
   }
 
-  async facebookSignIn(code: string, host?: string): Promise<any> {
+  async requestGithubToken(code: string): Promise<any> {
     const queryParams: string[] = [
-      `client_id=${this.fbConfig.client_id}`,
-      `redirect_uri=${this.fbConfig.oauth_redirect_uri}`,
-      `client_secret=${this.fbConfig.client_secret}`,
+      `client_id=${this.ghConfig.client_id}`,
+      `redirect_uri=${this.ghConfig.oauth_redirect_uri}`,
+      `client_secret=${this.ghConfig.client_secret}`,
       `code=${code}`,
     ];
-    const uri: string = `${this.fbConfig.access_token_uri}?${queryParams.join('&')}`.replace('{host}', host);
-    Logger.log(uri, AuthService.name + ':facebookSignIn');
+    const uri: string = `${this.ghConfig.access_token_uri}?${queryParams.join('&')}`;
+    Logger.log(uri, AuthService.name + ':requestGithubToken');
     try {
-      const response = await this.httpService
-        .get(uri)
-        .pipe(map(res => res.data))
+      const res = await this.httpService
+        .get(uri, { headers: { Accept: 'application/json' } })
         .toPromise();
-      if (response.error) {
-        Logger.error(JSON.stringify(response), undefined, AuthService.name);
-        throw new BadRequestException(response.error.message);
-      }
-      const access_token = response.access_token;
-      const uriToken = `${this.localUri}/api/auth/facebook/token`;
-      const profileResponse = await this.httpService
-        .post(uriToken, stringify({ access_token }), {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        })
-        .pipe(map(res => res.data))
-        .toPromise();
-      Logger.log(JSON.stringify(profileResponse), AuthService.name + ':facebookSignIn');
-      if (profileResponse.error) {
-        Logger.error(JSON.stringify(profileResponse), undefined, AuthService.name);
-        throw new BadRequestException(profileResponse.error.message);
-      }
-      return profileResponse;
+      return res.data.access_token;
     } catch (error) {
-      Logger.error(
-        JSON.stringify(error && error.response ? error.response.data : error.message),
+      const newError = new UnauthorizedException(error.response.data);
+      Logger.error(stringify(newError),
         undefined,
-        AuthService.name,
+        AuthService.name + ':requestGithubToken',
       );
-      throw new BadRequestException(
-        error && error.response && error.response.data && error.response.data.error
-          ? error.response.data.error.message
-          : error.message,
-      );
+      throw new UnauthorizedException(error.message);
+    }
+  }
+
+  async githubSignIn(access_token: string): Promise<UserTokenDto> {
+    Logger.log(access_token, AuthService.name + ':githubSignIn');
+    const uriToken = `${this.localUri}/api/auth/github/token`;
+    try {
+      const res =  await this.httpService
+        .post(uriToken, { access_token })
+        .toPromise();
+      return res.data;
+    } catch (error) {
+      const newError = new HttpException(error.response.data,error.response.status);
+      Logger.error(stringify(newError), undefined, AuthService.name + ':githubSignIn');
+      throw newError;
+    }
+  }
+
+  async githubBind(token: string, oauthToken: string): Promise<UserTokenDto> {
+    Logger.log(`User token: ${token}, oauth token: ${oauthToken}`, AuthService.name + ':githubBind');
+    const uriToken = `${this.localUri}/api/bind/github/token`;
+    try {
+      const res = await this.httpService
+        .post(uriToken, stringify({ oauthToken }), {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': this.tokenService.addHeaderPrefix(token) },
+        })
+        .toPromise();
+      return res.data;
+    } catch (error) {
+      const newError = new HttpException(error.response.data,error.response.status);
+      Logger.error(stringify(newError), undefined, AuthService.name + ':githubBind');
+      throw newError;
     }
   }
 }

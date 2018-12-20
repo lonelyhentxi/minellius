@@ -64,7 +64,6 @@ export class OauthTokensAccesstoken {
       throw new CustomValidationError(errors);
     }
   }
-
   
   @BeforeUpdate()
   doBeforeUpdate() {

@@ -1,7 +1,7 @@
 <div class="period-detail">
   <div class="period-detail-body">
     <nz-table #periodEventTable [nzData]="displayData" [nzSize]="'small'" [nzShowQuickJumper]="true" [nzLoading]="loading"
-      [nzPageSize]="take" [(nzPageIndex)]="currentPage" (nzPageIndexChange)="changPage($event)" [nzFrontPagination]="false" [nzTotal]="maybePages()*take">
+      [nzPageSize]="take" [(nzPageIndex)]="currentPage" (nzPageIndexChange)="changPage($event)" [nzFrontPagination]="false" [nzTotal]="count">
       <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
         <th nzCustomFilter>

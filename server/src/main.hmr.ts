@@ -3,16 +3,17 @@ import { AppModule } from './app.module';
 import { CORE_CONFIG_TOKEN, ICoreConfig } from './core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from "fs";
-import { customCoreConfig, customFacebookConfig, customJwtConfig } from './config';
+import { customCoreConfig, customGithubConfig, customJwtConfig } from './config';
 import {
-  appFilters as authAppFilters, defaultFacebookConfig,
-  defaultJwtConfig, FACEBOOK_CONFIG_TOKEN,
-  IFacebookConfig,
+  appFilters as authAppFilters,
+  defaultJwtConfig,
   IJwtConfig,
   JWT_CONFIG_TOKEN,
 } from './auth';
 import { appFilters } from './role/filters';
 import { appPipes } from './role/pipes';
+import { IGithubConfig } from './auth/interfaces/github-config.interface';
+import { defaultGithubConfig, GITHUB_CONFIG_TOKEN } from './auth/configs/github.config';
 
 declare const module: any;
 
@@ -24,16 +25,17 @@ async function bootstrap() {
     protocol: process.env.PROTOCOL === 'https' ? 'https' : 'http',
     port: process.env.PORT ? +process.env.PORT : customCoreConfig.port,
     externalPort: process.env.EXTERNAL_PORT ? +process.env.EXTERNAL_PORT : undefined,
-    domain: process.env.DOMAIN,
+    domain: process.env.DOMAIN? process.env.DOMAIN: 'localhost',
     name: packageBody.name,
     title: packageBody.name,
     description: packageBody.description,
     version: packageBody.version,
     contact_email: packageBody.authors[0].email,
   };
-  const facebookConfig: IFacebookConfig = {
-    ...defaultFacebookConfig,
-    ...customFacebookConfig,
+  const githubConfig: IGithubConfig = {
+    ...defaultGithubConfig,
+    ...customGithubConfig,
+    oauth_redirect_uri: `http://127.0.0.1:4200/oauth/github`,
   };
   const jwtConfig: IJwtConfig = {
     ...defaultJwtConfig,
@@ -42,9 +44,9 @@ async function bootstrap() {
   const app = await NestFactory.create(
     AppModule.forRoot({
       providers: [
-        {provide: CORE_CONFIG_TOKEN,useValue:coreConfig},
+        { provide: CORE_CONFIG_TOKEN, useValue: coreConfig },
         { provide: JWT_CONFIG_TOKEN, useValue: jwtConfig },
-        { provide: FACEBOOK_CONFIG_TOKEN, useValue: facebookConfig },
+        { provide: GITHUB_CONFIG_TOKEN, useValue: githubConfig },
         ...appFilters,
         ...authAppFilters,
         ...appPipes,

@@ -2,6 +2,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logge
 import { ValidationError } from 'class-validator';
 import { CustomValidationError } from '../exceptions/custom-validation.error';
 import { CustomError } from '../exceptions/custom.error';
+import { stringify } from 'flatted/cjs';
 
 @Catch(SyntaxError, CustomValidationError, CustomError, HttpException)
 export class CustomExceptionFilter implements ExceptionFilter {
@@ -15,7 +16,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    Logger.error(JSON.stringify(exception), undefined, CustomExceptionFilter.name);
+    Logger.error(stringify(exception), undefined, CustomExceptionFilter.name);
     response.status(status ? status : HttpStatus.BAD_REQUEST).json(data);
   }
 
@@ -49,7 +50,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
         exception,
         host,
         {
-          message: exception.message && exception.message.message ? exception.message.message : 'Http exception',
+          message: exception && exception.message.message ? exception.message.message : 'Http exception',
         },
         exception.getStatus(),
       );

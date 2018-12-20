@@ -1,10 +1,8 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Logger, Post, Req } from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
-import {  OutAccountDto } from '../../role/dto/out-account.dto';
+import { OutAccountDto } from '../../role/dto/out-account.dto';
 import { plainToClass } from 'class-transformer';
 import { JsonWebTokenError } from 'jsonwebtoken';
-import { FacebookSignInDto } from '../dto/facebook-signIn.dto';
-import { FacebookTokenDto } from '../dto/facebook-token.dto';
 import { RedirectUriDto } from '../dto/redirect-uri.dto';
 import { SignInDto } from '../dto/sign-in.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
@@ -14,6 +12,8 @@ import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 import { CORE_CONFIG_TOKEN, ICoreConfig } from '../../core';
+import { GithubTokenDto } from '../dto/github-token.dto';
+import { GithubSignInDto } from '../dto/github-signIn.dto';
 
 @ApiUseTags('auth')
 @Controller('/api/auth')
@@ -75,12 +75,12 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'facebook/uri',
+    description: 'github/uri',
   })
-  @Get('facebook/uri')
-  async requestFacebookRedirectUrl(@Req() req): Promise<RedirectUriDto> {
-    Logger.log(req.get('origin'), AuthController.name + ':requestFacebookRedirectUrl#origin');
-    return this.authService.requestFacebookRedirectUri(
+  @Get('github/uri')
+  async requestGithubRedirectUrl(@Req() req): Promise<RedirectUriDto> {
+    Logger.log(req.get('origin'), AuthController.name + ':requestGithubRedirectUrl#origin');
+    return this.authService.requestGithubRedirectUri(
       req.get('origin') || this.coreConfig.protocol + '://' + req.get('host'),
     );
   }
@@ -88,26 +88,44 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'facebook/signin',
+    description: 'Return app user token if valid',
   })
-  @Post('facebook/signin')
-  async facebookSignIn(@Req() req, @Body() facebookSignInDto: FacebookSignInDto): Promise<UserTokenDto> {
-    Logger.log(req.get('origin'), AuthController.name + ':facebookSignIn#origin');
-    return this.authService.facebookSignIn(
-      facebookSignInDto.code,
-      req.get('origin') || this.coreConfig.protocol + '://' + req.get('host'),
-    );
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Github server return valid user info',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Github account has bound no app account',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Github account auth failed',
+  })
+  @Post('github/signin')
+  async githubSignIn(@Req() req, @Body() githubSignInDto: GithubSignInDto): Promise<UserTokenDto> {
+    Logger.log(req.get('origin'), AuthController.name + ':githubSignIn#origin');
+    const token = await this.authService.requestGithubToken(githubSignInDto.code);
+    return await this.authService.githubSignIn(token);
   }
 
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'facebook/token',
+    description: 'Return app user token if valid',
   })
-  @Post('facebook/token')
-  async requestJsonWebTokenAfterFacebookSignIn(
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Github server return valid user info',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Github account has bound no app account',
+  })
+  @Post('github/token')
+  async requestJsonWebTokenAfterGithubSignIn(
     @Req() req,
-    @Body() facebookTokenDto: FacebookTokenDto,
+    @Body() githubTokenDto: GithubTokenDto,
   ): Promise<UserTokenDto> {
     const token = await this.tokenService.create(req.user);
     return plainToClass(UserTokenDto, { user: req.user, token });

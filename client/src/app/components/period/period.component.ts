@@ -3,6 +3,7 @@ import {MenuService} from '../../providers/menu.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuComponentInterface} from '../../interfaces/menu-component.interface';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-period',

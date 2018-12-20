@@ -1,7 +1,7 @@
 {
   "name": "minellius",
   "version": "0.0.2",
-  "description": "Server of Minellius, group project of comp 3002, 2018 fall. ",
+  "description": "Minellius, a experimental github data analysis solution, group project of comp 3002, 2018 fall.",
   "authors": [
     {
       "name": "Zhou Yeheng",
@@ -40,6 +40,7 @@
     "dayjs": "^1.7.8",
     "dotenv": "^6.1.0",
     "fastify-formbody": "^2.0.3",
+    "flatted": "^2.0.0",
     "joi": "^13.7.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
@@ -47,7 +48,7 @@
     "node-django-hashers": "^1.1.6",
     "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
-    "passport-facebook-token": "^3.3.0",
+    "passport-github-token": "^2.1.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

@@ -24,7 +24,7 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
   currentPage: number;
   take: number;
   loading: boolean;
-  knownPages: number;
+  count: number;
 
   get skip() {
     return (this.currentPage - 1) * this.take;
@@ -49,7 +49,6 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
 
   reSearch$$: Subscription;
   reCount$$: Subscription;
-  searchRes$$: Subscription;
 
   constructor(
     private readonly periodService: PeriodService,
@@ -61,7 +60,7 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
     this.take = 12;
     this.displayData = [];
     this.loading = false;
-    this.knownPages = 1;
+    this.count = 0;
   }
 
   sort(sortEntity: { key: string, value: string }) {
@@ -78,40 +77,39 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
   }
 
   changPage(target: number) {
-    this.loading = true;
     this.currentPage = target;
     this.pageTrigger$.next(target);
   }
 
-  maybePages() {
-    if (this.currentPage === this.knownPages && this.displayData.length === this.take) {
-      return this.knownPages + 1;
-    } else {
-      return this.knownPages;
-    }
-  }
-
   reSearch(query) {
-    if (this.searchRes$$) {
-      this.searchRes$$.unsubscribe();
-    }
     const me = this;
+    this.loading = true;
     const transformed = this.periodService.transformQuery(query.slice(1, query.length), this.skip, this.take);
-    this.searchRes$$ = this.periodService.find(transformed).pipe(first()).subscribe((data) => {
+    const searchRes$$ = this.periodService.find(transformed).pipe(first()).subscribe((data) => {
       me.displayData = data;
-      if (me.maybePages() > me.knownPages) {
-        me.knownPages += 1;
-      }
-      this.loading = false;
+      me.loading = false;
+      searchRes$$.unsubscribe();
     }, error => {
       me.messageService.warning(errorPrompt(me.translator, error));
-      this.loading = false;
+      me.loading = false;
+      searchRes$$.unsubscribe();
     });
   }
 
 
-  changeAspect() {
-    this.knownPages = 1;
+  reCount(query) {
+    const me = this;
+    this.loading = true;
+    const transformed = this.periodService.transformQuery(query,this.skip,this.take);
+    const countRes$$ = this.periodService.count(transformed).pipe(first()).subscribe((count) => {
+      me.count = count;
+      me.loading = false;
+      countRes$$.unsubscribe();
+    }, error => {
+      me.messageService.warning(errorPrompt(me.translator, error));
+      me.loading = false;
+      countRes$$.unsubscribe();
+    });
   }
 
   subjectsInit() {
@@ -134,7 +132,7 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
       withLatestFrom(me.routeData$.pipe(filter(val => !isNil(val['entityType'])))), map((lst) => lst[1]['entityType'])
     );
     this.reCount$$ = combineLatest(period$, entityType$, me.sortTrigger$, me.searchTrigger$, me.filterTrigger$)
-      .pipe(debounceTime(300), tap((opt) => me.changeAspect()))
+      .pipe(debounceTime(300), tap((query) => me.reCount(query)))
       .subscribe(() => me.changPage(1));
     this.reSearch$$ = me.pageTrigger$
       .pipe(withLatestFrom(period$, entityType$, me.sortTrigger$, me.searchTrigger$, me.filterTrigger$), debounceTime(100))
@@ -147,9 +145,6 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
     this.reSearch$$.unsubscribe();
     this.reCount$$.unsubscribe();
     this.period$$.unsubscribe();
-    if (this.searchRes$$) {
-      this.searchRes$$.unsubscribe();
-    }
   }
 
   openExternal(url: string): void {

@@ -1,10 +1,11 @@
-import { Exclude, Type } from 'class-transformer';
-import { MaxLength } from 'class-validator';
-import { GroupDto } from './group.dto';
+import {Exclude, Type} from 'class-transformer';
+import {MaxLength} from 'class-validator';
+import {GroupDto} from './group.dto';
 
 export class UserDto {
   id: number;
   @Exclude()
+  @MaxLength(128)
   password: string;
   lastLogin: Date;
   isSuperuser: boolean;

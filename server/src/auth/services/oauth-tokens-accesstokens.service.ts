@@ -41,11 +41,12 @@ export class OauthTokensAccesstokensService {
     }
   }
 
-  async findByProviderClientId(options: { id: number }) {
+  async findByProviderAndClientId(options: { id: number, provider: string }) {
     try {
       const item = await this.repository.findOneOrFail({
         where: {
           providerClientId: options.id,
+          provider: options.provider,
         },
       });
       return { oauthTokensAccesstoken: item };

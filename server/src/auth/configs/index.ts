@@ -1,5 +1,5 @@
-import { defaultFacebookConfig, FACEBOOK_CONFIG_TOKEN } from '../configs/facebook.config';
 import { defaultJwtConfig, JWT_CONFIG_TOKEN } from '../configs/jwt.config';
+import { defaultGithubConfig, GITHUB_CONFIG_TOKEN } from './github.config';
 
 export const configs = [
   {
@@ -7,7 +7,7 @@ export const configs = [
     useValue: defaultJwtConfig,
   },
   {
-    provide: FACEBOOK_CONFIG_TOKEN,
-    useValue: defaultFacebookConfig,
+    provide: GITHUB_CONFIG_TOKEN,
+    useValue: defaultGithubConfig,
   },
 ];

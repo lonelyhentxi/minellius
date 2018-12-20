@@ -190,6 +190,9 @@
       "NOTFOUND": "不存在的用户",
       "INVALID": "错误的用户名或密码"
     },
+    "SIGNUP": {
+      "CONFLICT": "已存在的"
+    },
     "STATUSTEXT": {
       "Continue": "客户必须继续发出请求",
       "Switching protocols": "客户要求服务器根据请求转换HTTP协议版本",

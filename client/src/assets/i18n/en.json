@@ -190,6 +190,9 @@
       "NOTFOUND": "no that account",
       "INVALID": "invalid account info"
     },
+    "SIGNUP": {
+      "CONFLICT": "existed"
+    },
     "STATUSTEXT": {
       "Continue":"Continue",
       "Switching protocols":"Switching protocols",

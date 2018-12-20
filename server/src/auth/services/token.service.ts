@@ -44,6 +44,10 @@ export class TokenService {
       : token;
   }
 
+  addHeaderPrefix(token: string): string {
+    return this.jwtConfig.authHeaderPrefix + ' ' + token;
+  }
+
   extractTokenFromRequest(request) {
     const authorizationHeader = request.headers.authorization ? String(request.headers.authorization) : null;
     const token = this.removeHeaderPrefix(authorizationHeader);

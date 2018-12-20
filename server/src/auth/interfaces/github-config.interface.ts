@@ -1,4 +1,4 @@
-export interface IFacebookConfig {
+export interface IGithubConfig {
   readonly login_dialog_uri?: string;
   readonly access_token_uri?: string;
   readonly client_id: string;
