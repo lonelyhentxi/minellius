@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+https://minellius.evernightfireworks.com/oauth/githubimport { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CORE_CONFIG_TOKEN, ICoreConfig } from './core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -35,7 +35,6 @@ async function bootstrap() {
   const githubConfig: IGithubConfig = {
     ...defaultGithubConfig,
     ...customGithubConfig,
-    oauth_redirect_uri: `http://127.0.0.1:4200/oauth/github`,
   };
   const jwtConfig: IJwtConfig = {
     ...defaultJwtConfig,

@@ -20,7 +20,12 @@ export class ConfigService {
     COUNT: '/count',
     AUTH: '/auth',
     LOGIN: '/signin',
-    SIGNUP: '/signup'
+    SIGNUP: '/signup',
+    GITHUB: '/github',
+    BIND: '/bind',
+    TOKEN: '/token',
+    URI: '/uri',
+    ACCOUNTS: '/accounts'
   };
 
   private route = {
@@ -28,6 +33,10 @@ export class ConfigService {
     periodEventQuery: this.config.SERVER_HOST + this.config.API_BASE + this.config.PERIOD_EVENT + this.config.QUERY,
     periodEventCount: this.config.SERVER_HOST + this.config.API_BASE + this.config.PERIOD_EVENT + this.config.COUNT,
     signUp: this.config.SERVER_HOST + this.config.API_BASE + this.config.AUTH + this.config.SIGNUP,
+    githubUri: this.config.SERVER_HOST + this.config.API_BASE + this.config.AUTH + this.config.GITHUB + this.config.URI,
+    githubBind: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.GITHUB,
+    githubSignIn: this.config.SERVER_HOST + this.config.API_BASE + this.config.AUTH + this.config.GITHUB + this.config.LOGIN,
+    oauthAccounts: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.ACCOUNTS
   };
 
   constructor() {
@@ -42,6 +51,6 @@ export class ConfigService {
   }
 
   getUrl(route: string) {
-    return this.getConfig().PROTOCOL+ route;
+    return this.getConfig().PROTOCOL + route;
   }
 }

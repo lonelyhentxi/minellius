@@ -1,2 +1,112 @@
 <div class="control-panel">
+  <div nz-row>
+    <div nz-col [nzSpan]="10">
+      <nz-divider nzText="{{'COMMON.USER'|translate}}"></nz-divider>
+      <p>
+        <button nz-button nzType="ghost" nzSize="small" nzShape="circle" (click)="triggerCurrent(1)">
+          <i nz-icon [type]="'setting'"></i>
+        </button>&nbsp;&nbsp;{{user.username}} <{{user.email}}>
+      </p>
+      <ul>
+        <li><b>id</b>:&nbsp;&nbsp;{{user.id}}</li>
+        <li><b>{{'COMMON.EMAIL'|translate}}</b>:&nbsp;&nbsp;{{user.email}}</li>
+        <li><b>{{'COMMON.USERNAME'|translate}}</b>:&nbsp;&nbsp;{{user.username}}</li>
+        <li><b>{{"COMMON.GROUP"|translate}}</b>:&nbsp;&nbsp;{{groupNames}}</li>
+        <li><b>{{"FUNCTION.CONTROL.LASTLOG"|translate}}</b>:&nbsp;&nbsp;{{dayjs(user.lastLogin).format('YYYY-MM-DD hh:mm')}}</li>
+      </ul>
+      <nz-divider nzText="GITHUB">
+      </nz-divider>
+      <p>
+        <button [disabled]="!!github" nz-button nzType="ghost" nzSize="small" nzShape="circle" (click)="githubBindStart()">
+          <i nz-icon [type]="'setting'"></i>
+        </button>&nbsp;&nbsp;{{githubText()}}
+      </p>
+    </div>
+    <div nz-col [nzSpan]="13" [nzOffset]="1">
+      <div *ngIf="currentEditIndex===1">
+        <nz-card class="control-panel-card"
+                 [nzHoverable]="true" nzTitle="{{'FUNCTION.CONTROL.CHANGE'|translate}}">
+          <br>
+          <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+                             nzFor="email">{{"COMMON.EMAIL"|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="email" id="email">
+                <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">
+                  {{"VALIDATE.REQUIRED"|translate}}
+                  {{"COMMON.EMAIL"|translate}}
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username" nzRequired>
+                {{"COMMON.USERNAME"|translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="username" formControlName="username">
+                <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors">
+                  {{"VALIDATE.REQUIRED"|translate}}
+                  {{"COMMON.USERNAME"|translate}}
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password"
+                             nzRequired>{{"COMMON.PASSWORD"|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input type="password" id="password" formControlName="password"
+                       (ngModelChange)="updateConfirmValidator()">
+                <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">
+                  {{"VALIDATE.REQUIRED"|translate}}
+                  {{"COMMON.PASSWORD"|translate}}
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword"
+                             nzRequired>{{"COMMON.CONFIRM"|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input type="password" formControlName="checkPassword" id="checkPassword">
+                <nz-form-explain
+                  *ngIf="validateForm.get('checkPassword').dirty && validateForm.get('checkPassword').errors">
+                  <ng-container *ngIf="validateForm.get('checkPassword').hasError('required')">
+                    {{"VALIDATE.REQUIRED"|translate}} {{"COMMON.CONFIRM"|translate}}
+                  </ng-container>
+                  <ng-container *ngIf="validateForm.get('checkPassword').hasError('confirm')">
+                    {{"COMMON.PASSWORD"|translate}}/{{"COMMON.CONFIRM"|translate}} {{"COMMON.DIFFERENT" | translate}}
+                  </ng-container>
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="captcha"
+                             nzRequired>{{"COMMON.EMAIL"|translate}} {{"COMMON.CAPTCHA"|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <div nz-row [nzGutter]="8">
+                  <div nz-col [nzSpan]="12">
+                    <input nz-input formControlName="captcha" id="captcha">
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <button nz-button
+                            (click)="getCaptcha($event)">{{"COMMON.EMAIL"|translate}} {{"COMMON.CAPTCHA"|translate}}</button>
+                  </div>
+                </div>
+                <nz-form-explain *ngIf="validateForm.get('captcha').dirty && validateForm.get('captcha').errors">
+                  {{"VALIDATE.REQUIRED"|translate}}
+                  {{"COMMON.EMAIL"|translate}} {{"COMMON.CAPTCHA"|translate}}
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nz-row style="margin-bottom:8px;">
+              <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button nz-button nzType="ghost">{{"COMMON.CHANGE"|translate}}</button>
+              </nz-form-control>
+            </nz-form-item>
+            <br>
+          </form>
+        </nz-card>
+      </div>
+    </div>
+  </div>
 </div>

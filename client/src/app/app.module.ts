@@ -52,7 +52,6 @@ import {CurrentUserFollowerComponent} from './components/current/current-user-fo
 import {ConfigService} from './providers/config.service';
 import {UserService} from './providers/user.service';
 import {JwtModule} from '@auth0/angular-jwt';
-import {CookieService} from 'ngx-cookie-service';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
@@ -123,7 +122,6 @@ export function tokenGetter() {
     ElectronService,
     {provide: NZ_I18N, useValue: zh_CN},
     {provide: NZ_MESSAGE_CONFIG, useValue: {nzDuration: 3000}},
-    CookieService,
     MenuService,
     CurrentService,
     PeriodService,

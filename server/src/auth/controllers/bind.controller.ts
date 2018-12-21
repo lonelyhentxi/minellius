@@ -19,10 +19,8 @@ export class BindController {
     @Inject(CORE_CONFIG_TOKEN) private readonly coreConfig: ICoreConfig,
     private readonly authService: AuthService,
     private readonly tokenService: TokenService,
-    private readonly oauthTokensService: OauthTokensAccesstokensService,
   ) {
   }
-
 
   @HttpCode(HttpStatus.OK)
   @Roles('isActive')
@@ -42,12 +40,16 @@ export class BindController {
     status: HttpStatus.CONFLICT,
     description: 'Github account or app account have bound',
   })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Unauthorized',
+  })
   @Post('github')
   async githubBind(@Req() req, @Body() githubSignInDto: GithubSignInDto): Promise<UserTokenDto> {
     const token = this.tokenService.extractTokenFromRequest(req);
-    Logger.log(req.get('origin'), BindController.name + ':githubSignIn#origin');
+    Logger.log(req.get('origin'), BindController.name + ':githubBind#origin');
     const oauthAccessToken = await this.authService.requestGithubToken(githubSignInDto.code);
-    return await this.authService.githubBind(token,oauthAccessToken);
+    return await this.authService.githubBind(token, oauthAccessToken);
   }
 
   @ApiBearerAuth()
@@ -65,20 +67,38 @@ export class BindController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Github server return valid user info',
   })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Unauthorized',
+  })
   @Post('github/token')
   async requestJsonWebTokenAfterGithubBind(
     @Req() req,
     @Body() githubTokenDto: GithubTokenDto,
   ): Promise<UserTokenDto> {
-    const newOauthTokensAccesstoken = new OauthTokensAccesstoken();
-    newOauthTokensAccesstoken.user = req.user;
-    newOauthTokensAccesstoken.providerClientId = `${req.profile.id}`;
-    newOauthTokensAccesstoken.provider = 'github';
-    newOauthTokensAccesstoken.accessToken = githubTokenDto.access_token;
-    await this.oauthTokensService.create({
-      item: newOauthTokensAccesstoken,
-    });
+    Logger.log(req.get('origin'), BindController.name + ':requestJsonWebTokenAfterGithubBin#origin');
+    await this.authService.joinAfterGithubBind(githubTokenDto, req.user, req.profile);
     const token = await this.tokenService.create(req.user);
     return plainToClass(UserTokenDto, { user: req.user, token });
+  }
+
+  @ApiBearerAuth()
+  @Roles('isActive')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return oauth list',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Unauthorized',
+  })
+  @Roles('isActive')
+  @Get('accounts')
+  async findAllOauthAccounts(
+    @Req() req,
+  ): Promise<OauthTokensAccesstoken[]> {
+    Logger.log(req.get('origin'), BindController.name + ':findAllOauthAccounts#origin');
+    return this.authService.oauthList(req.user);
   }
 }

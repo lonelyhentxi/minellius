@@ -148,7 +148,9 @@
       }
     },
     "CONTROL": {
-      "NAME": "控制面板"
+      "NAME": "控制面板",
+      "CHANGE": "修改设置",
+      "LASTLOG": "上次登录"
     },
     "HELPER": {
       "NAME": "帮助反馈"
@@ -178,10 +180,17 @@
     "EVENT": "事件",
     "PERIOD": "时段",
     "USERNAME": "用户名",
-    "SUCCESS": "成功"
+    "SUCCESS": "成功",
+    "CONFIRM": "确认",
+    "DIFFERENT": "不同",
+    "CAPTCHA": "验证码",
+    "CHANGE": "修改",
+    "GROUP": "组",
+    "BOUND": "绑定",
+    "NOT": "未"
   },
   "VALIDATE": {
-    "REQUIRED": "请输入你的"
+    "REQUIRED": "请输入正确的"
   },
   "ERROR": {
     "CLIENT_OR_NETWORK": "客户端或网络错误: ",

@@ -26,14 +26,14 @@ export class SignUpComponent implements OnInit {
 
   submitSpecErrorPrompt(error: HttpErrorResponse): string {
     if (error.status === 409) {
-      const emailExisted:boolean = error.message.toString().split(/\s+/g)
-        .map(sub=>sub.trim())
-        .filter(sub=>sub!==''&&sub.match(/["']/)).some(sub=>'email'===sub);
+      const emailExisted: boolean = error.message.toString().split(/\s+/g)
+        .map(sub => sub.trim())
+        .filter(sub => sub !== '' && sub.match(/["']/)).some(sub => 'email' === sub);
       return [this.translator.instant('ERROR.SIGNUP.CONFLICT'),
-        this.translator.instant(emailExisted?'COMMON.EMAIL':'COMMON.USERNAME')]
+        this.translator.instant(emailExisted ? 'COMMON.EMAIL' : 'COMMON.USERNAME')]
         .join(this.translator.instant('COMMON.WORDSEP'));
     } else {
-      return errorPrompt(this.translator,error);
+      return errorPrompt(this.translator, error);
     }
   }
 
@@ -57,7 +57,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.formBuilder.group({
-      email: ['lonely_hentai@hotmail.com', [Validators.required, Validators.maxLength(254)]],
+      email: ['lonely_hentai@hotmail.com', [Validators.required, Validators.email, Validators.maxLength(254)]],
       username: ['lonelyhentai', [Validators.required, Validators.maxLength(150)]],
       password: ['lonelyhentai', [Validators.required, Validators.maxLength(128)]]
     });

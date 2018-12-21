@@ -11,6 +11,10 @@ import { IGithubConfig } from '../interfaces/github-config.interface';
 import { TokenService } from './token.service';
 import { UserTokenDto } from '../dto/user-token.dto';
 import { stringify } from 'flatted/cjs';
+import { OauthTokensAccesstokensService } from '../services/oauth-tokens-accesstokens.service';
+import { OauthTokensAccesstoken } from '../entities/oauth-tokens-accesstoken.entity';
+import { GithubTokenDto } from '../dto/github-token.dto';
+import { Profile } from 'passport';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +27,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly groupsService: GroupsService,
     private readonly tokenService: TokenService,
+    private readonly oauthTokensService: OauthTokensAccesstokensService,
   ) {
     if (this.coreConfig.port) {
       this.localUri = `${this.coreConfig.protocol}://${this.coreConfig.domain}:${this.coreConfig.port}`;
@@ -113,12 +118,12 @@ export class AuthService {
     Logger.log(access_token, AuthService.name + ':githubSignIn');
     const uriToken = `${this.localUri}/api/auth/github/token`;
     try {
-      const res =  await this.httpService
+      const res = await this.httpService
         .post(uriToken, { access_token })
         .toPromise();
       return res.data;
     } catch (error) {
-      const newError = new HttpException(error.response.data,error.response.status);
+      const newError = new HttpException(error.response.data, error.response.status);
       Logger.error(stringify(newError), undefined, AuthService.name + ':githubSignIn');
       throw newError;
     }
@@ -128,16 +133,35 @@ export class AuthService {
     Logger.log(`User token: ${token}, oauth token: ${oauthToken}`, AuthService.name + ':githubBind');
     const uriToken = `${this.localUri}/api/bind/github/token`;
     try {
+      console.log({ 'Content-Type': 'application/json', 'Authorization': this.tokenService.addHeaderPrefix(token) });
       const res = await this.httpService
-        .post(uriToken, stringify({ oauthToken }), {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': this.tokenService.addHeaderPrefix(token) },
+        .post(uriToken, { access_token: oauthToken }, {
+          headers: { 'Content-Type': 'application/json', 'Authorization': this.tokenService.addHeaderPrefix(token) },
         })
         .toPromise();
       return res.data;
     } catch (error) {
-      const newError = new HttpException(error.response.data,error.response.status);
+      console.log(error);
+      const newError = new HttpException(error.response.data, error.response.status);
       Logger.error(stringify(newError), undefined, AuthService.name + ':githubBind');
       throw newError;
     }
+  }
+
+  async joinAfterGithubBind(githubTokenDto: GithubTokenDto, user: User, profile: Profile) {
+    Logger.log(`User ${user.id} try to bind ${profile.id}`, AuthService.name + ':joinAfterGithubBind');
+    const newOauthTokensAccesstoken = new OauthTokensAccesstoken();
+    newOauthTokensAccesstoken.user = user;
+    newOauthTokensAccesstoken.providerClientId = `${profile.id}`;
+    newOauthTokensAccesstoken.provider = 'github';
+    newOauthTokensAccesstoken.accessToken = githubTokenDto.access_token;
+    await this.oauthTokensService.create({
+      item: newOauthTokensAccesstoken,
+    });
+  }
+
+  async oauthList(user: User): Promise<OauthTokensAccesstoken[]> {
+    Logger.log(`${user.id} query bound oauth account list`, AuthService.name + ':oauthList');
+    return await this.oauthTokensService.findAllByUserId(user);
   }
 }

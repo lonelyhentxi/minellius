@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OauthTokensAccesstoken } from '../entities/oauth-tokens-accesstoken.entity';
+import { User } from '../../role/entities';
 
 @Injectable()
 export class OauthTokensAccesstokensService {
@@ -62,6 +63,14 @@ export class OauthTokensAccesstokensService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async findAllByUserId(user: User): Promise<OauthTokensAccesstoken[]> {
+    return await this.repository.find({
+      where: {
+        user,
+      },
+    });
   }
 
   async findAll(options: { curPage: number; perPage: number; q?: string; sort?: string }) {

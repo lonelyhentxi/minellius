@@ -148,7 +148,9 @@
       }
     },
     "CONTROL": {
-      "NAME": "Control Panel"
+      "NAME": "Control Panel",
+      "CHANGE": "Change Settings",
+      "LASTLOG": "last login"
     },
     "HELPER": {
       "NAME": "Help & Feedback"
@@ -178,10 +180,17 @@
     "EVENT": "event",
     "PERIOD": "period",
     "USERNAME": "username",
-    "SUCCESS": "success"
+    "SUCCESS": "success",
+    "CONFIRM": "confirm",
+    "DIFFERENT": "different",
+    "CAPTCHA": "captcha",
+    "CHANGE": "change",
+    "GROUP": "group",
+    "BOUND": "bound",
+    "NOT": "not"
   },
   "VALIDATE": {
-    "REQUIRED": "Please input your "
+    "REQUIRED": "Please input "
   },
   "ERROR": {
     "CLIENT_OR_NETWORK": "client or network error: ",
