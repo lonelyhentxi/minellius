@@ -1,3 +1,16 @@
-<p>
-  helper works!
-</p>
+<div class="helper">
+  <nz-card [nzHoverable]="false" [nzCover]="coverTemplate">
+    <div class="helper-content" [innerHTML]="sanitizer.bypassSecurityTrustHtml(content)">
+    </div>
+    <p class="helper-footer">
+      <br>
+      <a (click)="openOurRepo()">https://github.com/lonelyhentai/minellius</a><br>
+      {{version}}
+    </p>
+  </nz-card>
+  <ng-template #coverTemplate>
+    <img alt="helper-logo" src="assets/img/minellius.png" height="280" width="540">
+  </ng-template>
+</div>
+
+

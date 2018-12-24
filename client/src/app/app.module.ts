@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import '../polyfills';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -54,6 +54,8 @@ import {JwtModule} from '@auth0/angular-jwt';
 import { DebounceClickDirective } from './directives/debounce-click.directive';
 import {AuthGuard} from './guards/auth.guard';
 import { VideoComponent } from './components/video/video.component';
+import { TranslateButtonComponent } from './components/translate-button/translate-button.component';
+import {CustomTranslateService} from './providers/custom-translate.service';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
@@ -95,6 +97,7 @@ export function tokenGetter() {
     CurrentUserFollowerComponent,
     DebounceClickDirective,
     VideoComponent,
+    TranslateButtonComponent,
   ],
   imports: [
     HttpClientModule,
@@ -132,6 +135,7 @@ export function tokenGetter() {
     UserService,
     AuthGuard,
     NzModalService,
+    CustomTranslateService,
   ],
   bootstrap: [AppComponent]
 })

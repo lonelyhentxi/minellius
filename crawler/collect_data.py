@@ -12,13 +12,16 @@ import psycopg2
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-LOGGER_PATH = os.path.join(os.getcwd(), 'log', 'log.txt')
+
+def LOGGER_PATH():
+    now = datetime.datetime.now()
+    return os.path.join(os.getcwd(), 'log', f'log-{now.year}-{now.month}-{now.day}.txt')
 
 
-def common_log(href: str):
-    print(href)
-    with open(LOGGER_PATH, 'a', encoding='utf-8') as f:
-        f.write(f"{href}\n")
+def common_log(info: str):
+    print(info)
+    with open(LOGGER_PATH(), 'a', encoding='utf-8') as f:
+        f.write(f"{info}\n")
 
 
 def crawler(href, dic, val):
@@ -29,7 +32,7 @@ def crawler(href, dic, val):
     # print(num)
     # num = re.findall('(\d+)', text)[0]
     dic[val] = num
-    with open(LOGGER_PATH, 'a', encoding='utf-8') as f:
+    with open(LOGGER_PATH(), 'a', encoding='utf-8') as f:
         f.write(f"{val} : {str(num)}\n")
     time.sleep(7)
 
@@ -53,7 +56,7 @@ def main():
 
             time.sleep(7)
         country_dic[coun[0]] = number
-        with open(LOGGER_PATH, 'a', encoding='utf-8') as f:
+        with open(LOGGER_PATH(), 'a', encoding='utf-8') as f:
             f.write(f"{coun} : {str(number)}\n")
         # print(country_dic[coun[0]])
 
@@ -190,7 +193,6 @@ def main():
         href = 'https://api.github.com/search/users?q=followers:%s' % (
             urllib.parse.quote(followers))
         crawler(href, followers_dic, followers)
-
     all_info = [country_dic, create_time, pushed_time, repo_lang_dic, license_dic, user_lang_dic,
                 forks_dic, star_dic, size_dic, comments_dic, repos_dic, followers_dic]
     keyword = ['country_dic', 'create_time', 'pushed_time', 'repo_lang_dic', 'license_dic',
@@ -203,8 +205,9 @@ def main():
         database='minellius'
     )
     cursor = connect.cursor()
+    common_log('drop old table')
     cursor.execute("DROP TABLE IF EXISTS public.current")
-
+    common_log('create new table')
     sql = """CREATE TABLE public.current
 	(
 		id serial PRIMARY KEY NOT NULL,
@@ -214,17 +217,19 @@ def main():
 	CREATE UNIQUE INDEX current_keyword_uindex ON public.current (keyword);"""
     cursor.execute(sql)
     for i in range(len(keyword)):
-        dic = str(all_info[i])
-        sql = "INSERT INTO current(keyword, dict) \
-			   VALUES (%s,%s);" % \
-              (i, keyword[i], dic)
+        dic = json.dumps(all_info[i])
+        k = str(keyword[i])
+        sql = f"""INSERT INTO current(keyword, dict)
+			   VALUES ('{k}','{dic}');"""
+        common_log(f"insert {k}")
         try:
             # 执行sql语句
             cursor.execute(sql)
             # 执行sql语句
             connect.commit()
-        except:
+        except Exception as e:
             # 发生错误时回滚
+            common_log(str(e))
             connect.rollback()
     connect.close()
 

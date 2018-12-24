@@ -159,7 +159,8 @@
       "LASTLOG": "last login"
     },
     "HELPER": {
-      "NAME": "Help & Feedback"
+      "NAME": "Help & Feedback",
+      "CONTENT": "Minellius is an experimental GITHUB data solution that combines data collection, persistence, integration, analysis, visualization, real-time monitoring, trend tracking and convenience to deliver new, comprehensive services. <br>\n      Minellius aims to help users understand the history, current, trend, ups and downs of the open source world, enhance the sense of the times and the cultural aesthetics of the community; adjust the path of developers' learning and self-improvement to better integrate and participate in the development of community resources and culture. Construction. <br>\n    The initial participants were: Zhou Yiheng, Lin Jintao, Cao Yu, Fang An, Cui Tianyu. <br>\n    The early stage of development is a private warehouse, which will be publicly released under the MIT license."
     }
   },
   "COMMON": {
