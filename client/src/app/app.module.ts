@@ -19,7 +19,7 @@ import {WebviewDirective} from './directives/webview.directive';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgZorroAntdModule, NZ_I18N, NZ_MESSAGE_CONFIG, zh_CN} from 'ng-zorro-antd';
+import {NgZorroAntdModule, NZ_I18N, NZ_MESSAGE_CONFIG, NzModalComponent, NzModalService, zh_CN} from 'ng-zorro-antd';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import zhExtra from '@angular/common/locales/extra/zh';
@@ -53,6 +53,7 @@ import {UserService} from './providers/user.service';
 import {JwtModule} from '@auth0/angular-jwt';
 import { DebounceClickDirective } from './directives/debounce-click.directive';
 import {AuthGuard} from './guards/auth.guard';
+import { VideoComponent } from './components/video/video.component';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
@@ -93,6 +94,7 @@ export function tokenGetter() {
     CurrentUserRepoComponent,
     CurrentUserFollowerComponent,
     DebounceClickDirective,
+    VideoComponent,
   ],
   imports: [
     HttpClientModule,
@@ -129,6 +131,7 @@ export function tokenGetter() {
     ConfigService,
     UserService,
     AuthGuard,
+    NzModalService,
   ],
   bootstrap: [AppComponent]
 })

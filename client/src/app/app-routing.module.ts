@@ -22,11 +22,17 @@ import {CurrentIssueCommentComponent} from './components/current/current-issue-c
 import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
 import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
 import {AuthGuard} from './guards/auth.guard';
+import {VideoComponent} from './components/video/video.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'video',
+    component: VideoComponent,
     canActivate: [AuthGuard]
   },
   {

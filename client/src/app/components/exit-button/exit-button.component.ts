@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ElectronService} from '../../providers/electron.service';
 
 @Component({
   selector: 'app-exit-button',
@@ -7,12 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExitButtonComponent implements OnInit {
 
-  constructor() { }
+  showModal = false;
+
+  constructor(
+    private readonly electron: ElectronService
+  ) { }
 
   ngOnInit() {
   }
 
-  exitApp() {
+  beforeExitApp() {
+    this.showModal = true;
+  }
 
+  cancelExit() {
+    this.showModal = false;
+  }
+
+  exit() {
+    this.electron.remote.app.exit(0);
   }
 }

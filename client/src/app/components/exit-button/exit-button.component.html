@@ -1,3 +1,12 @@
-<div class="app-exit" (click)="exitApp()">
+<div class="app-exit" (click)="beforeExitApp()">
   <img src="/assets/img/app_exit.png" alt="app-exit">
 </div>
+<nz-modal [(nzVisible)]="showModal" nzTitle="<i>{{'COMMON.EXIT'|translate}}</i>"
+          [nzKeyboard]="false" [nzMaskClosable]="false"
+          nzContent="<b>{{'COMMON.CONFIRM'|translate}} {{'COMMON.EXIT'|translate}}?</b>"
+          nzOkText="{{'COMMON.CONFIRM'|translate}}"
+          nzCancelText="{{'COMMON.NOT'|translate}}" (nzOnOk)="exit()"
+          (nzOnCancel)="cancelExit()"
+>
+</nz-modal>
+

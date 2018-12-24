@@ -34,3 +34,7 @@ html, body {
 .function-content {
   margin-top: 18px;
 }
+
+.cdk-overlay-container {
+  -webkit-app-region: no-drag;
+}

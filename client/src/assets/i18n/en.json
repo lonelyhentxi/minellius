@@ -5,7 +5,7 @@
       "BUTTONS":{
         "SIGNIN":"sign in",
         "SIGNUP":"sign up",
-        "CONTACTUS":"contact us"
+        "CONTACTUS":"introduction"
       }
     },
     "LOG": {
@@ -21,6 +21,12 @@
       "TITLE": "Sign up to system",
       "PROMPT": "If you have no account, please register one. ",
       "TOLOGIN": "to log in"
+    },
+    "INTRO": {
+      "TITLE": "Introduction",
+      "CONTENT": "Watch introduction video? You can exit any time.",
+      "OK": "Watch",
+      "CANCER": "Skip"
     }
   },
   "LAYOUT":{
@@ -194,7 +200,8 @@
     "AUTH": "auth",
     "END": "end",
     "CURRENT": "current",
-    "LOGOUT": "logout"
+    "LOGOUT": "logout",
+    "EXIT": "exit"
   },
   "VALIDATE": {
     "REQUIRED": "Please input "

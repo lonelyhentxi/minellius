@@ -9,8 +9,14 @@
     <button nz-button [nzType]="'ghost'" (click)="routeTo('/log/sign-up')">
       {{"PAGES.HOME.BUTTONS.SIGNUP"|translate}}
     </button>
-    <button nz-button [nzType]="'ghost'" (click)="routeTo('/layout')">
+    <button nz-button [nzType]="'ghost'" (click)="showVideo()">
       {{"PAGES.HOME.BUTTONS.CONTACTUS"|translate}}
     </button>
   </div>
+  <nz-modal [(nzVisible)]="showModal" nzTitle="{{'PAGES.INTRO.TITLE'|translate}}"
+            nzOkText="{{'PAGES.INTRO.OK'|translate}}" nzContent="{{'PAGES.INTRO.CONTENT'|translate}}"
+            nzCancelText="{{'PAGES.INTRO.CANCEL'|translate}}" (nzOnOk)="showVideo()"
+            (nzOnCancel)="onVideoExit()" [nzKeyboard]="false" [nzMaskClosable]="false"
+  >
+  </nz-modal>
 </div>

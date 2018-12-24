@@ -3,6 +3,7 @@ import {ElectronService} from './providers/electron.service';
 import {TranslateService} from '@ngx-translate/core';
 import {AppConfig} from '../environments/environment';
 import {slideInAnimation} from './animations/slide-in.animation';
+import {isNil} from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,12 @@ import {slideInAnimation} from './animations/slide-in.animation';
   animations: [slideInAnimation]
 })
 export class AppComponent {
+
+
+
   constructor(public electronService: ElectronService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+  ) {
 
     translate.setDefaultLang('zh-cn');
     console.log('AppConfig', AppConfig);
@@ -25,4 +30,6 @@ export class AppComponent {
       console.log('Mode web');
     }
   }
+
+
 }
