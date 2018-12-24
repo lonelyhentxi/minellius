@@ -2,14 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../providers/user.service';
 import {UserDto} from '../../dtos/user.dto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import * as dayjs from 'dayjs';
-import {OauthTokensAccesstoken} from '../../dtos/oauth-access-token.dto';
 import {TranslateService} from '@ngx-translate/core';
 import {ElectronService} from '../../providers/electron.service';
-import {RedirectUriDto} from '../../dtos/redirect-uri.dto';
-import * as urlParse from 'url-parse';
-import {NzMessageService} from 'ng-zorro-antd';
+import {isNotNil, NzMessageService} from 'ng-zorro-antd';
 import {errorPrompt} from '../../functools/error-prompt.functool';
+import {UnbindDto} from '../../dtos/unbind.dto';
+import {InAccountDto} from '../../dtos/in-account.dto';
+import {HttpErrorResponse} from '@angular/common/http';
+import {equalPipe, pipeBuild} from '../../functools/option-pipe-builder.functool';
+import {debounceTime} from 'rxjs/operators';
+import {Observable, of, Subject, Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-control',
@@ -19,11 +22,9 @@ import {errorPrompt} from '../../functools/error-prompt.functool';
 export class ControlComponent implements OnInit {
 
   user: UserDto;
-  github: OauthTokensAccesstoken;
   validateForm: FormGroup;
   currentEditIndex: number;
-  uri: string;
-  bind: boolean;
+  githubId: string;
 
   constructor(
     private readonly userService: UserService,
@@ -31,49 +32,92 @@ export class ControlComponent implements OnInit {
     private readonly translator: TranslateService,
     private readonly electron: ElectronService,
     private readonly messageService: NzMessageService,
+    private readonly router: Router,
   ) {
     this.user = this.userService.user;
     this.currentEditIndex = 0;
-    this.refreshGithub();
-    this.bind = false;
   }
 
-  githubText() {
-    if (this.github) {
-      return this.translator.instant('COMMON.BOUND') + ' ' + this.userService.github.providerClientId;
+  get githubText() {
+    if (this.githubId) {
+      return this.translator.instant('COMMON.BOUND') + ' ' + this.githubId;
     } else {
       return ['COMMON.NOT', 'COMMON.BOUND'].map((word) => this.translator.instant(word))
         .join(this.translator.instant('COMMON.WORDSEP'));
     }
   }
 
-  ngOnInit() {
-    this.validateForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required, Validators.maxLength(254)]],
-      password: [null, [Validators.required, Validators.maxLength(128)]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator, Validators.maxLength(128)]],
-      username: [null, [Validators.required, Validators.maxLength(150)]],
-      captcha: [null, [Validators.required, Validators.maxLength(6), Validators.minLength(6)]]
-    });
+  get isBindGithub() {
+    return isNotNil(this.githubId);
   }
 
-  dayjs(time) {
-    return dayjs(time);
+  async ngOnInit() {
+    await this.refreshGithub();
+    this.validateForm = this.fb.group({
+      email: [null, [Validators.email, Validators.required, Validators.maxLength(254)]],
+      currentPassword: [null, [Validators.required, Validators.maxLength(128)]],
+      password: [null, [Validators.required, Validators.maxLength(128)]],
+      checkPassword: [null, [this.confirmationValidator]],
+      username: [null, [Validators.required, Validators.maxLength(150)]],
+    });
   }
 
   get groupNames() {
     return this.user.groups.map((group) => group.name).join(' | ');
   }
 
-  submitForm(): void {
+  submitSpecErrorPrompt(error: HttpErrorResponse): string {
+    if (error.status === 401) {
+      return this.translator.instant('ERROR.UPDATE.UNAUTH');
+    }
+    if (error.status === 409) {
+      const emailExisted: boolean = error.message.toString().split(/\s+/g)
+        .map(sub => sub.trim())
+        .filter(sub => sub !== '' && sub.match(/["']/)).some(sub => 'email' === sub);
+      return [this.translator.instant('ERROR.SIGNUP.CONFLICT'),
+        this.translator.instant(emailExisted ? 'COMMON.EMAIL' : 'COMMON.USERNAME')]
+        .join(this.translator.instant('COMMON.WORDSEP'));
+    } else if (error.status === 400) {
+      return this.translator.instant('ERROR.SIGNUP.FORMAT');
+    } else {
+      return errorPrompt(this.translator, error);
+    }
+  }
+
+  submitForm() {
     for (const control of Object.values(this.validateForm.controls)) {
       control.markAsDirty();
       control.updateValueAndValidity();
     }
+    const me = this;
+    const accountUpdate = this.validateForm.getRawValue() as InAccountDto;
+    this.userService.updateAccount(
+      pipeBuild({
+          currentPassword: '' + accountUpdate.currentPassword,
+          password: '' + accountUpdate.password
+        },
+        equalPipe('email', me.user.email !== accountUpdate.email ? '' + accountUpdate.email : undefined),
+        equalPipe('username', me.user.username !== accountUpdate.username ? '' + accountUpdate.username : undefined),
+      )).toPromise()
+      .then(() => {
+        me.refreshUserInfo();
+        me.messageService.success(['COMMON.CHANGE', 'COMMON.SUCCESS']
+          .map(val => me.translator.instant(val))
+          .join(me.translator.instant('COMMON.WORDSEP'))
+        );
+      })
+      .catch((err) => {
+        me.messageService.warning(
+          me.submitSpecErrorPrompt(err)
+        );
+      });
+  }
+
+  refreshUserInfo() {
+    this.user = this.userService.user;
   }
 
   updateConfirmValidator(): void {
-    /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
   }
 
@@ -85,10 +129,6 @@ export class ControlComponent implements OnInit {
     }
   };
 
-  getCaptcha(e: MouseEvent): void {
-    e.preventDefault();
-  }
-
   triggerCurrent(currentIndex: number) {
     if (this.currentEditIndex === currentIndex) {
       this.currentEditIndex = 0;
@@ -97,74 +137,62 @@ export class ControlComponent implements OnInit {
     }
   }
 
-  githubBindStart() {
+  toBindGithub() {
     const me = this;
-    const subscription = this.userService.getGithubUri().subscribe((uri) => {
-      this.triggerCurrent(2);
-      me.githubBindWaitAuth(uri);
-      subscription.unsubscribe();
-    }, () => subscription.unsubscribe());
+    (async () => {
+      try {
+        const code = await me.userService.waitGithubAuth();
+        if (code) {
+          await me.userService.bindGithub({code}).toPromise();
+          me.messageService.success(['COMMON.BOUND', 'COMMON.SUCCESS']
+            .map((val) => me.translator.instant(val))
+            .join(me.translator.instant('COMMON.WORDSEP')));
+          await me.refreshGithub();
+        } else {
+          me.messageService.warning(['COMMON.NOT', 'COMMON.BOUND']
+            .map(word => me.translator.instant(word)).join(me.translator.instant('COMMON.WORDSEP')));
+        }
+      } catch (e) {
+        me.messageService.warning(errorPrompt(me.translator, e));
+      }
+    })().then(() => {
+    });
   }
 
-  githubBindWaitAuth(uri: RedirectUriDto) {
+  unbind(unbind: UnbindDto) {
     const me = this;
-    const win = new this.electron.remote.BrowserWindow({
-      height: 810,
-      useContentSize: false,
-      resizable: false,
-      opacity: 1,
-      frame: true,
-      transparent: false,
-      maximizable: false,
-      minimizable: false,
-      fullscreenable: false,
-      alwaysOnTop: true,
-      autoHideMenuBar: false,
-    });
-    const filters = {
-      urls: ['*://minellius.evernightfireworks.com']
-    };
-    win.webContents.session.webRequest.onBeforeRedirect(filters, details => {
-      me.uri = details.redirectURL;
-      me.bind = true;
-      win.close();
-    });
-    win.once('close', () => {
-      win.destroy();
-      if (me.bind) {
-        me.bindGithub(this.uri);
+    (async () => {
+      try {
+        await me.userService.unbind(unbind);
+        me.messageService.success(['COMMON.CANCEL', 'COMMON.SUCCESS']
+          .map((val) => me.translator.instant(val))
+          .join(me.translator.instant('COMMON.WORDSEP')));
+        await me.refreshGithub();
+      } catch (e) {
+        me.messageService.warning(errorPrompt(me.translator, e));
       }
+    })().then(() => {
     });
-    win.loadURL(uri.redirect_uri);
-    win.show();
-    win.center();
-    win.focus();
   }
 
   refreshGithub() {
     const me = this;
-    const subscription = this.userService.getOauthAccounts().subscribe(() => {
-      me.github = me.userService.github;
-      subscription.unsubscribe();
-    }, err => {
-      me.messageService.warning(errorPrompt(me.translator, err));
-      subscription.unsubscribe();
-    });
+    this.userService.getGithubAccount().toPromise().then((account) => {
+      if (account) {
+        this.githubId = account.providerClientId;
+      } else {
+        this.githubId = undefined;
+      }
+    }, (e) => me.messageService.warning(errorPrompt(this.translator, e)));
   }
 
-  bindGithub(uri: string) {
-    const url = urlParse(uri, true);
+  logout(event) {
+    this.userService.logout();
     const me = this;
-    const subscription = this.userService.bindGithub({code: url.query['code']})
-      .subscribe(() => {
-        me.refreshGithub();
-        me.messageService.success(['COMMON.BOUND', 'COMMON.SUCCESS']
-          .map((val) => me.translator.instant(val))
-          .join(me.translator.instant('COMMON.WORDSEP')));
-        subscription.unsubscribe();
-      }, (err) => {
-        me.messageService.warning(errorPrompt(me.translator, err));
-        subscription.unsubscribe();
-      });
+    this.messageService.success(['COMMON.LOGOUT', 'COMMON.SUCCESS']
+      .map(val => me.translator.instant(val))
+      .join(me.translator.instant('COMMON.WORDSEP'))
+    );
+    this.router.navigateByUrl('/');
   }
 }

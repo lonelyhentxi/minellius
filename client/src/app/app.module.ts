@@ -29,7 +29,6 @@ import {ExitButtonComponent} from './components/exit-button/exit-button.componen
 import {LayoutLogoComponent} from './components/layout-logo/layout-logo.component';
 import {LogInComponent} from './components/log/log-in/log-in.component';
 import {SignUpComponent} from './components/log/sign-up/sign-up.component';
-import {BriefComponent} from './components/brief/brief.component';
 import {ControlComponent} from './components/control/control.component';
 import {HelperComponent} from './components/helper/helper.component';
 import {PeriodComponent} from './components/period/period.component';
@@ -52,6 +51,8 @@ import {CurrentUserFollowerComponent} from './components/current/current-user-fo
 import {ConfigService} from './providers/config.service';
 import {UserService} from './providers/user.service';
 import {JwtModule} from '@auth0/angular-jwt';
+import { DebounceClickDirective } from './directives/debounce-click.directive';
+import {AuthGuard} from './guards/auth.guard';
 
 registerLocaleData(zh, 'zh', zhExtra);
 
@@ -75,7 +76,6 @@ export function tokenGetter() {
     LayoutLogoComponent,
     LogInComponent,
     SignUpComponent,
-    BriefComponent,
     ControlComponent,
     HelperComponent,
     PeriodComponent,
@@ -92,6 +92,7 @@ export function tokenGetter() {
     CurrentIssueCommentComponent,
     CurrentUserRepoComponent,
     CurrentUserFollowerComponent,
+    DebounceClickDirective,
   ],
   imports: [
     HttpClientModule,
@@ -127,6 +128,7 @@ export function tokenGetter() {
     PeriodService,
     ConfigService,
     UserService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

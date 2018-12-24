@@ -31,15 +31,17 @@ export class OauthTokensAccesstokensService {
     }
   }
 
-  async delete(options: { id: number }) {
-    try {
-      let item = await this.repository.findOneOrFail(options.id);
-      item = await this.repository.save(item);
-      await this.repository.delete(options.id);
-      return { oauthTokensAccesstoken: null };
-    } catch (error) {
-      throw error;
-    }
+  async deleteById(options: { id: number }) {
+    let item = await this.repository.findOneOrFail(options.id);
+    item = await this.repository.save(item);
+    await this.repository.delete(options.id);
+    return { oauthTokensAccesstoken: null };
+  }
+
+  async deleteByUserAndProvider(user: User, provider: string) {
+    return await this.repository.delete({
+      user, provider,
+    });
   }
 
   async findByProviderAndClientId(options: { id: number, provider: string }) {

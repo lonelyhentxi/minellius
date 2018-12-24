@@ -11,24 +11,28 @@ import {isNil} from 'lodash';
 import {OauthTokensAccesstoken} from '../dtos/oauth-access-token.dto';
 import {RedirectUriDto} from '../dtos/redirect-uri.dto';
 import {GithubSignInDto} from '../dtos/github-signIn.dto';
+import {ElectronService} from './electron.service';
+import * as urlParse from 'url-parse';
+import {UnbindDto} from '../dtos/unbind.dto';
+import {InAccountDto} from '../dtos/in-account.dto';
+import {OutAccountDto} from '../dtos/out-account.dto';
 
 @Injectable()
 export class UserService {
 
   private _user: UserDto;
   private _token: string;
-  private _oauth: OauthTokensAccesstoken[];
 
   constructor(
     private readonly httpClient: HttpClient,
     private readonly configService: ConfigService,
+    private readonly electron: ElectronService,
   ) {
   }
 
   private tokenStoragePath = 'access_token';
   private rememberPath = 'user_remember';
   private userPath = 'user';
-  private oauthPath = 'oauth';
 
   set token(token: string) {
     this._token = token;
@@ -78,30 +82,6 @@ export class UserService {
     }
   }
 
-  set oauth(oauth: OauthTokensAccesstoken[]) {
-    this._oauth = oauth;
-    if (isNil(oauth)) {
-      localStorage.removeItem(this.oauthPath);
-    } else {
-      localStorage.setItem(this.oauthPath, JSON.stringify(oauth));
-    }
-  }
-
-  get oauth(): OauthTokensAccesstoken[] {
-    if (this._oauth) {
-      return this._oauth;
-    } else {
-      const oauthStr = localStorage.getItem(this.oauthPath);
-      if (oauthStr) {
-        const oauth = JSON.parse(oauthStr);
-        this._oauth = oauth;
-        return oauth;
-      } else {
-        return undefined;
-      }
-    }
-  }
-
   logout() {
     this.token = null;
     this.user = null;
@@ -116,7 +96,7 @@ export class UserService {
   }
 
   get loggedIn(): boolean {
-    return isNil(this.user);
+    return !isNil(this.user);
   }
 
   logIn(signIn: SignInDto, remember: boolean) {
@@ -143,17 +123,13 @@ export class UserService {
       .post(this.configService.getUrl(this.configService.getRoute().signUp), signUp));
   }
 
-  get github(): OauthTokensAccesstoken {
-    return this.oauth.find(oauth => oauth.provider === 'github');
+  getOauthAccounts(): Observable<OauthTokensAccesstoken[]> {
+    return (<Observable<OauthTokensAccesstoken[]>>this.httpClient.get(
+      this.configService.getUrl(this.configService.getRoute().oauthAccounts)));
   }
 
-  getOauthAccounts(): Observable<OauthTokensAccesstoken[]> {
-    const me = this;
-    return (<Observable<OauthTokensAccesstoken[]>>this.httpClient.get(
-      this.configService.getUrl(this.configService.getRoute().oauthAccounts)))
-      .pipe(tap(res => {
-        me.oauth = res;
-      }));
+  getGithubAccount(): Observable<OauthTokensAccesstoken | undefined> {
+    return this.getOauthAccounts().pipe(map(accounts => accounts.find(account => account.provider === 'github')));
   }
 
   getGithubUri(): Observable<RedirectUriDto> {
@@ -164,5 +140,84 @@ export class UserService {
   bindGithub(signInDto: GithubSignInDto): Observable<UserTokenDto> {
     return this.httpClient.post(
       this.configService.getUrl(this.configService.getRoute().githubBind), signInDto) as Observable<UserTokenDto>;
+  }
+
+  loginGithub(signInDto: GithubSignInDto): Observable<UserTokenDto> {
+    return (this.httpClient.post(
+      this.configService.getUrl(this.configService.getRoute().githubSignIn), signInDto) as Observable<UserTokenDto>)
+      .pipe(
+        tap((userToken) => {
+          this.user = userToken.user;
+          this.token = userToken.token;
+        })
+      );
+  }
+
+  async waitGithubAuth(): Promise<string | undefined> {
+    const me = this;
+    return await new Promise((resolve, reject) => {
+      let url: string;
+      let bind = false;
+      const win = new me.electron.remote.BrowserWindow({
+        height: 820,
+        useContentSize: false,
+        resizable: false,
+        opacity: 1,
+        frame: true,
+        transparent: false,
+        maximizable: false,
+        minimizable: false,
+        fullscreenable: false,
+        alwaysOnTop: true,
+        autoHideMenuBar: false,
+      });
+      const filters = {
+        urls: ['https://minellius.evernightfireworks.com/','https://github.com']
+      };
+      this.getGithubUri().toPromise().then((uri) => {
+        win.webContents.session.clearStorageData({origin:'https://github.com'}, () => {
+          win.webContents.session.clearCache(() => {
+            win.webContents.session.webRequest.onBeforeRedirect(filters, details => {
+              url = details.redirectURL;
+              if(url.startsWith(filters.urls[0])) {
+                bind = true;
+                win.close();
+              } else {
+                win.loadURL(url);
+              }
+            });
+            win.once('close', () => {
+              win.destroy();
+              if (bind) {
+                resolve(me.extractCodeFromUrl(url));
+              } else {
+                resolve(undefined);
+              }
+            });
+            win.show();
+            win.loadURL(uri.redirect_uri);
+          });
+        });
+      }, (err) => reject(err));
+    }) as Promise<string | undefined>;
+  }
+
+  extractCodeFromUrl(url: string): string {
+    const parsedUrl = urlParse(url, true);
+    return parsedUrl.query['code'];
+  }
+
+  async unbind(unbind: UnbindDto): Promise<void> {
+    (await this.httpClient.post(this.configService.getUrl(this.configService.getRoute().unbind), unbind).toPromise());
+  }
+
+  updateAccount(update: InAccountDto): Observable<OutAccountDto> {
+    const me = this;
+    return (this.httpClient.post(
+      this.configService.getUrl(this.configService.getRoute().accountUpdate),
+      update) as Observable<OutAccountDto>)
+      .pipe(tap(outAccount => {
+        me.user = outAccount.user;
+      }));
   }
 }

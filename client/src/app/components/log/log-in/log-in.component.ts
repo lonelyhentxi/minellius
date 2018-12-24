@@ -6,6 +6,7 @@ import {UserService} from '../../../providers/user.service';
 import {TranslateService} from '@ngx-translate/core';
 import {errorPrompt} from '../../../functools/error-prompt.functool';
 import {HttpErrorResponse} from '@angular/common/http';
+import {SignInDto} from '../../../dtos/sign-in.dto';
 
 @Component({
   selector: 'app-log-in',
@@ -31,7 +32,7 @@ export class LogInComponent implements OnInit {
     } else if (error.status === 400) {
       return this.translator.instant('ERROR.LOGIN.INVALID');
     } else {
-      return errorPrompt(this.translator,error);
+      return errorPrompt(this.translator, error);
     }
   }
 
@@ -41,7 +42,11 @@ export class LogInComponent implements OnInit {
       control.updateValueAndValidity();
     }
     const me = this;
-    const subscription = this.userService.logIn(this.validateForm.getRawValue(),
+    const form = this.validateForm.getRawValue() as SignInDto;
+    const subscription = this.userService.logIn({
+        email: '' + form.email,
+        password: '' + form.password,
+      },
       (<{ remember: boolean }>this.validateForm.getRawValue()).remember)
       .subscribe(() => {
         me.messageService.success(
@@ -57,9 +62,41 @@ export class LogInComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.formBuilder.group({
-      email: ['lonely_hentai@hotmail.com', [Validators.required, Validators.maxLength(254)]],
-      password: ['lonelyhentai', [Validators.required, Validators.maxLength(128)]],
+      email: [null, [Validators.required, Validators.maxLength(254)]],
+      password: [null, [Validators.required, Validators.maxLength(128)]],
       remember: [false]
+    });
+  }
+
+  loginWithGithubSpecErrorPrompt(error): string {
+    if (error.status === 404) {
+      return ['COMMON.NOT','COMMON.USER', 'COMMON.BOUND']
+        .map((val) => this.translator.instant(val))
+        .join(this.translator.instant('COMMON.WORDSEP'));
+    } else {
+      return errorPrompt(this.translator, error);
+    }
+  }
+
+  loginWithGithub(event): void {
+    const me = this;
+    (async () => {
+      try {
+        const code = await me.userService.waitGithubAuth();
+        if (code) {
+          await me.userService.loginGithub({code}).toPromise();
+          me.messageService.success(['COMMON.LOGIN', 'COMMON.SUCCESS']
+            .map((val) => me.translator.instant(val))
+            .join(me.translator.instant('COMMON.WORDSEP')));
+          me.router.navigateByUrl('/layout');
+        } else {
+          me.messageService.warning(['COMMON.NOT', 'COMMON.LOGIN']
+            .map(word => me.translator.instant(word)).join(me.translator.instant('COMMON.WORDSEP')));
+        }
+      } catch (e) {
+        me.messageService.warning(me.loginWithGithubSpecErrorPrompt(e));
+      }
+    })().then(() => {
     });
   }
 }

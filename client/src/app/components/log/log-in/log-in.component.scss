@@ -13,16 +13,16 @@
 
   .log-in-form-main {
     max-width: 300px;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 
   .log-in-form-forgot {
     float: right;
   }
 
-  .log-in-form-button {
-    width: 100%;
-  }
-
   -webkit-app-region: no-drag;
+}
+
+.log-in-form-button {
+  width: 300px;
 }

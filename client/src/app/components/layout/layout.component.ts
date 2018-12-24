@@ -13,12 +13,6 @@ export class LayoutComponent implements OnInit, OnDestroy, MenuComponentInterfac
 
   menuItems: { name: string, icon: string, path: string, selected: boolean }[] = [
     {
-      name: 'FUNCTION.BRIEF.NAME',
-      icon: 'home',
-      path: 'brief',
-      selected: false,
-    },
-    {
       name: 'FUNCTION.PERIOD.NAME',
       icon: 'line-chart',
       path: 'period',

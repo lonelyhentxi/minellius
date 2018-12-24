@@ -187,7 +187,14 @@
     "CHANGE": "修改",
     "GROUP": "组",
     "BOUND": "绑定",
-    "NOT": "未"
+    "NOT": "未",
+    "UNKNOWN": "未知错误",
+    "CANCEL": "解除",
+    "SETTING": "设置",
+    "AUTH": "认证",
+    "END": "结束",
+    "CURRENT": "当前",
+    "LOGOUT": "退出"
   },
   "VALIDATE": {
     "REQUIRED": "请输入正确的"
@@ -200,7 +207,12 @@
       "INVALID": "错误的用户名或密码"
     },
     "SIGNUP": {
-      "CONFLICT": "已存在的"
+      "CONFLICT": "已存在的",
+      "FORMAT": "错误的格式"
+    },
+    "UPDATE": {
+      "UNAUTH": "认证失败",
+      "FORMAT": "错误的格式"
     },
     "STATUSTEXT": {
       "Continue": "客户必须继续发出请求",

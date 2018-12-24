@@ -6,7 +6,11 @@ export function errorPrompt(translator: TranslateService,error: HttpErrorRespons
   if (error.error instanceof ErrorEvent) {
     message = `${translator.instant('ERROR.CLIENT_OR_NETWORK')}${translator.instant('ERROR.'+error.error.message)}`;
   } else {
-    message = `${translator.instant('ERROR.BACKEND')}${translator.instant('ERROR.STATUSTEXT.'+error.statusText)}`;
+    if(error.statusText) {
+      message = `${translator.instant('ERROR.BACKEND')}${translator.instant('ERROR.STATUSTEXT.'+error.statusText)}`;
+    } else {
+      message = translator.instant('COMMON.UNKNOWN');
+    }
   }
   return message;
 }

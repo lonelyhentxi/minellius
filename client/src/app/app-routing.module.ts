@@ -5,7 +5,6 @@ import {LogComponent} from './components/log/log.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {LogInComponent} from './components/log/log-in/log-in.component';
 import {SignUpComponent} from './components/log/sign-up/sign-up.component';
-import {BriefComponent} from './components/brief/brief.component';
 import {PeriodComponent} from './components/period/period.component';
 import {CurrentComponent} from './components/current/current.component';
 import {ControlComponent} from './components/control/control.component';
@@ -22,15 +21,18 @@ import {CurrentRepoLicenseComponent} from './components/current/current-repo-lic
 import {CurrentIssueCommentComponent} from './components/current/current-issue-comment/current-issue-comment.component';
 import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
 import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'log',
     component: LogComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'log-in',
@@ -45,15 +47,12 @@ const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
         redirectTo: 'current',
         pathMatch: 'full'
-      },
-      {
-        path: 'brief',
-        component: BriefComponent
       },
       {
         path: 'period',
@@ -157,7 +156,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     useHash: true,
-    enableTracing:true,
   })],
   exports: [RouterModule]
 })

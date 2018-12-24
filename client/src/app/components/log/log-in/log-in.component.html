@@ -27,13 +27,15 @@
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
-        <label nz-checkbox formControlName="remember">
+        <!--<label nz-checkbox formControlName="remember">
           <span>{{"COMMON.REMEMBER"|translate}}</span>
-        </label>
+        </label>-->
         <button nz-button class="log-in-form-button" [nzType]="'primary'">{{'COMMON.LOGIN'|translate}}</button>
       </nz-form-control>
     </nz-form-item>
   </form>
+  <button nz-button class="log-in-form-button" [nzType]="'ghost'" (click)="loginWithGithub($event)">
+    <i nz-icon type="github"></i>GITHUB {{'COMMON.LOGIN'|translate}}</button>
   <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
   <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
 </div>

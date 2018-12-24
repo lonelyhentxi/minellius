@@ -11,18 +11,15 @@ export class AccountService {
   }
 
   async update(options: { id: number; user: User }) {
-    try {
-      await this.usersService.assertUsernameAndEmail({
-        id: options.id,
-        email: options.user.email,
-        username: options.user.username,
-      });
-      let { user } = await this.usersService.findById(options);
-      user = plainToClassFromExist(user, options.user);
-      await user.setPassword(options.user.password);
-      return await this.usersService.update({ id: options.id, item: user });
-    } catch (error) {
-      throw error;
-    }
+    const { user } = await this.usersService.findById(options);
+    await this.usersService.assertUsernameAndEmail({
+      id: options.id,
+      email: options.user.email,
+      username: options.user.username,
+    });
+    await user.setPassword(options.user.password);
+    user.email = options.user.email?options.user.email:user.email;
+    user.username = options.user.username?options.user.username:user.username;
+    return await this.usersService.update({ id: options.id, item: user });
   }
 }

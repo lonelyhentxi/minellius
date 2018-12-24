@@ -15,6 +15,7 @@ import { OauthTokensAccesstokensService } from '../services/oauth-tokens-accesst
 import { OauthTokensAccesstoken } from '../entities/oauth-tokens-accesstoken.entity';
 import { GithubTokenDto } from '../dto/github-token.dto';
 import { Profile } from 'passport';
+import { UnbindDto } from '../dto/unbind.dto';
 
 @Injectable()
 export class AuthService {
@@ -103,9 +104,12 @@ export class AuthService {
       const res = await this.httpService
         .get(uri, { headers: { Accept: 'application/json' } })
         .toPromise();
+      if(!res.data) {
+        throw new Error("Auth timeout.");
+      }
       return res.data.access_token;
     } catch (error) {
-      const newError = new UnauthorizedException(error.response.data);
+      const newError = new UnauthorizedException(error.response?error.response.data:error);
       Logger.error(stringify(newError),
         undefined,
         AuthService.name + ':requestGithubToken',
@@ -133,15 +137,14 @@ export class AuthService {
     Logger.log(`User token: ${token}, oauth token: ${oauthToken}`, AuthService.name + ':githubBind');
     const uriToken = `${this.localUri}/api/bind/github/token`;
     try {
-      console.log({ 'Content-Type': 'application/json', 'Authorization': this.tokenService.addHeaderPrefix(token) });
       const res = await this.httpService
         .post(uriToken, { access_token: oauthToken }, {
           headers: { 'Content-Type': 'application/json', 'Authorization': this.tokenService.addHeaderPrefix(token) },
+          timeout: 20000,
         })
         .toPromise();
       return res.data;
     } catch (error) {
-      console.log(error);
       const newError = new HttpException(error.response.data, error.response.status);
       Logger.error(stringify(newError), undefined, AuthService.name + ':githubBind');
       throw newError;
@@ -163,5 +166,10 @@ export class AuthService {
   async oauthList(user: User): Promise<OauthTokensAccesstoken[]> {
     Logger.log(`${user.id} query bound oauth account list`, AuthService.name + ':oauthList');
     return await this.oauthTokensService.findAllByUserId(user);
+  }
+
+  async unbind(user: User, unbind: UnbindDto) {
+    Logger.log(`User ${user.id} try to unbind ${unbind.provider} account`,AuthService.name + ':unbind' );
+    return await this.oauthTokensService.deleteByUserAndProvider(user,unbind.provider);
   }
 }

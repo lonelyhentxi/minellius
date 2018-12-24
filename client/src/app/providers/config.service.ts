@@ -25,7 +25,10 @@ export class ConfigService {
     BIND: '/bind',
     TOKEN: '/token',
     URI: '/uri',
-    ACCOUNTS: '/accounts'
+    ACCOUNTS: '/accounts',
+    UNBIND: '/unbind',
+    ACCOUNT: '/account',
+    UPDATE: '/update'
   };
 
   private route = {
@@ -36,7 +39,9 @@ export class ConfigService {
     githubUri: this.config.SERVER_HOST + this.config.API_BASE + this.config.AUTH + this.config.GITHUB + this.config.URI,
     githubBind: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.GITHUB,
     githubSignIn: this.config.SERVER_HOST + this.config.API_BASE + this.config.AUTH + this.config.GITHUB + this.config.LOGIN,
-    oauthAccounts: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.ACCOUNTS
+    oauthAccounts: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.ACCOUNTS,
+    unbind: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.UNBIND,
+    accountUpdate: this.config.SERVER_HOST + this.config.API_BASE + this.config.ACCOUNT + this.config.UPDATE,
   };
 
   constructor() {

@@ -40,9 +40,11 @@ export class PeriodComponent implements OnInit, OnDestroy, MenuComponentInterfac
     private readonly menuService: MenuService,
     private readonly router: Router
   ) {
+    this.period = dayjs().toDate();
   }
 
   ngOnInit() {
+    this.dateChangeTriggerRoute(this.period);
     this.menuService.subscribeMenuItemAutoUpdate(this, this.route);
   }
 

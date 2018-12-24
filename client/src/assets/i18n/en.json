@@ -187,7 +187,14 @@
     "CHANGE": "change",
     "GROUP": "group",
     "BOUND": "bound",
-    "NOT": "not"
+    "NOT": "not",
+    "UNKNOWN": "unknown error",
+    "CANCEL": "cancel",
+    "SETTING": "setting",
+    "AUTH": "auth",
+    "END": "end",
+    "CURRENT": "current",
+    "LOGOUT": "logout"
   },
   "VALIDATE": {
     "REQUIRED": "Please input "
@@ -201,6 +208,9 @@
     },
     "SIGNUP": {
       "CONFLICT": "existed"
+    },
+    "UPDATE": {
+      "UNAUTH": "auth failed"
     },
     "STATUSTEXT": {
       "Continue":"Continue",

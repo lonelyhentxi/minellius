@@ -1,32 +1,44 @@
 <div class="control-panel">
   <div nz-row>
-    <div nz-col [nzSpan]="10">
+    <div nz-col [nzSpan]="10" class="control-panel-info">
       <nz-divider nzText="{{'COMMON.USER'|translate}}"></nz-divider>
       <p>
+        <i nz-icon type="user" theme="outline"></i>&nbsp;
+        <nz-tag>{{user.username}} <{{user.email}}>
+        </nz-tag>
         <button nz-button nzType="ghost" nzSize="small" nzShape="circle" (click)="triggerCurrent(1)">
           <i nz-icon [type]="'setting'"></i>
-        </button>&nbsp;&nbsp;{{user.username}} <{{user.email}}>
+        </button>
       </p>
       <ul>
         <li><b>id</b>:&nbsp;&nbsp;{{user.id}}</li>
         <li><b>{{'COMMON.EMAIL'|translate}}</b>:&nbsp;&nbsp;{{user.email}}</li>
         <li><b>{{'COMMON.USERNAME'|translate}}</b>:&nbsp;&nbsp;{{user.username}}</li>
         <li><b>{{"COMMON.GROUP"|translate}}</b>:&nbsp;&nbsp;{{groupNames}}</li>
-        <li><b>{{"FUNCTION.CONTROL.LASTLOG"|translate}}</b>:&nbsp;&nbsp;{{dayjs(user.lastLogin).format('YYYY-MM-DD hh:mm')}}</li>
       </ul>
       <nz-divider nzText="GITHUB">
       </nz-divider>
       <p>
-        <button [disabled]="!!github" nz-button nzType="ghost" nzSize="small" nzShape="circle" (click)="githubBindStart()">
+        <i nz-icon type="github" theme="outline"></i>&nbsp;
+        <nz-tag>
+          {{githubText}}</nz-tag>
+        <button nz-button nzType="ghost" nzSize="small" nzShape="circle"
+                (click)="triggerCurrent(2)">
           <i nz-icon [type]="'setting'"></i>
-        </button>&nbsp;&nbsp;{{githubText()}}
+        </button>
       </p>
+      <nz-divider nzText="{{'COMMON.END'|translate}}"></nz-divider>
+      <button nz-button [nzType]="'ghost'" (click)="logout($event)" style="width: 100%;">{{'COMMON.LOGOUT'|translate}}</button>
     </div>
     <div nz-col [nzSpan]="13" [nzOffset]="1">
+      <div *ngIf="currentEditIndex==0">
+        <div class="control-panel-default-card">
+          <i nz-icon type="setting"></i>
+        </div>
+      </div>
       <div *ngIf="currentEditIndex===1">
         <nz-card class="control-panel-card"
-                 [nzHoverable]="true" nzTitle="{{'FUNCTION.CONTROL.CHANGE'|translate}}">
-          <br>
+                 [nzHoverable]="true" nzTitle="{{'COMMON.CHANGE'|translate}} {{'COMMON.SETTING'|translate}}">
           <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
             <nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
@@ -48,6 +60,21 @@
                 <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors">
                   {{"VALIDATE.REQUIRED"|translate}}
                   {{"COMMON.USERNAME"|translate}}
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="current-password" nzRequired>
+                {{"COMMON.CURRENT"|translate}}
+                {{"COMMON.PASSWORD"|translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input type="password" id="current-password" formControlName="currentPassword"
+                       (ngModelChange)="updateConfirmValidator()">
+                <nz-form-explain *ngIf="validateForm.get('currentPassword').dirty && validateForm.get('currentPassword').errors">
+                  {{"VALIDATE.REQUIRED"|translate}}
+                  {{"COMMON.CURRENT"|translate}}
+                  {{"COMMON.PASSWORD"|translate}}
                 </nz-form-explain>
               </nz-form-control>
             </nz-form-item>
@@ -79,32 +106,22 @@
                 </nz-form-explain>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="captcha"
-                             nzRequired>{{"COMMON.EMAIL"|translate}} {{"COMMON.CAPTCHA"|translate}}</nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24">
-                <div nz-row [nzGutter]="8">
-                  <div nz-col [nzSpan]="12">
-                    <input nz-input formControlName="captcha" id="captcha">
-                  </div>
-                  <div nz-col [nzSpan]="12">
-                    <button nz-button
-                            (click)="getCaptcha($event)">{{"COMMON.EMAIL"|translate}} {{"COMMON.CAPTCHA"|translate}}</button>
-                  </div>
-                </div>
-                <nz-form-explain *ngIf="validateForm.get('captcha').dirty && validateForm.get('captcha').errors">
-                  {{"VALIDATE.REQUIRED"|translate}}
-                  {{"COMMON.EMAIL"|translate}} {{"COMMON.CAPTCHA"|translate}}
-                </nz-form-explain>
-              </nz-form-control>
-            </nz-form-item>
             <nz-form-item nz-row style="margin-bottom:8px;">
               <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                <button nz-button nzType="ghost">{{"COMMON.CHANGE"|translate}}</button>
+                <button nz-button nzType="primary" appDebounceClick (click)="submitForm()">{{"COMMON.CHANGE"|translate}}</button>
               </nz-form-control>
             </nz-form-item>
             <br>
           </form>
+        </nz-card>
+      </div>
+      <div *ngIf="currentEditIndex==2">
+        <nz-card class="control-panel-card" nzTitle="{{'COMMON.CHANGE'|translate}} {{'COMMON.BOUND'|translate}}"
+                 [nzHoverable]="true" (click)="unbind({provider:'github'})">
+          <button nz-button nzType="primary" [disabled]="isBindGithub"
+                  (click)="toBindGithub()">{{"COMMON.BOUND"|translate}}</button>
+          <br><br>
+          <button nz-button nzType="primary" [disabled]="!isBindGithub">{{"COMMON.CANCEL"|translate}}</button>
         </nz-card>
       </div>
     </div>

@@ -116,7 +116,7 @@ export class PeriodDetailComponent implements OnInit, OnDestroy {
     const snapshotData = this.route.snapshot.data;
     this.routeData$.next(snapshotData);
     this.period$.next(this.route.snapshot.queryParamMap);
-    this.sortTrigger$.next({key: 'period', value: 'descend'});
+    this.sortTrigger$.next({key: 'period', value: 'no'});
     this.searchTrigger$.next(undefined);
     this.filterTrigger$.next(undefined);
   }
