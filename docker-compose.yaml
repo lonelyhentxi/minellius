@@ -6,7 +6,7 @@ services:
     ports:
       - "6080:6080"
     environment:
-      - DEBUG="true"
-      - PROTOCOL="https"
-      - PORT="6080"
-      - DOMAIN="minellius.evernightfireworks.com"
+      - DEBUG=true
+      - PROTOCOL=https
+      - PORT=6080
+      - DOMAIN=minellius.evernightfireworks.com

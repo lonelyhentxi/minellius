@@ -48,7 +48,7 @@ import {CurrentRepoLicenseComponent} from './components/current/current-repo-lic
 import {CurrentIssueCommentComponent} from './components/current/current-issue-comment/current-issue-comment.component';
 import {CurrentUserRepoComponent} from './components/current/current-user-repo/current-user-repo.component';
 import {CurrentUserFollowerComponent} from './components/current/current-user-follower/current-user-follower.component';
-import {ConfigService} from './providers/config.service';
+import {ConfigService, NOW_HOST} from './providers/config.service';
 import {UserService} from './providers/user.service';
 import {JwtModule} from '@auth0/angular-jwt';
 import { DebounceClickDirective } from './directives/debounce-click.directive';
@@ -104,8 +104,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['127.0.0.1:6080'],
-        blacklistedRoutes: ['127.0.0.1:6080/api/auth']
+        whitelistedDomains: [NOW_HOST],
+        blacklistedRoutes: [NOW_HOST+'/api/auth']
       }
     }),
     BrowserModule,
