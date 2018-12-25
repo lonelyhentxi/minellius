@@ -19,7 +19,7 @@ export const customCoreConfig: ICoreConfig = {
 export const customDbConfig: IDbConfig = {
   username: 'minellius_test',
   password: 'minellius_password',
-  host: 'database.minellius',
+  host: '172.16.0.242',
   port: 5432,
   type: 'postgres',
   database: 'minellius',
