@@ -1,17 +1,16 @@
-https://minellius.evernightfireworks.com/oauth/githubimport { NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { CORE_CONFIG_TOKEN, ICoreConfig } from './core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { readFileSync } from "fs";
-import { customCoreConfig, customGithubConfig, customJwtConfig } from './config';
+import { CORE_CONFIG_TOKEN, ICoreConfig } from './core';
+import { appPipes, appFilters } from './role';
 import {
   appFilters as authAppFilters,
   defaultJwtConfig,
   IJwtConfig,
   JWT_CONFIG_TOKEN,
 } from './auth';
-import { appFilters } from './role/filters';
-import { appPipes } from './role/pipes';
+import { readFileSync } from 'fs';
+import { customCoreConfig, customGithubConfig, customJwtConfig } from './config';
 import { IGithubConfig } from './auth/interfaces/github-config.interface';
 import { defaultGithubConfig, GITHUB_CONFIG_TOKEN } from './auth/configs/github.config';
 

@@ -18,13 +18,13 @@ export const customCoreConfig: ICoreConfig = {
 
 export const customDbConfig: IDbConfig = {
   username: 'minellius_test',
-  password: 'minellius_test',
-  host: 'localhost',
+  password: 'minellius_password',
+  host: 'database.minellius',
   port: 5432,
   type: 'postgres',
   database: 'minellius',
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
 };
 

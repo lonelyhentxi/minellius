@@ -26,7 +26,7 @@ function createWindow() {
     minimizable: true,
     fullscreenable: false,
     webPreferences: {
-      devTools: false,
+      devTools: true,
       nodeIntegrationInWorker: true,
       nodeIntegration: true,
     }

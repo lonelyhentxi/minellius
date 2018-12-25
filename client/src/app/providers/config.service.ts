@@ -2,17 +2,17 @@ import {Injectable} from '@angular/core';
 
 const DEV_HOST = '127.0.0.1:6080';
 const DEBUG_HOST = '127.0.0.1:6081';
-const PROD_HOST = 'minellius.evernightfireworks.com';
+const PROD_HOST = 's2hw.evernightfireworks.com';
 const HTTPS = 'https://';
 const HTTP = 'http://';
 
-export const NOW_HOST = DEV_HOST;
+export const NOW_HOST = PROD_HOST;
 
 @Injectable()
 export class ConfigService {
 
   private config = {
-    PROTOCOL: HTTP,
+    PROTOCOL: HTTPS,
     SERVER_HOST: NOW_HOST,
     API_BASE: '/api',
     PERIOD_EVENT: '/period-events',
