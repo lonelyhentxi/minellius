@@ -54,6 +54,7 @@ async function bootstrap() {
     .setVersion(coreConfig.version)
     .setContactEmail(coreConfig.contact_email)
     .addBearerAuth('Authorization', 'header')
+    .setSchemes(coreConfig.protocol)
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(coreConfig.swagger_path, app, document);
