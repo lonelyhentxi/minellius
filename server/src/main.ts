@@ -9,26 +9,12 @@ import {
   IJwtConfig,
   JWT_CONFIG_TOKEN,
 } from './auth';
-import { readFileSync } from 'fs';
 import { customCoreConfig, customGithubConfig, customJwtConfig } from './config';
 import { IGithubConfig } from './auth/interfaces/github-config.interface';
 import { defaultGithubConfig, GITHUB_CONFIG_TOKEN } from './auth/configs/github.config';
 
 async function bootstrap() {
-  const packageBody = JSON.parse(readFileSync('./package.json', { encoding: 'utf-8' }));
-  const coreConfig: ICoreConfig = {
-    ...customCoreConfig,
-    debug: process.env.DEBUG === 'true',
-    protocol: process.env.PROTOCOL === 'https' ? 'https' : 'http',
-    port: process.env.PORT ? +process.env.PORT : customCoreConfig.port,
-    externalPort: process.env.EXTERNAL_PORT ? +process.env.EXTERNAL_PORT : undefined,
-    domain: process.env.DOMAIN? process.env.DOMAIN: 'localhost',
-    name: packageBody.name,
-    title: packageBody.name,
-    description: packageBody.description,
-    version: packageBody.version,
-    contact_email: packageBody.authors[0].email,
-  };
+  const coreConfig: ICoreConfig = customCoreConfig;
   const githubConfig: IGithubConfig = {
     ...defaultGithubConfig,
     ...customGithubConfig,

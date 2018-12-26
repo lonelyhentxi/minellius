@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Time      : 2018/12/14 20:05
+# @Time      : 2018/12/21 20:05
 # @Author    : cwh
 import os
 import urllib.error
@@ -15,7 +15,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 def LOGGER_PATH():
     now = datetime.datetime.now()
-    return os.path.join(os.getcwd(), 'log', f'log-{now.year}-{now.month}-{now.day}.txt')
+    return os.path.join(os.path.dirname(__file__), '..','log', f'log-{now.year}-{now.month}-{now.day}.txt')
 
 
 def common_log(info: str):
@@ -27,10 +27,7 @@ def common_log(info: str):
 def crawler(href, dic, val):
     common_log(href)
     text = requests.get(href).text
-    # print(text)
     num = json.loads(text)['total_count']
-    # print(num)
-    # num = re.findall('(\d+)', text)[0]
     dic[val] = num
     with open(LOGGER_PATH(), 'a', encoding='utf-8') as f:
         f.write(f"{val} : {str(num)}\n")
@@ -198,11 +195,11 @@ def main():
     keyword = ['country_dic', 'create_time', 'pushed_time', 'repo_lang_dic', 'license_dic',
                'user_lang_dic', 'forks_dic', 'star_dic', 'size_dic', 'comments_dic', 'repos_dic', 'followers_dic']
     connect = psycopg2.connect(
-        host='127.0.0.1',
+        host='',
         port=5432,
-        user='minellius_test',
-        password='minellius_test',
-        database='minellius'
+        user='',
+        password='',
+        database=''
     )
     cursor = connect.cursor()
     common_log('drop old table')

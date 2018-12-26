@@ -1,0 +1,20 @@
+containers:
+  - name: minellius-server
+    expectedRunning: true
+    # monitor mem with pm2, no need for limit here
+
+  - name: minellius-crawler
+    expectedRunning: true
+    maxMem: 20
+
+# If email settings are present and active, then email alerts will be sent when an alert
+# is triggered.
+emailSettings:
+  active: true
+  smtp: smtp.qq.com
+  password: password
+  port: 465
+  from: info@example.com
+  subject: "DOCKER_ALERTD"
+  to:
+    - admin@example.com
