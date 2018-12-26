@@ -1,16 +1,450 @@
 {
   "PAGES": {
-      "HOME": {
-          "SLOGAN": "一套实验性的 GITHUB 数据分析解决方案",
-        "BUTTONS":{
-          "SIGNIN":"欢迎使用",
-          "SIGNUP":"注册",
-          "CONTACTUS":"联系我们"
+    "HOME": {
+      "SLOGAN": "一套实验性的 GITHUB 数据分析解决方案",
+      "BUTTONS": {
+        "SIGNIN": "欢迎使用",
+        "SIGNUP": "注册",
+        "CONTACTUS": "新手指引"
+      }
+    },
+    "LOG": {
+      "SLOGAN_ROW1": "欢迎进入你的",
+      "SLOGAN_ROW2": "探索世界"
+    },
+    "LOGIN": {
+      "TITLE": "登入系统",
+      "PROMPT": "为改进体验，请输入您的信息以登录，或者注册一个账号。",
+      "TOSIGNUP": "去注册"
+    },
+    "SIGNUP": {
+      "TITLE": "注册账户",
+      "PROMPT": "如果您没有账号，请注册。",
+      "TOLOGIN": "去登录"
+    },
+    "INTRO": {
+      "TITLE": "新手引导",
+      "CONTENT": "确认观看新手引导？你可以随时离开",
+      "OK": "观看",
+      "CANCEL":"跳过"
+    }
+  },
+  "LAYOUT": {
+    "HEADER": {
+    },
+    "BREADCRUMB": "功能"
+  },
+  "FUNCTION": {
+    "BRIEF": {
+      "NAME": "首页概览"
+    },
+    "PERIOD": {
+      "NAME": "时段分析",
+      "USER": {
+        "NAME": "用户"
+      },
+      "REPO": {
+        "NAME": "仓库"
+      },
+      "ORG": {
+        "NAME": "组织"
+      }
+    },
+    "CURRENT": {
+      "NAME": "总量分析",
+      "REPO": {
+        "CREATEAT": {
+          "NAME": "创库时间",
+          "TITLE": {
+            "TEXT": "代码库创建时间分布"
+          },
+          "PROMPT": {
+            "TEXT": "上界: Q3 + 1.5 * IQR \n下界: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "创建仓库数 个"
+          },
+          "TOOLTIP": {
+            "NAME": "年份",
+            "LOWER": "下界",
+            "UPPER": "上界",
+            "MEDIAN": "中位数"
+          }
+        },
+        "LANG": {
+          "NAME": "库语言",
+          "TITLE": {
+            "TEXT": "库语言统计图"
+          }
+        },
+        "STAR": {
+          "NAME": "Star数",
+          "TITLE": {
+            "TEXT": "代码库得到的Star数"
+          }
+        },
+        "FORK": {
+          "NAME": "Fork数",
+          "TITLE": {
+            "TEXT": "代码库得到的Fork数"
+          }
+        },
+        "SIZE": {
+          "NAME": "库体量",
+          "TITLE": {
+            "TEXT": "库体量漏斗图"
+          }
+        },
+        "PUSHAT": {
+          "NAME": "最后活跃",
+          "TITLE": {
+            "TEXT": "代码库最后活跃时间分布"
+          },
+          "PROMPT": {
+            "TEXT": "上界: Q3 + 1.5 * IQR \n下界: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "仓库数 个"
+          },
+          "TOOLTIP": {
+            "NAME": "年份",
+            "LOWER": "下界",
+            "UPPER": "上界",
+            "MEDIAN": "中位数"
+          }
+        },
+        "LICENSE": {
+          "NAME": "许可证",
+          "TITLE": {
+            "TEXT": "许可证统计力导图"
+          }
+        }
+      },
+      "ISSUE": {
+        "COMMENT": {
+          "NAME": "问题热度",
+          "PROMPT": "问题评论数",
+          "TITLE": {
+            "TEXT": "问题评论数"
+          }
+        }
+      },
+      "USER": {
+        "LOCATION": {
+          "NAME": "所在地"
+        },
+        "REPO": {
+          "NAME": "所有库",
+          "TITLE": {
+            "TEXT": "用户所拥有仓库"
+          }
+        },
+        "FOLLOWER": {
+          "NAME": "关注度",
+          "TITLE": {
+            "TEXT": "关注数分布"
+          },
+          "RADIUSAXIS": {
+            "TEXT": "用户数量"
+          },
+          "ANGLEAXIS": {
+            "TEXT": "用户拥有的关注者"
+          }
         }
       }
+    },
+    "CONTROL": {
+      "NAME": "控制面板",
+      "CHANGE": "修改设置",
+      "LASTLOG": "上次登录"
+    },
+    "HELPER": {
+      "NAME": "帮助反馈",
+      "CONTENT": "Minellius 是一套实验性的 GITHUB 数据解决方案，它将集数据收集、持久化、整合、分析、可视化、实时监控、趋势追踪及便利设施于一体，提供新型、全方位的服务。<br>\n      Minellius 旨在帮助用户了解开源世界的历史、当下、潮流、沉浮兴衰，提升时代嗅觉和社区文化审美；调整开发者学习、自我提升的路径，以更好的融入、参与社区资源和文化的发展和建设。<br>\n    初期的参与人员有：周烨恒 林锦涛 曹巍瀚 方安 崔天宇。<br>\n    早期开发阶段为私有仓库，较完善后，将以 MIT 许可证公共发布。"
+    }
   },
-  "LAYOUT":{
-    "HEADER":{
+  "COMMON": {
+    "EMAIL": "邮箱",
+    "PASSWORD": "密码",
+    "LOGIN": "登录",
+    "SIGNUP": "注册",
+    "REMEMBER": "记住",
+    "SELECT": "选择",
+    "MONTH": "月份",
+    "NATION": "地区",
+    "USER": "用户",
+    "REPO": "仓库",
+    "LOCATION": "地区",
+    "AREA": "地区",
+    "LANG": "语言",
+    "VALUE": "值",
+    "NUMBER": "数量",
+    "WORDSEP": "",
+    "STAR": "Star",
+    "FORK": "Fork",
+    "NAME": "名称",
+    "SEARCH": "搜索",
+    "EVENT": "事件",
+    "PERIOD": "时段",
+    "USERNAME": "用户名",
+    "SUCCESS": "成功",
+    "CONFIRM": "确认",
+    "DIFFERENT": "不同",
+    "CAPTCHA": "验证码",
+    "CHANGE": "修改",
+    "GROUP": "组",
+    "BOUND": "绑定",
+    "NOT": "未",
+    "UNKNOWN": "未知错误",
+    "CANCEL": "解除",
+    "SETTING": "设置",
+    "AUTH": "认证",
+    "END": "结束",
+    "CURRENT": "当前",
+    "LOGOUT": "退出",
+    "EXIT": "离开"
+  },
+  "VALIDATE": {
+    "REQUIRED": "请输入正确的"
+  },
+  "ERROR": {
+    "CLIENT_OR_NETWORK": "客户端或网络错误: ",
+    "BACKEND": "错误: ",
+    "LOGIN": {
+      "NOTFOUND": "不存在的用户",
+      "INVALID": "错误的用户名或密码"
+    },
+    "SIGNUP": {
+      "CONFLICT": "已存在的",
+      "FORMAT": "错误的格式"
+    },
+    "UPDATE": {
+      "UNAUTH": "认证失败",
+      "FORMAT": "错误的格式"
+    },
+    "STATUSTEXT": {
+      "Continue": "客户必须继续发出请求",
+      "Switching protocols": "客户要求服务器根据请求转换HTTP协议版本",
+      "OK": "交易成功",
+      "Created": "提示知道新文件的URL",
+      "Accepted": "接受和处理、但处理未完成",
+      "Non-Authoritative Information": "返回信息不确定或不完整",
+      "No Content": "请求收到，但返回信息为空",
+      "Reset Content": "服务器完成了请求，用户代理必须复位当前已经浏览过的文件",
+      "Partial Content": "服务器已经完成了部分用户的GET请求",
+      "Multiple Choices": "请求的资源可在多处得到",
+      "Moved Permanently": "删除请求数据",
+      "Found": "在其他地址发现了请求数据",
+      "See Other": "建议客户访问其他URL或访问方式",
+      "Not Modified": "客户端已经执行了GET，但文件未变化",
+      "Use Proxy": "请求的资源必须从服务器指定的地址得到,前一版本HTTP中使用的代码，现行版本中不再使用",
+      "Temporary Redirect": "申明请求的资源临时性删除",
+      "Bad Request": "错误请求，如语法错误",
+      "Unauthorized": "请求授权失败",
+      "Payment Required": "保留有效ChargeTo头响应",
+      "Forbidden": "请求不允许",
+      "Not Found": "没有找到指定的资源",
+      "Method Not Allowed": "用户在Request-Line字段定义的方法不允许",
+      "Not Acceptable": "根据用户发送的Accept拖，请求资源不可访问",
+      "Proxy Authentication Required": "类似，用户必须首先在代理服务器上得到授权",
+      "Request Timeout": "客户端没有在用户指定的饿时间内完成请求",
+      "Conflict": "对当前资源状态，请求不能完成",
+      "Gone": "服务器上不再有此资源且无进一步的参考地址",
+      "Length Required": "服务器拒绝用户定义的Content-Length属性请求",
+      "Precondition Failed": "一个或多个请求头字段在当前请求中错误",
+      "Request Entity Too Large": "请求的资源大于服务器允许的大小",
+      "Request-URI Too Long": "请求的资源URL长于服务器允许的长度",
+      "Unsupported Media Type": "请求资源不支持请求项目格式",
+      "Requested Range Not Suitable": "请求中包含Range请求头字段，在当前请求资源范围内没有range指示值，请求也不包含If-Range请求头字段",
+      "Expectation Failed": "服务器不满足请求Expect头字段指定的期望值，如果是代理服务器，可能是下一级服务器不能满足请求",
+      "Internal Server Error": "服务器产生内部错误",
+      "Not Implemented": "服务器不支持请求的函数",
+      "Bad Gateway": "服务器暂时不可用，有时是为了防止发生系统过载",
+      "Service Unavailable": "服务器过载或暂停维修",
+      "Gateway Timeout": "关口过载，服务器使用另一个关口或服务来响应用户，等待时间设定值较长",
+      "HTTP Version Not Supported": "服务器不支持或拒绝支请求头中指定的HTTP版本",
+      "Unknown Error": "其它错误"
+    }
+  },
+  "GEO": {
+    "NATIONS": {
+      "Afghanistan": "阿富汗",
+      "Angola": "安哥拉",
+      "Albania": "阿尔巴尼亚",
+      "United Arab Emirates": "阿拉伯联合酋长国",
+      "Argentina": "阿根廷",
+      "Armenia": "亚美尼亚",
+      "French Southern and Antarctic Lands": "法属南部和南极土地",
+      "Australia": "澳大利亚",
+      "Austria": "奥地利",
+      "Azerbaijan": "阿塞拜疆",
+      "Burundi": "布隆迪",
+      "Belgium": "比利时",
+      "Benin": "贝宁",
+      "Burkina Faso": "布基纳法索",
+      "Bangladesh": "孟加拉国",
+      "Bulgaria": "保加利亚",
+      "The Bahamas": "巴哈马群岛",
+      "Bosnia and Herzegovina": "波斯尼亚和黑塞哥维那",
+      "Belarus": "白俄罗斯",
+      "Belize": "伯利兹",
+      "Bermuda": "百慕大",
+      "Bolivia": "玻利维亚",
+      "Brazil": "巴西",
+      "Brunei": "文莱",
+      "Bhutan": "不丹",
+      "Botswana": "博茨瓦纳",
+      "Central African Republic": "中非共和国",
+      "Canada": "加拿大",
+      "Switzerland": "瑞士",
+      "Chile": "智利",
+      "China": "中国",
+      "Ivory Coast": "象牙海岸",
+      "Cameroon": "喀麦隆",
+      "Democratic Republic of the Congo": "刚果民主共和国",
+      "Republic of the Congo": "刚果共和国",
+      "Colombia": "哥伦比亚",
+      "Costa Rica": "哥斯达黎加",
+      "Cuba": "古巴",
+      "Northern Cyprus": "北塞浦路斯",
+      "Cyprus": "塞浦路斯",
+      "Czech Republic": "捷克共和国",
+      "Germany": "德国",
+      "Djibouti": "吉布提",
+      "Denmark": "丹麦",
+      "Dominican Republic": "多明尼加共和国",
+      "Algeria": "阿尔及利亚",
+      "Ecuador": "厄瓜多尔",
+      "Egypt": "埃及",
+      "Eritrea": "厄立特里亚",
+      "Spain": "西班牙",
+      "Estonia": "爱沙尼亚",
+      "Ethiopia": "埃塞俄比亚",
+      "Finland": "芬兰",
+      "Fiji": "斐",
+      "Falkland Islands": "福克兰群岛",
+      "France": "法国",
+      "Gabon": "加蓬",
+      "United Kingdom": "英国",
+      "Georgia": "格鲁吉亚",
+      "Ghana": "加纳",
+      "Guinea": "几内亚",
+      "Gambia": "冈比亚",
+      "Guinea Bissau": "几内亚比绍",
+      "Equatorial Guinea": "赤道几内亚",
+      "Greece": "希腊",
+      "Greenland": "格陵兰",
+      "Guatemala": "危地马拉",
+      "French Guiana": "法属圭亚那",
+      "Guyana": "圭亚那",
+      "Honduras": "洪都拉斯",
+      "Croatia": "克罗地亚",
+      "Haiti": "海地",
+      "Hungary": "匈牙利",
+      "Indonesia": "印度尼西亚",
+      "India": "印度",
+      "Ireland": "爱尔兰",
+      "Iran": "伊朗",
+      "Iraq": "伊拉克",
+      "Iceland": "冰岛",
+      "Israel": "以色列",
+      "Italy": "意大利",
+      "Jamaica": "牙买加",
+      "Jordan": "约旦",
+      "Japan": "日本",
+      "Kazakhstan": "哈萨克斯坦",
+      "Kenya": "肯尼亚",
+      "Kyrgyzstan": "吉尔吉斯斯坦",
+      "Cambodia": "柬埔寨",
+      "South Korea": "韩国",
+      "Kosovo": "科索沃",
+      "Kuwait": "科威特",
+      "Laos": "老挝",
+      "Lebanon": "黎巴嫩",
+      "Liberia": "利比里亚",
+      "Libya": "利比亚",
+      "Sri Lanka": "斯里兰卡",
+      "Lesotho": "莱索托",
+      "Lithuania": "立陶宛",
+      "Luxembourg": "卢森堡",
+      "Latvia": "拉脱维亚",
+      "Morocco": "摩洛哥",
+      "Moldova": "摩尔多瓦",
+      "Madagascar": "马达加斯加",
+      "Mexico": "墨西哥",
+      "Macedonia": "马其顿",
+      "Mali": "马里",
+      "Myanmar": "缅甸",
+      "Montenegro": "黑山",
+      "Mongolia": "蒙古",
+      "Mozambique": "莫桑比克",
+      "Mauritania": "毛里塔尼亚",
+      "Malawi": "马拉维",
+      "Malaysia": "马来西亚",
+      "Namibia": "纳米比亚",
+      "New Caledonia": "新喀里多尼亚",
+      "Niger": "尼日尔",
+      "Nigeria": "尼日利亚",
+      "Nicaragua": "尼加拉瓜",
+      "Netherlands": "荷兰",
+      "Norway": "挪威",
+      "Nepal": "尼泊尔",
+      "New Zealand": "新西兰",
+      "Oman": "阿曼",
+      "Pakistan": "巴基斯坦",
+      "Panama": "巴拿马",
+      "Peru": "秘鲁",
+      "Philippines": "菲律宾",
+      "Papua New Guinea": "巴布亚新几内亚",
+      "Poland": "波兰",
+      "Puerto Rico": "波多黎各",
+      "North Korea": "北朝鲜",
+      "Portugal": "葡萄牙",
+      "Paraguay": "巴拉圭",
+      "Qatar": "卡塔尔",
+      "Romania": "罗马尼亚",
+      "Russia": "俄国",
+      "Rwanda": "卢旺达",
+      "Western Sahara": "撒哈拉沙漠西部",
+      "Saudi Arabia": "沙特阿拉伯",
+      "Sudan": "苏丹",
+      "South Sudan": "南苏丹",
+      "Senegal": "塞内加尔",
+      "Solomon Islands": "所罗门群岛",
+      "Sierra Leone": "塞拉利昂",
+      "El Salvador": "萨尔瓦多",
+      "Somaliland": "索马里兰",
+      "Somalia": "索马里",
+      "Republic of Serbia": "塞尔维亚共和国",
+      "Suriname": "苏里南",
+      "Slovakia": "斯洛伐克",
+      "Slovenia": "斯洛文尼亚",
+      "Sweden": "瑞典",
+      "Swaziland": "斯威士兰",
+      "Syria": "叙利亚",
+      "Chad": "乍得",
+      "Togo": "多哥",
+      "Thailand": "泰国",
+      "Tajikistan": "塔吉克斯坦",
+      "Turkmenistan": "土库曼斯坦",
+      "East Timor": "东帝汶",
+      "Trinidad and Tobago": "特立尼达和多巴哥",
+      "Tunisia": "突尼斯",
+      "Turkey": "火鸡",
+      "United Republic of Tanzania": "坦桑尼亚联合共和国",
+      "Uganda": "乌干达",
+      "Ukraine": "乌克兰",
+      "Uruguay": "乌拉圭",
+      "United States of America": "美国",
+      "Uzbekistan": "乌兹别克斯坦",
+      "Venezuela": "委内瑞拉",
+      "Vietnam": "越南",
+      "Vanuatu": "瓦努阿图",
+      "West Bank": "约旦河西岸地区",
+      "Yemen": "也门",
+      "South Africa": "南非",
+      "Zambia": "赞比亚",
+      "Zimbabwe": "津巴布韦"
     }
   }
 }

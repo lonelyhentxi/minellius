@@ -1,10 +1,4 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  MaxLength,
-  validateSync,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, MaxLength, validateSync } from 'class-validator';
 import * as hashers from 'node-django-hashers';
 import {
   BeforeInsert,
@@ -18,7 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Group } from '../entities/group.entity';
-import { CustomValidationError } from '../../core/exceptions/custom-validation.error';
+import { CustomValidationError } from '../exceptions/custom-validation.error';
 
 @Entity()
 export class User {
@@ -38,7 +32,6 @@ export class User {
 
   @Column({ length: 150, unique: true })
   @MaxLength(150)
-  @IsOptional()
   username: string = undefined;
 
   @Column({ length: 254, unique: true })
@@ -114,10 +107,7 @@ export class User {
       this.groups.filter(
         group =>
           group &&
-          group.permissions.filter(
-            permission =>
-              permissions.indexOf(permission.name.toLowerCase()) !== -1,
-          ).length > 0,
+          group.permissions.filter(permission => permissions.indexOf(permission.name.toLowerCase()) !== -1).length > 0,
       ).length > 0
     );
   }

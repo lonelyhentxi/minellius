@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - "6080:6080"
+    environment:
+      - DEBUG=true
+      - PROTOCOL=https
+      - PORT=6080
+      - DOMAIN=minellius.evernightfireworks.com

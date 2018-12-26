@@ -11,33 +11,24 @@ function createWindow() {
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
-  /**
-   * Create the browser window
-   * @TODO: add more sizes
-   */
+  // Create the browser window.
   win = new BrowserWindow({
     x: 200,
     y: 200,
-    // !width: size.width,
-    // !height: size.height
-    // set fixed window size, to develop rapidly
     width: 1280,
     height: 720,
     useContentSize: true,
-    // disable resizable, for developing rapidly
     resizable: false,
     opacity: 1,
-    // enable native window frame
     frame: false,
     transparent: true,
-    // disable maximizable、minimizable and fullscreenable, for developing rapidly
     maximizable: false,
-    minimizable: false,
+    minimizable: true,
     fullscreenable: false,
-    // integrate node and add dev tools
     webPreferences: {
       devTools: true,
-      nodeIntegrationInWorker: true
+      nodeIntegrationInWorker: true,
+      nodeIntegration: true,
     }
   });
 

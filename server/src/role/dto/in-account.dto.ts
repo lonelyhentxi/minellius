@@ -1,23 +1,27 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 import { IsEmail, IsOptional, MaxLength } from 'class-validator';
 
 export class InAccountDto {
   @IsOptional()
   id: number;
 
+  @MaxLength(128)
+  @ApiModelProperty()
+  currentPassword: string;
+
   @IsEmail()
   @MaxLength(254)
-  @ApiModelProperty()
-  email: string;
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  email?: string;
 
-  @Exclude()
   @MaxLength(128)
   @IsOptional()
   @ApiModelPropertyOptional()
-  password: string;
+  password?: string;
 
   @MaxLength(150)
-  @ApiModelProperty()
-  username: string;
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  username?: string;
 }

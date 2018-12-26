@@ -1,0 +1,17 @@
+
+{
+    "name": "minellius-server",
+    "script": "./dist/main.js",
+    "watch": [
+      "./dist/"
+    ],
+    "error_file" : "./log/pm2-stderr.log",
+    "out_file"   : "./log/pm2-stdout.log",
+    "log_date_format": "YYYY-MM-DD HH:mm Z",
+    "restart_delay":1000,
+    "max_memory_restart":"512M",
+    "autorestart":true,
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }

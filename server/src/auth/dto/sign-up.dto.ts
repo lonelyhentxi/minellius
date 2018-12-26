@@ -4,7 +4,7 @@ import { IsEmail, IsNotEmpty, MaxLength, IsOptional } from 'class-validator';
 export class SignUpDto {
   @IsNotEmpty()
   @IsEmail()
-  @MaxLength(150)
+  @MaxLength(254)
   @ApiModelProperty()
   email: string;
 
@@ -17,4 +17,12 @@ export class SignUpDto {
   @MaxLength(128)
   @ApiModelProperty()
   password: string;
+
+  @MaxLength(30)
+  @IsOptional()
+  firstName?: string = undefined;
+
+  @MaxLength(30)
+  @IsOptional()
+  lastName?: string = undefined;
 }

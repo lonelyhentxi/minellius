@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OauthTokensAccesstoken } from '../entities/oauth-tokens-accesstoken.entity';
+import { User } from '../../role/entities';
 
 @Injectable()
 export class OauthTokensAccesstokensService {
@@ -30,22 +31,25 @@ export class OauthTokensAccesstokensService {
     }
   }
 
-  async delete(options: { id: number }) {
-    try {
-      let item = await this.repository.findOneOrFail(options.id);
-      item = await this.repository.save(item);
-      await this.repository.delete(options.id);
-      return { oauthTokensAccesstoken: null };
-    } catch (error) {
-      throw error;
-    }
+  async deleteById(options: { id: number }) {
+    let item = await this.repository.findOneOrFail(options.id);
+    item = await this.repository.save(item);
+    await this.repository.delete(options.id);
+    return { oauthTokensAccesstoken: null };
   }
 
-  async findByProviderClientId(options: { id: number }) {
+  async deleteByUserAndProvider(user: User, provider: string) {
+    return await this.repository.delete({
+      user, provider,
+    });
+  }
+
+  async findByProviderAndClientId(options: { id: number, provider: string }) {
     try {
       const item = await this.repository.findOneOrFail({
         where: {
           providerClientId: options.id,
+          provider: options.provider,
         },
       });
       return { oauthTokensAccesstoken: item };
@@ -63,12 +67,15 @@ export class OauthTokensAccesstokensService {
     }
   }
 
-  async findAll(options: {
-    curPage: number;
-    perPage: number;
-    q?: string;
-    sort?: string;
-  }) {
+  async findAllByUserId(user: User): Promise<OauthTokensAccesstoken[]> {
+    return await this.repository.find({
+      where: {
+        user,
+      },
+    });
+  }
+
+  async findAll(options: { curPage: number; perPage: number; q?: string; sort?: string }) {
     try {
       let objects: [OauthTokensAccesstoken[], number];
       let qb = this.repository.createQueryBuilder('oauthTokensAccesstoken');
@@ -82,10 +89,7 @@ export class OauthTokensAccesstokensService {
         );
       }
       options.sort =
-        options.sort &&
-        new OauthTokensAccesstoken().hasOwnProperty(
-          options.sort.replace('-', ''),
-        )
+        options.sort && new OauthTokensAccesstoken().hasOwnProperty(options.sort.replace('-', ''))
           ? options.sort
           : '-id';
       const field = options.sort.replace('-', '');
@@ -96,18 +100,13 @@ export class OauthTokensAccesstokensService {
           qb = qb.orderBy('oauthTokensAccesstoken.' + field, 'ASC');
         }
       }
-      qb = qb
-        .skip((options.curPage - 1) * options.perPage)
-        .take(options.perPage);
+      qb = qb.skip((options.curPage - 1) * options.perPage).take(options.perPage);
       objects = await qb.getManyAndCount();
       return {
         contentTypes: objects[0],
         meta: {
           perPage: options.perPage,
-          totalPages:
-            options.perPage > objects[1]
-              ? 1
-              : Math.ceil(objects[1] / options.perPage),
+          totalPages: options.perPage > objects[1] ? 1 : Math.ceil(objects[1] / options.perPage),
           totalResults: objects[1],
           curPage: options.curPage,
         },

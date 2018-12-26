@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { ContentTypeDto } from './content-type.dto';
-import { MetaDto } from '../../core';
+import { ContentTypeDto } from '../dto/content-type.dto';
+import { MetaDto } from '../dto/meta.dto';
 
 export class OutContentTypesDto {
   @Type(() => ContentTypeDto)

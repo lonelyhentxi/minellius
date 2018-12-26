@@ -1,12 +1,4 @@
-import { CustomValidationError } from '../../core';
-import { User } from '../../role';
-
-import {
-  IsNotEmpty,
-  IsOptional,
-  MaxLength,
-  validateSync,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, MaxLength, validateSync } from 'class-validator';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -17,6 +9,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CustomValidationError, User } from '../../role';
 
 @Entity({ name: 'oauth_tokens_accesstoken' })
 export class OauthTokensAccesstoken {
@@ -71,7 +64,7 @@ export class OauthTokensAccesstoken {
       throw new CustomValidationError(errors);
     }
   }
-
+  
   @BeforeUpdate()
   doBeforeUpdate() {
     const errors = validateSync(this, { validationError: { target: false } });

@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 import { ContentType } from '../entities/content-type.entity';
 import { Group } from '../entities/group.entity';
-import { CustomValidationError } from '../../core';
+import { CustomValidationError } from '../exceptions/custom-validation.error';
 
 @Entity()
 export class Permission {

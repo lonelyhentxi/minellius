@@ -1,3 +1,3 @@
-import { UserDto } from './user.dto';
+import { UserDto } from '../dto/user.dto';
 
 export class InUserDto extends UserDto {}

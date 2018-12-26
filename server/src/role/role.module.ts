@@ -1,17 +1,33 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { controllers } from './controllers';
 import { entities } from './entities';
 import { services } from './services';
-import { ConfigModule } from '../configs';
+import { AccessGuard } from './guards/access.guard';
 
 @Module({
-  imports: [
-    ConfigModule,
-    TypeOrmModule.forFeature([...entities]),
-  ],
+  imports: [TypeOrmModule.forFeature([...entities])],
   controllers: [...controllers],
-  providers: [...services],
-  exports: [...services],
+  providers: [...services,AccessGuard],
+  exports: [ ...services],
 })
-export class RoleModule {}
+export class RoleModule {
+  static forFeature(): DynamicModule {
+    return {
+      module: RoleModule,
+      providers: [...services],
+      exports: [...services],
+    };
+  }
+
+  static forRoot(options: {providers:Provider[]}): DynamicModule {
+    return {
+      module: RoleModule,
+      imports: [TypeOrmModule.forFeature([...entities])],
+      controllers: [...controllers],
+      providers: [...services,...options.providers],
+      exports: [...services],
+    };
+  }
+
+}

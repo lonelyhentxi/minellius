@@ -1,0 +1,41 @@
+.log {
+  background: url(assets/img/login-bg.png);
+  -webkit-background-size: cover;
+  background-size: cover;
+  -webkit-app-region: drag;
+
+  .log-left-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 512px;
+    .log-form {
+      position: absolute;
+      top: 160px;
+      left: 96px;
+    }
+  }
+
+  .log-right-grid {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 768px;
+
+    .log-slogan {
+      margin-top: 580px;
+      margin-left: 70px;
+      p {
+        font-size: 36px;
+        font-stretch: expanded;
+        line-height: 40px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 0;
+        text-shadow: 0.1em 0.1em 0.2em rgba(32,32,32,0.8);
+      }
+    }
+  }
+}

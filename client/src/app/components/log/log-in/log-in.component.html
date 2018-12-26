@@ -1,0 +1,41 @@
+<div class="log-in-form">
+  <h1>{{"PAGES.LOGIN.TITLE"|translate}}</h1>
+  <p>
+    {{"PAGES.LOGIN.PROMPT"|translate}}
+    <a routerLinkActive="active" routerLink="/log/sign-up">{{"PAGES.LOGIN.TOSIGNUP"|translate}}</a>
+  </p>
+  <form nz-form [formGroup]="validateForm" class="log-in-form-main" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixUser">
+          <input type="text" nz-input formControlName="email" placeholder="{{'COMMON.EMAIL'|translate}}">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">
+          {{"VALIDATE.REQUIRED"|translate}}{{'COMMON.EMAIL'|translate}}
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixLock">
+          <input type="password" nz-input formControlName="password" placeholder="{{'COMMON.PASSWORD'|translate}}">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">
+          {{"VALIDATE.REQUIRED"|translate}}{{'COMMON.PASSWORD'|translate}}
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <!--<label nz-checkbox formControlName="remember">
+          <span>{{"COMMON.REMEMBER"|translate}}</span>
+        </label>-->
+        <button nz-button class="log-in-form-button" [nzType]="'primary'">{{'COMMON.LOGIN'|translate}}</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <button nz-button class="log-in-form-button" [nzType]="'ghost'" (click)="loginWithGithub($event)">
+    <i nz-icon type="github"></i>GITHUB {{'COMMON.LOGIN'|translate}}</button>
+  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+</div>

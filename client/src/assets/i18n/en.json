@@ -3,14 +3,446 @@
     "HOME": {
       "SLOGAN": "A experimental GITHUB data analysis solution",
       "BUTTONS":{
-        "SIGNIN":"signin",
-        "SIGNUP":"signup",
-        "CONTACTUS":"contact"
+        "SIGNIN":"sign in",
+        "SIGNUP":"sign up",
+        "CONTACTUS":"introduction"
       }
+    },
+    "LOG": {
+      "SLOGAN_ROW1": "Welcome to your",
+      "SLOGAN_ROW2": "exploration world"
+    },
+    "LOGIN": {
+      "TITLE": " Login to system",
+      "PROMPT": "For better service, please enter your information to access data, or register one.",
+      "TOSIGNUP": "to register"
+    },
+    "SIGNUP": {
+      "TITLE": "Sign up to system",
+      "PROMPT": "If you have no account, please register one. ",
+      "TOLOGIN": "to log in"
+    },
+    "INTRO": {
+      "TITLE": "Introduction",
+      "CONTENT": "Watch introduction video? You can exit any time.",
+      "OK": "Watch",
+      "CANCER": "Skip"
     }
   },
   "LAYOUT":{
     "HEADER":{
+    },
+    "BREADCRUMB": "Function"
+  },
+  "FUNCTION": {
+    "BRIEF": {
+      "NAME": "Brief Introduction"
+    },
+    "PERIOD": {
+      "NAME": "Period Analysis",
+      "USER": {
+        "NAME": "User"
+      },
+      "REPO":{
+        "NAME": "Repo"
+      },
+      "ORG":{
+        "NAME": "Org"
+      }
+    },
+    "CURRENT": {
+      "NAME": "Current Analysis",
+      "REPO" : {
+        "CREATEAT": {
+          "NAME": "Create At",
+          "TITLE": {
+            "TEXT": "Repository creation time distribution"
+          },
+          "PROMPT": {
+            "TEXT": "Upper: Q3 + 1.5 * IQR \nLower: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "created repository number"
+          },
+          "TOOLTIP": {
+            "NAME": "year",
+            "LOWER": "lower",
+            "UPPER": "upper",
+            "MEDIAN": "median"
+          }
+        },
+        "LANG": {
+          "NAME": "Repo Language",
+          "TITLE": {
+            "TEXT": "Repo Language Analysis"
+          }
+        },
+        "STAR": {
+          "NAME": "Star",
+          "TITLE": {
+            "TEXT": "Repository Star Number"
+          }
+        },
+        "FORK": {
+          "NAME": "Fork",
+          "TITLE": {
+            "TEXT": "Repository Fork Number"
+          }
+        },
+        "SIZE": {
+          "NAME": "Size",
+          "TITLE": {
+            "TEXT": "Repository Volume Funnel Chart"
+          }
+        },
+        "PUSHAT": {
+          "NAME": "Last Push",
+          "TITLE": {
+            "TEXT": "Repository Last Push Time Distribution"
+          },
+          "PROMPT": {
+            "TEXT": "upper: Q3 + 1.5 * IQR \nlower: Q1 - 1.5 * IQR"
+          },
+          "YAXIS": {
+            "NAME": "repository number"
+          },
+          "TOOLTIP": {
+            "NAME": "year",
+            "LOWER": "lower",
+            "UPPER": "upper",
+            "MEDIAN": "median"
+          }
+        },
+        "LICENSE": {
+          "NAME": "License",
+          "TITLE": {
+            "TEXT": "License Statistics Map"
+          }
+        }
+      },
+      "ISSUE": {
+        "COMMENT": {
+          "NAME": "Issue Comment",
+          "PROMPT": "Issue Comment Number",
+          "TITLE": {
+            "TEXT": "Issue Comment Number"
+          }
+        }
+      },
+      "USER": {
+        "LOCATION": {
+          "NAME": "Location"
+        },
+        "REPO": {
+          "NAME": "Owned Repo",
+          "TITLE": {
+            "TEXT": "User Owned Repository"
+          }
+        },
+        "FOLLOWER": {
+          "NAME": "Follower",
+          "TITLE": {
+            "TEXT": "Follower Distribution"
+          },
+          "RADIUSAXIS": {
+            "TEXT": "Users"
+          },
+          "ANGLEAXIS": {
+            "TEXT": "Owned Follower"
+          }
+        }
+      }
+    },
+    "CONTROL": {
+      "NAME": "Control Panel",
+      "CHANGE": "Change Settings",
+      "LASTLOG": "last login"
+    },
+    "HELPER": {
+      "NAME": "Help & Feedback",
+      "CONTENT": "Minellius is an experimental GITHUB data solution that combines data collection, persistence, integration, analysis, visualization, real-time monitoring, trend tracking and convenience to deliver new, comprehensive services. <br>\n      Minellius aims to help users understand the history, current, trend, ups and downs of the open source world, enhance the sense of the times and the cultural aesthetics of the community; adjust the path of developers' learning and self-improvement to better integrate and participate in the development of community resources and culture. Construction. <br>\n    The initial participants were: Zhou Yiheng, Lin Jintao, Cao Yu, Fang An, Cui Tianyu. <br>\n    The early stage of development is a private warehouse, which will be publicly released under the MIT license."
+    }
+  },
+  "COMMON": {
+    "EMAIL": "email",
+    "PASSWORD": "password",
+    "LOGIN": "log in",
+    "SIGNUP": "sign up",
+    "REMEMBER": "remember",
+    "SELECT": "select",
+    "MONTH": "month",
+    "NATION": "area",
+    "USER": "user",
+    "REPO": "repo",
+    "LOCATION": "location",
+    "AREA": "area",
+    "LANG": "language",
+    "VALUE": "value",
+    "NUMBER": "number",
+    "WORDSEP": " ",
+    "STAR": "star",
+    "FORK": "fork",
+    "NAME": "name",
+    "SEARCH": "search",
+    "EVENT": "event",
+    "PERIOD": "period",
+    "USERNAME": "username",
+    "SUCCESS": "success",
+    "CONFIRM": "confirm",
+    "DIFFERENT": "different",
+    "CAPTCHA": "captcha",
+    "CHANGE": "change",
+    "GROUP": "group",
+    "BOUND": "bound",
+    "NOT": "not",
+    "UNKNOWN": "unknown error",
+    "CANCEL": "cancel",
+    "SETTING": "setting",
+    "AUTH": "auth",
+    "END": "end",
+    "CURRENT": "current",
+    "LOGOUT": "logout",
+    "EXIT": "exit"
+  },
+  "VALIDATE": {
+    "REQUIRED": "Please input "
+  },
+  "ERROR": {
+    "CLIENT_OR_NETWORK": "client or network error: ",
+    "BACKEND": "backend return error code: ",
+    "LOGIN": {
+      "NOTFOUND": "no that account",
+      "INVALID": "invalid account info"
+    },
+    "SIGNUP": {
+      "CONFLICT": "existed"
+    },
+    "UPDATE": {
+      "UNAUTH": "auth failed"
+    },
+    "STATUSTEXT": {
+      "Continue":"Continue",
+      "Switching protocols":"Switching protocols",
+      "OK":"OK",
+      "Created":"Created",
+      "Accepted":"Accepted",
+      "Non-Authoritative Information":"Non-Authoritative Information",
+      "No Content":"No Content",
+      "Reset Content":"Reset Content",
+      "Partial Content":"Partial Content",
+      "Multiple Choices":"Multiple Choices",
+      "Moved Permanently":"Moved Permanently",
+      "Found":"Found",
+      "See Other":"See Other",
+      "Not Modified":"Not Modified",
+      "Use Proxy":"Use Proxy",
+      "Temporary Redirect":"Temporary Redirect",
+      "Bad Request":"Bad Request",
+      "Unauthorized":"Unauthorized",
+      "Payment Required":"Payment Required",
+      "Forbidden":"Forbidden",
+      "Not Found":"Not Found",
+      "Method Not Allowed":"Method Not Allowed",
+      "Not Acceptable":"Not Acceptable",
+      "Proxy Authentication Required":"Proxy Authentication Required",
+      "Request Timeout":"Request Timeout",
+      "Conflict":"Conflict",
+      "Gone":"Gone",
+      "Length Required":"Length Required",
+      "Precondition Failed":"Precondition Failed",
+      "Request Entity Too Large":"Request Entity Too Large",
+      "Request-URI Too Long":"Request-URI Too Long",
+      "Unsupported Media Type":"Unsupported Media Type",
+      "Requested Range Not Suitable":"Requested Range Not Suitable",
+      "Expectation Failed":"Expectation Failed",
+      "Internal Server Error":"Internal Server Error",
+      "Not Implemented":"Not Implemented",
+      "Bad Gateway":"Bad Gateway",
+      "Service Unavailable":"Service Unavailable",
+      "Gateway Timeout":"Gateway Timeout",
+      "HTTP Version Not Supported":"HTTP Version Not Supported",
+      "Unknown Error": "Other Error"
+    }
+  },
+  "GEO": {
+    "NATIONS": {
+      "Afghanistan": "Afghanistan",
+      "Angola": "Angola",
+      "Albania": "Albania",
+      "United Arab Emirates": "United Arab Emirates",
+      "Argentina": "Argentina",
+      "Armenia": "Armenia",
+      "French Southern and Antarctic Lands": "French Southern and Antarctic Lands",
+      "Australia": "Australia",
+      "Austria": "Austria",
+      "Azerbaijan": "Azerbaijan",
+      "Burundi": "Burundi",
+      "Belgium": "Belgium",
+      "Benin": "Benin",
+      "Burkina Faso": "Burkina Faso",
+      "Bangladesh": "Bangladesh",
+      "Bulgaria": "Bulgaria",
+      "The Bahamas": "The Bahamas",
+      "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+      "Belarus": "Belarus",
+      "Belize": "Belize",
+      "Bermuda": "Bermuda",
+      "Bolivia": "Bolivia",
+      "Brazil": "Brazil",
+      "Brunei": "Brunei",
+      "Bhutan": "Bhutan",
+      "Botswana": "Botswana",
+      "Central African Republic": "Central African Republic",
+      "Canada": "Canada",
+      "Switzerland": "Switzerland",
+      "Chile": "Chile",
+      "China": "China",
+      "Ivory Coast": "Ivory Coast",
+      "Cameroon": "Cameroon",
+      "Democratic Republic of the Congo": "Democratic Republic of the Congo",
+      "Republic of the Congo": "Republic of the Congo",
+      "Colombia": "Colombia",
+      "Costa Rica": "Costa Rica",
+      "Cuba": "Cuba",
+      "Northern Cyprus": "Northern Cyprus",
+      "Cyprus": "Cyprus",
+      "Czech Republic": "Czech Republic",
+      "Germany": "Germany",
+      "Djibouti": "Djibouti",
+      "Denmark": "Denmark",
+      "Dominican Republic": "Dominican Republic",
+      "Algeria": "Algeria",
+      "Ecuador": "Ecuador",
+      "Egypt": "Egypt",
+      "Eritrea": "Eritrea",
+      "Spain": "Spain",
+      "Estonia": "Estonia",
+      "Ethiopia": "Ethiopia",
+      "Finland": "Finland",
+      "Fiji": "Fiji",
+      "Falkland Islands": "Falkland Islands",
+      "France": "France",
+      "Gabon": "Gabon",
+      "United Kingdom": "United Kingdom",
+      "Georgia": "Georgia",
+      "Ghana": "Ghana",
+      "Guinea": "Guinea",
+      "Gambia": "Gambia",
+      "Guinea Bissau": "Guinea Bissau",
+      "Equatorial Guinea": "Equatorial Guinea",
+      "Greece": "Greece",
+      "Greenland": "Greenland",
+      "Guatemala": "Guatemala",
+      "French Guiana": "French Guiana",
+      "Guyana": "Guyana",
+      "Honduras": "Honduras",
+      "Croatia": "Croatia",
+      "Haiti": "Haiti",
+      "Hungary": "Hungary",
+      "Indonesia": "Indonesia",
+      "India": "India",
+      "Ireland": "Ireland",
+      "Iran": "Iran",
+      "Iraq": "Iraq",
+      "Iceland": "Iceland",
+      "Israel": "Israel",
+      "Italy": "Italy",
+      "Jamaica": "Jamaica",
+      "Jordan": "Jordan",
+      "Japan": "Japan",
+      "Kazakhstan": "Kazakhstan",
+      "Kenya": "Kenya",
+      "Kyrgyzstan": "Kyrgyzstan",
+      "Cambodia": "Cambodia",
+      "South Korea": "South Korea",
+      "Kosovo": "Kosovo",
+      "Kuwait": "Kuwait",
+      "Laos": "Laos",
+      "Lebanon": "Lebanon",
+      "Liberia": "Liberia",
+      "Libya": "Libya",
+      "Sri Lanka": "Sri Lanka",
+      "Lesotho": "Lesotho",
+      "Lithuania": "Lithuania",
+      "Luxembourg": "Luxembourg",
+      "Latvia": "Latvia",
+      "Morocco": "Morocco",
+      "Moldova": "Moldova",
+      "Madagascar": "Madagascar",
+      "Mexico": "Mexico",
+      "Macedonia": "Macedonia",
+      "Mali": "Mali",
+      "Myanmar": "Myanmar",
+      "Montenegro": "Montenegro",
+      "Mongolia": "Mongolia",
+      "Mozambique": "Mozambique",
+      "Mauritania": "Mauritania",
+      "Malawi": "Malawi",
+      "Malaysia": "Malaysia",
+      "Namibia": "Namibia",
+      "New Caledonia": "New Caledonia",
+      "Niger": "Niger",
+      "Nigeria": "Nigeria",
+      "Nicaragua": "Nicaragua",
+      "Netherlands": "Netherlands",
+      "Norway": "Norway",
+      "Nepal": "Nepal",
+      "New Zealand": "New Zealand",
+      "Oman": "Oman",
+      "Pakistan": "Pakistan",
+      "Panama": "Panama",
+      "Peru": "Peru",
+      "Philippines": "Philippines",
+      "Papua New Guinea": "Papua New Guinea",
+      "Poland": "Poland",
+      "Puerto Rico": "Puerto Rico",
+      "North Korea": "North Korea",
+      "Portugal": "Portugal",
+      "Paraguay": "Paraguay",
+      "Qatar": "Qatar",
+      "Romania": "Romania",
+      "Russia": "Russia",
+      "Rwanda": "Rwanda",
+      "Western Sahara": "Western Sahara",
+      "Saudi Arabia": "Saudi Arabia",
+      "Sudan": "Sudan",
+      "South Sudan": "South Sudan",
+      "Senegal": "Senegal",
+      "Solomon Islands": "Solomon Islands",
+      "Sierra Leone": "Sierra Leone",
+      "El Salvador": "El Salvador",
+      "Somaliland": "Somaliland",
+      "Somalia": "Somalia",
+      "Republic of Serbia": "Republic of Serbia",
+      "Suriname": "Suriname",
+      "Slovakia": "Slovakia",
+      "Slovenia": "Slovenia",
+      "Sweden": "Sweden",
+      "Swaziland": "Swaziland",
+      "Syria": "Syria",
+      "Chad": "Chad",
+      "Togo": "Togo",
+      "Thailand": "Thailand",
+      "Tajikistan": "Tajikistan",
+      "Turkmenistan": "Turkmenistan",
+      "East Timor": "East Timor",
+      "Trinidad and Tobago": "Trinidad and Tobago",
+      "Tunisia": "Tunisia",
+      "Turkey": "Turkey",
+      "United Republic of Tanzania": "United Republic of Tanzania",
+      "Uganda": "Uganda",
+      "Ukraine": "Ukraine",
+      "Uruguay": "Uruguay",
+      "United States of America": "United States of America",
+      "Uzbekistan": "Uzbekistan",
+      "Venezuela": "Venezuela",
+      "Vietnam": "Vietnam",
+      "Vanuatu": "Vanuatu",
+      "West Bank": "West Bank",
+      "Yemen": "Yemen",
+      "South Africa": "South Africa",
+      "Zambia": "Zambia",
+      "Zimbabwe": "Zimbabwe"
     }
   }
 }

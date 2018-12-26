@@ -1,0 +1,21 @@
+.app-exit {
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  position: fixed;
+  z-index:100;
+  right: 24px;
+  top: 24px;
+  width: 20px;
+  height: 20px;
+  img {
+    position: fixed;
+    height: 20px;
+  }
+  :hover {
+    img {
+      opacity: 0.5 !important;
+      background-color: transparent !important;
+      filter:alpha(opacity=50);
+    }
+  }
+}

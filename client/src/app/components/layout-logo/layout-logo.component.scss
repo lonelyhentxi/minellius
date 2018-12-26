@@ -1,0 +1,26 @@
+.layout-logo {
+  padding: 0;
+  position: fixed;
+  top: 8px;
+  left: 16px;
+  width: 88px;
+  height: 48px;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+  z-index: 100;
+  img {
+    display: block;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    height: 32px;
+    width: 32px;
+  }
+  embed {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 48px;
+    height: 48px;
+  }
+}

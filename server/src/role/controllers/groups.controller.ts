@@ -12,13 +12,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiImplicitParam,
-  ApiImplicitQuery,
-  ApiResponse,
-  ApiUseTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiImplicitParam, ApiImplicitQuery, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Permissions } from '../decorators/permissions.decorator';
 import { Roles } from '../decorators/roles.decorator';
@@ -27,7 +21,7 @@ import { OutGroupDto } from '../dto/out-group.dto';
 import { OutGroupsDto } from '../dto/out-groups.dto';
 import { Group } from '../entities/group.entity';
 import { AccessGuard } from '../guards/access.guard';
-import { ParseIntWithDefaultPipe } from '../../core/pipes/parse-int-with-default.pipe';
+import { ParseIntWithDefaultPipe } from '../pipes/parse-int-with-default.pipe';
 import { GroupsService } from '../services/groups.service';
 
 @ApiUseTags('groups')

@@ -6,3 +6,35 @@ html, body {
   height: 100%;
   background: rgba(255,255,255,0);
 }
+
+.app-bg {
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.function-control {
+  line-height: 32px;
+  .function-horizontal-menu {
+    line-height: 30px;
+    padding-top: 0;
+    li {
+      color: rgba(128,128,128,0.3);
+      border-right: rgba(128,128,128,0.3);
+    }
+    border-color: rgba(240,240,240,0.4);
+    border-width: 2px;
+  }
+}
+
+.function-content {
+  margin-top: 18px;
+}
+
+.ant-modal-content {
+  -webkit-app-region: no-drag;
+}

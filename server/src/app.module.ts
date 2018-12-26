@@ -1,34 +1,31 @@
-import { Module } from '@nestjs/common';
-import { CoreModule } from './core';
-import { ConfigModule, ConfigService } from './configs';
-import { AuthModule } from './auth';
-import { RoleModule } from './role';
+import { Module, Provider, DynamicModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataModule } from './data/data.module';
+import { RoleModule } from './role';
+import { AuthModule } from './auth';
+import { customDbConfig } from './config';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
-    ConfigModule,
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        const config = configService.get();
-        return {
-          type: config.DB_TYPE,
-          host: config.DB_HOSTNAME,
-          port: config.DB_PORT,
-          username: config.DB_USERNAME,
-          password: config.DB_PASSWORD,
-          database: config.DB_NAME,
-          entities: [__dirname +  "/**/*.entity{.ts,.js}"],
-          synchronize: true,
-        };
-      },
-    }),
+    TypeOrmModule.forRoot(customDbConfig),
     CoreModule,
     RoleModule,
     AuthModule,
+    DataModule,
   ],
 })
 export class AppModule {
+  static forRoot(options: { providers: Provider[] }): DynamicModule {
+    return {
+      module: AppModule,
+      providers: [...options.providers],
+      imports: [
+        TypeOrmModule.forRoot(customDbConfig),
+        CoreModule.forRoot(options),
+        RoleModule.forRoot(options),
+        AuthModule.forRoot(options),
+        DataModule.forRoot(options)],
+    };
+  }
 }

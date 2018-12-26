@@ -12,13 +12,7 @@ import {
   Query,
   UseGuards
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiImplicitParam,
-  ApiImplicitQuery,
-  ApiResponse,
-  ApiUseTags
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiImplicitParam, ApiImplicitQuery, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Permissions } from '../decorators/permissions.decorator';
 import { Roles } from '../decorators/roles.decorator';
@@ -27,7 +21,7 @@ import { OutPermissionDto } from '../dto/out-permission.dto';
 import { OutPermissionsDto } from '../dto/out-permissions.dto';
 import { Permission } from '../entities/permission.entity';
 import { AccessGuard } from '../guards/access.guard';
-import { ParseIntWithDefaultPipe } from '../../core/pipes/parse-int-with-default.pipe';
+import { ParseIntWithDefaultPipe } from '../pipes/parse-int-with-default.pipe';
 import { PermissionsService } from '../services/permissions.service';
 
 @ApiUseTags('permissions')
@@ -69,10 +63,7 @@ export class PermissionsController {
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
   @ApiImplicitParam({ name: 'id', type: Number })
   @Put(':id')
-  async update(
-    @Param('id', new ParseIntPipe()) id,
-    @Body() dto: InPermissionDto
-  ) {
+  async update(@Param('id', new ParseIntPipe()) id, @Body() dto: InPermissionDto) {
     try {
       return plainToClass(
         OutPermissionDto,
@@ -173,8 +164,7 @@ export class PermissionsController {
     name: 'content_type',
     required: false,
     type: Number,
-    description:
-      'Content type id for filter data by content type. (default: empty)'
+    description: 'Content type id for filter data by content type. (default: empty)'
   })
   @Get()
   async findAll(

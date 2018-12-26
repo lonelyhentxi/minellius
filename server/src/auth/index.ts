@@ -1,4 +1,6 @@
 export * from './auth.module';
+export * from './configs/index';
+export * from './configs/jwt.config';
 export * from './controllers/auth.controller';
 export * from './controllers/index';
 export * from './dto/redirect-uri.dto';

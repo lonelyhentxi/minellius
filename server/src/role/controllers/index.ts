@@ -9,5 +9,5 @@ export const controllers = [
   ContentTypesController,
   PermissionsController,
   UsersController,
-  GroupsController
+  GroupsController,
 ];

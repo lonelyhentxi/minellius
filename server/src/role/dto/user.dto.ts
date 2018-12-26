@@ -1,7 +1,7 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { Exclude, Type } from 'class-transformer';
 import { MaxLength } from 'class-validator';
-import { GroupDto } from './group.dto';
+import { GroupDto } from '../dto/group.dto';
 
 export class UserDto {
   @ApiModelProperty({ type: Number })

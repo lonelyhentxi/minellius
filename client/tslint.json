@@ -96,21 +96,10 @@
       true,
       "allow-null-check"
     ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
-    ],
+    "typedef-whitespace": false,
     "unified-signatures": true,
     "variable-name": false,
-    "whitespace": [
-      false
-    ],
+    "whitespace": false,
     "component-selector": [
       true,
       "element",

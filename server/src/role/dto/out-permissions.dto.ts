@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { MetaDto } from '../../core/dto/meta.dto';
-import { PermissionDto } from './permission.dto';
+import { MetaDto } from '../dto/meta.dto';
+import { PermissionDto } from '../dto/permission.dto';
 
 export class OutPermissionsDto {
   @Type(() => PermissionDto)

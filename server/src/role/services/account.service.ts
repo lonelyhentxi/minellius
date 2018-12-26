@@ -1,27 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClassFromExist } from 'class-transformer';
-import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
+import { User } from '../entities';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class AccountService {
   constructor(
-    @InjectRepository(User) private readonly usersRepository: Repository<User>,
+    private readonly usersService: UsersService,
   ) {
   }
 
   async update(options: { id: number; user: User }) {
-    try {
-      let user = await this.usersRepository.findOneOrFail(options.id, {
-        relations: ['groups', 'groups.permissions'],
-      });
-      user = plainToClassFromExist(user, options.user);
-      await user.setPassword(options.user.password);
-      user = await this.usersRepository.save(user);
-      return user;
-    } catch (error) {
-      throw error;
-    }
+    const { user } = await this.usersService.findById(options);
+    await this.usersService.assertUsernameAndEmail({
+      id: options.id,
+      email: options.user.email,
+      username: options.user.username,
+    });
+    await user.setPassword(options.user.password);
+    user.email = options.user.email?options.user.email:user.email;
+    user.username = options.user.username?options.user.username:user.username;
+    return await this.usersService.update({ id: options.id, item: user });
   }
 }
