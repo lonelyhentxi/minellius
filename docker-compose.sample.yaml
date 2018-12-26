@@ -42,13 +42,13 @@ services:
     restart: always
   crawler:
     container_name: minellius-crawler
-    build: ./cralwer
+    build: ./crawler
     restart: always
   monitor:
     image: deltaskelta/docker-alertd
     container_name: minellius-monitor
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./monitor/.docker-aled.yaml:/root/.docker-alertd.yaml
-      # please copy .docker-aled.sample.yaml to ./monitor/.docker-aled.yaml and edit it
+      - ./monitor/.docker-alertd.yaml:/root/.docker-alertd.yaml
+      # please copy .docker-alertd.sample.yaml to ./monitor/.docker-alertd.yaml and edit it
     
