@@ -18,6 +18,9 @@ def LOGGER_PATH():
     return os.path.join(os.path.dirname(__file__), '..','log', f'log-{now.year}-{now.month}-{now.day}.txt')
 
 
+NATION_PATH = os.path.join(os.path.dirname(__file__), './nation.txt');
+LANG_PATH = os.path.join(os.path.dirname(__file__), './lang.txt');
+
 def common_log(info: str):
     print(info)
     with open(LOGGER_PATH(), 'a', encoding='utf-8') as f:
@@ -57,7 +60,7 @@ def main():
             f.write(f"{coun} : {str(number)}\n")
         # print(country_dic[coun[0]])
 
-    with open("nation.txt", 'r', encoding='utf-8') as load_f:
+    with open(NATION_PATH, 'r', encoding='utf-8') as load_f:
         load_f = json.load(load_f)
     for coun in load_f.keys():
         href = 'https://api.github.com/search/users?q=location:%s' % (coun)
@@ -115,7 +118,7 @@ def main():
         # print(starttime, endtime)
         crawler(href, pushed_time, starttime[:7])
 
-    with open("./lang_dict.txt", 'r', encoding='utf-8') as load:
+    with open(LANG_PATH, 'r', encoding='utf-8') as load:
         load = json.load(load)
     lang_list = load['language']
     license_list = load['license']
