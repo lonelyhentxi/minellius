@@ -57,7 +57,11 @@ def main(h=19,m=40):
         if now.day == 2:
             os.system("rm ./tmp/*.csv")
         if now.hour == h and now.minute == m:
-            conn = psycopg2.connect(host='', port=5432, user='', password='', database='')#SQL parameters
+            conn = psycopg2.connect(host=os.environ['DATABASE_HOST'],
+        port=int(os.environ['DATABASE_PORT']),
+        user=os.environ['DATABASE_USERNAME'],
+        password=os.environ['DATABASE_PASSWORD'],
+        database=os.environ['DATABASE_NAME'])#SQL parameters
             conn.set_client_encoding('UTF8')
             cursor = conn.cursor()
             date_msg = str(msg_time_pre().year)+"-"+str(msg_time_pre().month)

@@ -198,11 +198,11 @@ def main():
     keyword = ['country_dic', 'create_time', 'pushed_time', 'repo_lang_dic', 'license_dic',
                'user_lang_dic', 'forks_dic', 'star_dic', 'size_dic', 'comments_dic', 'repos_dic', 'followers_dic']
     connect = psycopg2.connect(
-        host='',
-        port=5432,
-        user='',
-        password='',
-        database=''
+        host=os.environ['DATABASE_HOST'],
+        port=int(os.environ['DATABASE_PORT']),
+        user=os.environ['DATABASE_USERNAME'],
+        password=os.environ['DATABASE_PASSWORD'],
+        database=os.environ['DATABASE_NAME']
     )
     cursor = connect.cursor()
     common_log('drop old table')

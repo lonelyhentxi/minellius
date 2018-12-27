@@ -44,6 +44,18 @@ services:
     container_name: minellius-crawler
     build: ./crawler
     restart: always
+    environment:
+      - DATABASE_USERNAME=
+      # minellius_test
+      - DATABASE_PASSWORD=
+      # example_password
+      - DATABASE_HOST=
+      # 172.16.0.242
+      - DATABASE_PORT=
+      # 5432
+      - DATABASE_TYPE=
+      # postgres
+      - DATABASE_NAME=
   monitor:
     image: deltaskelta/docker-alertd
     container_name: minellius-monitor
