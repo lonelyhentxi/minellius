@@ -84,16 +84,19 @@ export class LogInComponent implements OnInit {
       try {
         const code = await me.userService.waitGithubAuth();
         if (code) {
+          console.log(code);
           await me.userService.loginGithub({code}).toPromise();
           me.messageService.success(['COMMON.LOGIN', 'COMMON.SUCCESS']
             .map((val) => me.translator.instant(val))
             .join(me.translator.instant('COMMON.WORDSEP')));
           me.router.navigateByUrl('/layout');
         } else {
+          console.log(code);
           me.messageService.warning(['COMMON.NOT', 'COMMON.LOGIN']
             .map(word => me.translator.instant(word)).join(me.translator.instant('COMMON.WORDSEP')));
         }
       } catch (e) {
+        console.log(e);
         me.messageService.warning(me.loginWithGithubSpecErrorPrompt(e));
       }
     })().then(() => {

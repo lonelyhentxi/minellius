@@ -10,4 +10,6 @@ export interface ICoreConfig {
   domain: string;
   version: string;
   contact_email?:string;
+  localDomain: string;
+  localProtocol: 'http'|'https';
 }

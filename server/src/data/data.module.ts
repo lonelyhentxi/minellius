@@ -9,6 +9,9 @@ import { CoreModule } from '../core/core.module';
 import { AuthModule, passportStrategies } from '../auth';
 import { RoleModule } from '../role';
 import { PassportModule } from '@nestjs/passport';
+import { CurrentRecordService } from './services/current-record.service';
+import { CurrentRecordController } from './controllers/current-record.controller';
+import { CurrentRecordEntity } from './entities/current-record.entity';
 
 @Module({
   imports: [
@@ -18,14 +21,16 @@ import { PassportModule } from '@nestjs/passport';
       .forFeature([
         PeriodRepoEventEntity,
         PeriodOrgEventEntity,
-        PeriodUserEventEntity],
+        PeriodUserEventEntity,
+        CurrentRecordEntity,
+        ],
       ),
     CoreModule,
     RoleModule,
     AuthModule,
   ],
-  providers: [PeriodEventService],
-  controllers: [PeriodEventController],
+  providers: [PeriodEventService,CurrentRecordService],
+  controllers: [PeriodEventController,CurrentRecordController],
 })
 export class DataModule {
   static forRoot(options: { providers: Provider[] }): DynamicModule {
@@ -42,14 +47,16 @@ export class DataModule {
           .forFeature([
             PeriodRepoEventEntity,
             PeriodOrgEventEntity,
-            PeriodUserEventEntity],
+            PeriodUserEventEntity,
+            CurrentRecordEntity,
+            ],
           ),
         CoreModule,
         RoleModule,
         AuthModule,
       ],
-      providers: [PeriodEventService, ...options.providers, ...passportStrategies],
-      controllers: [PeriodEventController],
+      providers: [PeriodEventService,CurrentRecordService, ...options.providers, ...passportStrategies],
+      controllers: [PeriodEventController,CurrentRecordController],
     };
   }
 }
