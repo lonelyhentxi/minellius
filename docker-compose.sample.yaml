@@ -7,55 +7,54 @@ services:
     ports:
       - "6080:6080"
     environment:
-      - DEBUG=
-      # true
-      - PROTOCOL=
-      # https
-      - PORT=
-      # 6080
-      - DOMAIN=
-      # minellius.evernightfireworks.com
-      - SWAGGER_PATH=
-      # document
-      - DATABASE_USERNAME=
-      # minellius_test
-      - DATABASE_PASSWORD=
-      # example_password
-      - DATABASE_HOST=
-      # 172.16.0.242
-      - DATABASE_PORT=
-      # 5432
-      - DATABASE_TYPE=
-      # postgres
-      - DATABASE_NAME=
-      # minellius
-      - GITHUB_CLIENTID=
-      # example_github_clientid
-      - GITHUB_CLIENTSECRET=
-      # example_github_clientsecret
-      - GITHUB_REDIRECT_URI=
-      # https://minellius.evernightfireworks.com/oauth/github
-      - JWT_EXPIRATION=
-      # 7 days
-      - JWT_SECRETKEY=
-      # example_jwt_secretkey
+      - DEBUG
+      # =true
+      - PROTOCOL
+      # =https
+      - PORT
+      # =6080
+      - DOMAIN
+      # =minellius.evernightfireworks.com
+      - SWAGGER_PATH
+      # =document
+      - DATABASE_USERNAME
+      # =minellius_test
+      - DATABASE_PASSWORD
+      # =example_password
+      - DATABASE_HOST
+      # =172.16.0.242
+      - DATABASE_PORT
+      # =5432
+      - DATABASE_TYPE
+      # =postgres
+      - DATABASE_NAME
+      # =minellius
+      - GITHUB_CLIENTID
+      # =example_github_clientid
+      - GITHUB_CLIENTSECRET
+      # =example_github_clientsecret
+      - GITHUB_REDIRECT_URI
+      # =https://minellius.evernightfireworks.com/oauth/github
+      - JWT_EXPIRATION
+      # =7 days
+      - JWT_SECRETKEY
+      # =example_jwt_secretkey
     restart: always
   crawler:
     container_name: minellius-crawler
     build: ./crawler
     restart: always
     environment:
-      - DATABASE_USERNAME=
-      # minellius_test
-      - DATABASE_PASSWORD=
-      # example_password
-      - DATABASE_HOST=
-      # 172.16.0.242
-      - DATABASE_PORT=
-      # 5432
-      - DATABASE_TYPE=
-      # postgres
-      - DATABASE_NAME=
+      - DATABASE_USERNAME
+      # =minellius_test
+      - DATABASE_PASSWORD
+      # =example_password
+      - DATABASE_HOST
+      # =172.16.0.242
+      - DATABASE_PORT
+      # =5432
+      - DATABASE_NAME
+      # =minellius
   monitor:
     image: deltaskelta/docker-alertd
     container_name: minellius-monitor

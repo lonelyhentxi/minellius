@@ -1,14 +1,19 @@
+language: minimal
+services:
+  - docker
 sudo: required
 env:
   - DOCKER_COMPOSE_VERSION=1.23.1
 branches:
   only:
     - production
+    - master
 before_install:
+  - cp monitor/.docker-alertd.sample.yaml monitor/.docker-alertd.yaml
+  - cp docker-compose.sample.yaml docker-compose.yaml
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose build
-scripts:
-  - docker-compose up -d
+script:
+  - docker-compose -f docker-compose.yaml build
