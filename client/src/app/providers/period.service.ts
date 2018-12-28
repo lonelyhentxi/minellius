@@ -7,7 +7,7 @@ import {PeriodEventEntityType} from '../constants/period-event-entity.constant';
 import {EventType} from '../constants/event-type.constant';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {pipeBuild, equalPipe} from '../functools/option-pipe-builder.functool';
+import {pipeBuild, equalPipe} from '../functools/pipe-builder.functool';
 import * as dayjs from 'dayjs';
 
 @Injectable()
