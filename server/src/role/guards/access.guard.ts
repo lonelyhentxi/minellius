@@ -17,6 +17,10 @@ export class AccessGuard extends AuthGuard('minellius-jwt') {
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
     const permissions = this.reflector.get<string[]>('permissions', context.getHandler());
     const request = context.switchToHttp().getRequest();
+    if(!request||!request.user||!request.user.username) {
+      Logger.log(`no that user`, AccessGuard.name);
+      return false;
+    }
     const user: User = request.user;
     Logger.log(`${JSON.stringify(user.username)} need ${roles?roles:'no'} role, ${permissions?permissions:'no'} permission`, AccessGuard.name);
     const hasRole = roles ? roles.filter(roleName => user && user instanceof User && user[roleName]).length > 0 : null;

@@ -21,8 +21,8 @@ export class CurrentRepoStarComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
-    const {dataAxis, dataSeries} = this.currentService.getRepoStarList();
+  async ngOnInit() {
+    const {dataAxis, dataSeries} = await this.currentService.getRepoStarList();
 
     const option = {
       title: {

@@ -31,9 +31,9 @@ export class AuthService {
     private readonly oauthTokensService: OauthTokensAccesstokensService,
   ) {
     if (this.coreConfig.port) {
-      this.localUri = `${this.coreConfig.protocol}://${this.coreConfig.domain}:${this.coreConfig.port}`;
+      this.localUri = `${this.coreConfig.localProtocol}://${this.coreConfig.localDomain}:${this.coreConfig.port}`;
     } else {
-      this.localUri = `${this.coreConfig.protocol}://${this.coreConfig.domain}`;
+      this.localUri = `${this.coreConfig.localProtocol}://${this.coreConfig.localDomain}`;
     }
   }
 

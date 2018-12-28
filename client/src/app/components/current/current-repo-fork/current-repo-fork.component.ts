@@ -19,8 +19,8 @@ export class CurrentRepoForkComponent implements OnInit, OnDestroy {
     private readonly currentService:CurrentService,
     ) { }
 
-  ngOnInit() {
-    const { dataAxis, dataSeries } = this.currentService.getRepoForkList();
+  async ngOnInit() {
+    const { dataAxis, dataSeries } =  await this.currentService.getRepoForkList();
 
     const option = {
       title: {

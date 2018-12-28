@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 const DEV_HOST = '127.0.0.1:6080';
 const DEBUG_HOST = '127.0.0.1:6081';
-const PROD_HOST = 'minellius.evernightfireworks.com';
+const PROD_HOST = 's2hw.evernightfireworks.com';
 const HTTPS = 'https://';
 const HTTP = 'http://';
 
@@ -28,7 +28,9 @@ export class ConfigService {
     ACCOUNTS: '/accounts',
     UNBIND: '/unbind',
     ACCOUNT: '/account',
-    UPDATE: '/update'
+    UPDATE: '/update',
+    CURRENT_RECORD: '/current-record',
+    CURRENT_RECORDS: '/current-records'
   };
 
   private route = {
@@ -42,6 +44,7 @@ export class ConfigService {
     oauthAccounts: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.ACCOUNTS,
     unbind: this.config.SERVER_HOST + this.config.API_BASE + this.config.BIND + this.config.UNBIND,
     accountUpdate: this.config.SERVER_HOST + this.config.API_BASE + this.config.ACCOUNT + this.config.UPDATE,
+    currentRecords: this.config.SERVER_HOST + this.config.API_BASE + this.config.CURRENT_RECORD + this.config.CURRENT_RECORDS
   };
 
   constructor() {

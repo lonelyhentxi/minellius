@@ -20,9 +20,9 @@ export class CurrentUserRepoComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const title = this.translator.instant('FUNCTION.CURRENT.USER.REPO.TITLE.TEXT');
-    const [labels,dataSeries] = this.currentService.getUserRepoList();
+    const [labels,dataSeries] = await this.currentService.getUserRepoList();
     const option = {
       title: {
         text: title
@@ -49,9 +49,8 @@ export class CurrentUserRepoComponent implements OnInit, OnDestroy {
         data: labels
       },
       yAxis: {
-        name: 'log' + [this.translator.instant('COMMON.USER'), this.translator.instant('COMMON.NUMBER')]
+        name: [this.translator.instant('COMMON.USER'), this.translator.instant('COMMON.NUMBER')]
           .join(this.translator.instant('COMMON.WORDSEP')),
-        type: 'log'
       },
       series: [
         {

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Time      : 2018/12/14 20:05
+# @Time      : 2018/12/21 20:05
 # @Author    : cwh
 import os
 import urllib.error
@@ -15,8 +15,11 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 def LOGGER_PATH():
     now = datetime.datetime.now()
-    return os.path.join(os.getcwd(), 'log', f'log-{now.year}-{now.month}-{now.day}.txt')
+    return os.path.join(os.path.dirname(__file__), '..','log', f'log-{now.year}-{now.month}-{now.day}.txt')
 
+
+NATION_PATH = os.path.join(os.path.dirname(__file__), './nation.txt');
+LANG_PATH = os.path.join(os.path.dirname(__file__), './lang.txt');
 
 def common_log(info: str):
     print(info)
@@ -27,10 +30,7 @@ def common_log(info: str):
 def crawler(href, dic, val):
     common_log(href)
     text = requests.get(href).text
-    # print(text)
     num = json.loads(text)['total_count']
-    # print(num)
-    # num = re.findall('(\d+)', text)[0]
     dic[val] = num
     with open(LOGGER_PATH(), 'a', encoding='utf-8') as f:
         f.write(f"{val} : {str(num)}\n")
@@ -40,8 +40,8 @@ def crawler(href, dic, val):
 def main():
     # 所在地
     country_dic = {}
-    country = [['USA', 'US', 'U.S', 'America', '"United+States"', 'U.S.A'], ['China', '中国'], ['India'],
-               ['U.K.', 'England'],
+    country = [['United States of America','USA', 'US', 'U.S', 'America', '"United+States"', 'U.S.A'], ['China', '中国'], ['India'],
+               ['United Kingdom', 'U.K.', 'England'],
                ['Germany'], ['Canada'], ['Brazil'], ['Japan'], ['Russia'], ['France']]
 
     for coun in country:
@@ -60,7 +60,7 @@ def main():
             f.write(f"{coun} : {str(number)}\n")
         # print(country_dic[coun[0]])
 
-    with open("nation.txt", 'r', encoding='utf-8') as load_f:
+    with open(NATION_PATH, 'r', encoding='utf-8') as load_f:
         load_f = json.load(load_f)
     for coun in load_f.keys():
         href = 'https://api.github.com/search/users?q=location:%s' % (coun)
@@ -118,7 +118,7 @@ def main():
         # print(starttime, endtime)
         crawler(href, pushed_time, starttime[:7])
 
-    with open("./lang_dict.txt", 'r', encoding='utf-8') as load:
+    with open(LANG_PATH, 'r', encoding='utf-8') as load:
         load = json.load(load)
     lang_list = load['language']
     license_list = load['license']
@@ -198,30 +198,18 @@ def main():
     keyword = ['country_dic', 'create_time', 'pushed_time', 'repo_lang_dic', 'license_dic',
                'user_lang_dic', 'forks_dic', 'star_dic', 'size_dic', 'comments_dic', 'repos_dic', 'followers_dic']
     connect = psycopg2.connect(
-        host='127.0.0.1',
-        port=5432,
-        user='minellius_test',
-        password='minellius_test',
-        database='minellius'
+        host=os.environ['DATABASE_HOST'],
+        port=int(os.environ['DATABASE_PORT']),
+        user=os.environ['DATABASE_USERNAME'],
+        password=os.environ['DATABASE_PASSWORD'],
+        database=os.environ['DATABASE_NAME']
     )
     cursor = connect.cursor()
-    common_log('drop old table')
-    cursor.execute("DROP TABLE IF EXISTS public.current")
-    common_log('create new table')
-    sql = """CREATE TABLE public.current
-	(
-		id serial PRIMARY KEY NOT NULL,
-		keyword varchar(255) NOT NULL,
-		dict text NOT NULL
-	);
-	CREATE UNIQUE INDEX current_keyword_uindex ON public.current (keyword);"""
-    cursor.execute(sql)
     for i in range(len(keyword)):
         dic = json.dumps(all_info[i])
         k = str(keyword[i])
-        sql = f"""INSERT INTO current(keyword, dict)
-			   VALUES ('{k}','{dic}');"""
-        common_log(f"insert {k}")
+        sql = f"""UPDATE current SET dict = '{dic}' where keyword = {k};"""
+        common_log(f"update {k}")
         try:
             # 执行sql语句
             cursor.execute(sql)

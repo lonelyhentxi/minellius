@@ -172,18 +172,18 @@ export class UserService {
         autoHideMenuBar: false,
       });
       const filters = {
-        urls: ['https://minellius.evernightfireworks.com/','https://github.com']
+        urls: ['https://minellius.evernightfireworks.com/', '*',]
       };
       this.getGithubUri().toPromise().then((uri) => {
-        win.webContents.session.clearStorageData({origin:'https://github.com'}, () => {
+        win.webContents.session.clearStorageData({origin: 'https://github.com'}, () => {
           win.webContents.session.clearCache(() => {
-            win.webContents.session.webRequest.onBeforeRedirect(filters, details => {
-              url = details.redirectURL;
-              if(url.startsWith(filters.urls[0])) {
+            win.show();
+            win.loadURL(uri.redirect_uri);
+            win.webContents.session.webRequest.onSendHeaders(filters, details => {
+              url = details.url;
+              if (url.startsWith(filters.urls[0])) {
                 bind = true;
                 win.close();
-              } else {
-                win.loadURL(url);
               }
             });
             win.once('close', () => {
@@ -194,11 +194,15 @@ export class UserService {
                 resolve(undefined);
               }
             });
-            win.show();
-            win.loadURL(uri.redirect_uri);
           });
         });
-      }, (err) => reject(err));
+      }, (err) => {
+        if (err.status === 404) {
+          resolve(me.extractCodeFromUrl(url));
+        } else {
+          reject(err);
+        }
+      });
     }) as Promise<string | undefined>;
   }
 

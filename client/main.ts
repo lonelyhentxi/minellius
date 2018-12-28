@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import {app, BrowserWindow, screen} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -25,8 +25,10 @@ function createWindow() {
     maximizable: false,
     minimizable: true,
     fullscreenable: false,
+    icon: path.join(__dirname, 'favicon.64x64.png'),
     webPreferences: {
-      devTools: true,
+      webSecurity: false,
+      devTools: process.env.NODE_ENV!=='production',
       nodeIntegrationInWorker: true,
       nodeIntegration: true,
     }

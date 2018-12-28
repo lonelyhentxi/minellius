@@ -20,8 +20,8 @@ export class CurrentRepoLicenseComponent implements OnInit, OnDestroy {
     private readonly translator: TranslateService) {
   }
 
-  ngOnInit() {
-    const licenseList = this.currentService.getRepoLicenseGraph();
+  async ngOnInit() {
+    const licenseList = await this.currentService.getRepoLicenseGraph();
     const licenseAndLicenseFamilyNames: string[] = licenseList.map(val => val.name);
     const licenseFamilies: { name: string }[] = licenseList.filter(val => !val.isLicense).map(val => ({name: val.name}));
     const licenseLinks: { source: string, target: string }[] = [...licenseList.filter(val => !val.isLicense).map(val => ({
@@ -112,7 +112,6 @@ export class CurrentRepoLicenseComponent implements OnInit, OnDestroy {
         }
       }]
     };
-    console.log(option);
     const chart = echarts.init(document.getElementById('current-repo-license-chart') as HTMLDivElement, 'light');
     chart.setOption(option as EChartOption);
     this.chart = chart;

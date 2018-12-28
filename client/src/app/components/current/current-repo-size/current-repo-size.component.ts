@@ -4,6 +4,7 @@ import ECharts = echarts.ECharts;
 import 'echarts/theme/macarons';
 import EChartOption = echarts.EChartOption;
 import {TranslateService} from '@ngx-translate/core';
+import {CurrentService} from '../../../providers/current.service';
 
 @Component({
   selector: 'app-current-repo-size',
@@ -14,16 +15,13 @@ export class CurrentRepoSizeComponent implements OnInit, OnDestroy {
 
   chart: ECharts;
 
-  constructor(private readonly translator:TranslateService) {
+  constructor(private readonly translator:TranslateService,
+              private readonly currentService: CurrentService,
+              ) {
   }
 
-  ngOnInit() {
-    const dataSeries = [{value: 59313181, name: '0-10kB'},
-      {value: 7020712, name: '10KB-100KB'},
-      {value: 58615764, name: '100KB-1MB'},
-      {value: 30636791, name: '1MB-10MB'},
-      {value: 33447169, name: '10MB-100MB'},
-      {value: 5508258, name: '100MB+'}];
+  async ngOnInit() {
+    const dataSeries = await this.currentService.getRepoSizeList();
     const upper = Math.max(...dataSeries.map(val => val.value));
     const option = {
       title: {

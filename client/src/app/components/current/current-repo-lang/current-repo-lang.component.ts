@@ -21,8 +21,8 @@ export class CurrentRepoLangComponent implements OnInit, OnDestroy {
     private readonly translator: TranslateService) {
   }
 
-  ngOnInit() {
-    const data = this.currentService.getRepoLang();
+  async ngOnInit() {
+    const data = await this.currentService.getRepoLang();
 
     const option = {
       title: {
