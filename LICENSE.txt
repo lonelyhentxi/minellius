@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2018 Zhou Yeheng, Lin Jintao, Cao Weihan, Fang An, Cui Tianyu
+Copyright (c) 2018 Zhou Yeheng, Cui Tianyu, Cao Weihan, Lin Jintao, Fang An
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

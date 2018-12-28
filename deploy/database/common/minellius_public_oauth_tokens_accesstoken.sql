@@ -1,0 +1,1 @@
+INSERT INTO public.oauth_tokens_accesstoken (id, provider, provider_client_id, granted_at, access_token, expires_at, token_type, scope, user_id, refresh_token) VALUES (21, 'github', '23011677', '2018-12-25 08:43:08.875765', 'bf3c9f37ed30fabe3a9a0f84e966fe92c7edf830', null, null, null, 12, null);
