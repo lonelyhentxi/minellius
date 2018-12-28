@@ -44,7 +44,7 @@ export class CurrentService {
     return Object.entries(raw).map(r => ({value: r[1], name: r[0]}));
   }
 
-  
+
   async getRepoLang() {
     const raw: { [key: string]: number } = await this.getCurrentRecord('repo_lang_dic');
     const seriesData = Object.entries(raw).map(r => ({value: r[1], name: r[0]}));
@@ -54,6 +54,7 @@ export class CurrentService {
       selected: [seriesData.map(() => true)],
     };
   }
+
 
   async getRepoStarList(): Promise<{ dataAxis: string[], dataSeries: number[] }> {
     const raw: { [key: string]: number } = await this.getCurrentRecord('star_dic');
