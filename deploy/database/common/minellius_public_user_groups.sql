@@ -1,0 +1,1 @@
+INSERT INTO public.user_groups (user_id, group_id) VALUES (12, 1);

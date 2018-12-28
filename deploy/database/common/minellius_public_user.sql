@@ -1,0 +1,1 @@
+INSERT INTO public."user" (id, password, is_superuser, is_staff, is_active, username, email, last_login, date_joined, date_of_birth) VALUES (12, 'pbkdf2_sha256$120000$i8f5ZWOpBlM=$RsDdI4WUEtrsQn1K7p9LgUtOMXj/0bvp27/gCQDgLac=', false, false, true, 'lonelyhentai', 'lonely_hentai@hotmail.com', '2018-12-24 13:38:16.032725', '2018-12-20 09:48:06.956556', null);
