@@ -1,6 +1,6 @@
 {
-  "name": "minellius",
-  "version": "0.1.0",
+  "name": "minellius-server",
+  "version": "0.1.1",
   "description": "Minellius, a experimental github data analysis solution, group project of comp 3002, 2018 fall.",
   "authors": [
     {
