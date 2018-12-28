@@ -17,7 +17,7 @@ export class CurrentUserLocationComponent implements OnInit, OnDestroy {
   constructor(private readonly currentService: CurrentService, private readonly translator: TranslateService) {
   }
 
-  setWorldMapOption(chart: Chart) {
+  async setWorldMapOption(chart: Chart) {
     /*
       create background layer
      */
@@ -43,7 +43,8 @@ export class CurrentUserLocationComponent implements OnInit, OnDestroy {
     /*
       create custom layer
      */
-    const frame = new Frame(this.currentService.getUserLocationList());
+    const locationList = await this.currentService.getUserLocationList();
+    const frame = new Frame(locationList);
     frame.addCol('nation', obj => this.translator.instant('GEO.NATIONS.' + obj['name']));
     const userView = chart.createView();
     userView.source(frame, {
@@ -63,7 +64,7 @@ export class CurrentUserLocationComponent implements OnInit, OnDestroy {
       .tooltip('nation*value');
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const chart = new Chart({
       id: 'current-user-location',
       width: 1020,
@@ -71,7 +72,7 @@ export class CurrentUserLocationComponent implements OnInit, OnDestroy {
       syncXYScales: true,
       margin: [0, 0]
     });
-    this.setWorldMapOption(chart);
+    await this.setWorldMapOption(chart);
     chart.render();
     this.chart = chart;
   }

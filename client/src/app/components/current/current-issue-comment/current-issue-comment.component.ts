@@ -20,15 +20,15 @@ export class CurrentIssueCommentComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const issueComment = this.translator.instant('FUNCTION.CURRENT.ISSUE.COMMENT.PROMPT');
-    const dataSeries = this.currentService.getIssueCommentList();
-    dataSeries.forEach((val)=>val.push(issueComment));
+    const dataSeries: [string, number, string?][] = await this.currentService.getIssueCommentList();
+    dataSeries.forEach((val) => val.push(issueComment));
     const option = {
       title: {
         text: this.translator.instant('FUNCTION.CURRENT.ISSUE.COMMENT.TITLE.TEXT'),
         textStyle: {
-          color:'#666'
+          color: '#666'
         }
       },
       tooltip: {
@@ -44,7 +44,7 @@ export class CurrentIssueCommentComponent implements OnInit, OnDestroy {
       },
       singleAxis: {
         type: 'category',
-        data:  dataSeries.map((val) => `${val[0]}`),
+        data: dataSeries.map((val) => `${val[0]}`),
         top: 50,
         bottom: 50,
         axisPointer: {
@@ -70,7 +70,7 @@ export class CurrentIssueCommentComponent implements OnInit, OnDestroy {
               shadowColor: 'rgba(0, 0, 0, 0.8)'
             }
           },
-          data: dataSeries.map((val,index)=>[index,val[1],val[2]])
+          data: dataSeries.map((val, index) => [index, val[1], val[2]])
         }
       ]
     };
@@ -81,5 +81,6 @@ export class CurrentIssueCommentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.chart.dispose();
+
   }
 }

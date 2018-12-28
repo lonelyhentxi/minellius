@@ -20,8 +20,8 @@ export class CurrentRepoLastPushComponent implements OnInit, OnDestroy {
               private readonly currentService: CurrentService) {
   }
 
-  ngOnInit() {
-    const group = this.currentService.getRepoPushAtList();
+  async ngOnInit() {
+    const group = await this.currentService.getRepoPushAtList();
 
     const data = dataTool.prepareBoxplotData(group);
 

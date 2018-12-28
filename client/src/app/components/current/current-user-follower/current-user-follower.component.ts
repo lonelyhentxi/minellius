@@ -22,8 +22,8 @@ export class CurrentUserFollowerComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
-    const followerList = this.currentService.getUserFollowerList();
+  async ngOnInit() {
+    const followerList = await this.currentService.getUserFollowerList();
     const labels = followerList.map(val => val.name);
     const dataSeries = followerList.map(val => ({
       value: val.value

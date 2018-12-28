@@ -28,7 +28,7 @@ function createWindow() {
     icon: path.join(__dirname, 'favicon.64x64.png'),
     webPreferences: {
       webSecurity: false,
-      devTools: process.env.NODE_ENV==='development'||process.env.NODE_ENV==='debug',
+      devTools: process.env.NODE_ENV!=='production',
       nodeIntegrationInWorker: true,
       nodeIntegration: true,
     }

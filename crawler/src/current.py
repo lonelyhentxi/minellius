@@ -40,8 +40,8 @@ def crawler(href, dic, val):
 def main():
     # 所在地
     country_dic = {}
-    country = [['USA', 'US', 'U.S', 'America', '"United+States"', 'U.S.A'], ['China', '中国'], ['India'],
-               ['U.K.', 'England'],
+    country = [['United States of America','USA', 'US', 'U.S', 'America', '"United+States"', 'U.S.A'], ['China', '中国'], ['India'],
+               ['United Kingdom', 'U.K.', 'England'],
                ['Germany'], ['Canada'], ['Brazil'], ['Japan'], ['Russia'], ['France']]
 
     for coun in country:
@@ -205,23 +205,11 @@ def main():
         database=os.environ['DATABASE_NAME']
     )
     cursor = connect.cursor()
-    common_log('drop old table')
-    cursor.execute("DROP TABLE IF EXISTS public.current")
-    common_log('create new table')
-    sql = """CREATE TABLE public.current
-	(
-		id serial PRIMARY KEY NOT NULL,
-		keyword varchar(255) NOT NULL,
-		dict text NOT NULL
-	);
-	CREATE UNIQUE INDEX current_keyword_uindex ON public.current (keyword);"""
-    cursor.execute(sql)
     for i in range(len(keyword)):
         dic = json.dumps(all_info[i])
         k = str(keyword[i])
-        sql = f"""INSERT INTO current(keyword, dict)
-			   VALUES ('{k}','{dic}');"""
-        common_log(f"insert {k}")
+        sql = f"""UPDATE current SET dict = '{dic}' where keyword = {k};"""
+        common_log(f"update {k}")
         try:
             # 执行sql语句
             cursor.execute(sql)

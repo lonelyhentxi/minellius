@@ -24,9 +24,9 @@ export class CurrentRepoCreateatComponent implements OnInit, OnDestroy {
     ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    const group = this.currentService.getRepoCreateAtList();
+    const group = await this.currentService.getRepoCreateAtList();
 
     const data = dataTool.prepareBoxplotData(group);
 
