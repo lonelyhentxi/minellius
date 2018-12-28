@@ -232,7 +232,7 @@ python go.py
 
 * [Server Api Document](https://minellius.evernightfireworks.com/document)
 * [Initiation Document (Chinese Assignment)](./doc/initiation_document.md)
-* [Software_Requirements_Specification.pdf (Chinese Assignment)](./Software_Requirements_Specification.pdf)
+* [Software_Requirements_Specification.pdf (Chinese Assignment)](./doc/Software_Requirements_Specification.pdf)
 
 ## 😆 Contributors
 
