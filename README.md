@@ -42,8 +42,8 @@ Minellius aims to help users understand the history, current, trend, ups and dow
 <li><a href="#platform-support">&#x1F4BB; Platform Support</a></li>
 <li><a href="#language-support">&#x1F30F; Language Support</a></li>
 <li><a href="#source-code-reference-main">&#x1F449; Source Code Reference (Main)</a></li>
-<li><a href="#docs">&#x1F4D9; Docs</a></li>
 <li><a href="#%EF%B8%8F-faq">&#x2754;&#xFE0F; FAQ</a></li>
+<li><a href="#docs">&#x1F4D9; Docs</a></li>
 <li><a href="#%EF%B8%8F-resource-reference">&#x1F3F7;&#xFE0F; Resource &amp; Reference</a></li>
 <li><a href="#contributors">&#x1F606; Contributors</a></li>
 <li><a href="#license">&#x1F4DC; License</a></li>
@@ -60,7 +60,7 @@ Crawl data from [Gharchive](https://www.gharchive.org/) and [Github Api](https:/
 3. Basic User System with Bearer JWT Auth and Github Oauth Auth
 4. Secure Store and Transmission
 5. Continuous Integration
-6. Auto Recovery and email alert
+6. Auto Recovery and Email Alert
 7. Autogen Documents
 8. I18n (Multi-language)
 9. Multi-platform
@@ -230,23 +230,24 @@ python go.py
     - module - `server/src/**/*.module.ts`
     - ...
 
+## ❔️ FAQ
+
+1. The range of the period event data you provide?
+  > We provide data from 2015.01.01 to 2018.12.26. But since we don't have a low-cost way to store such a large amount of data, after the end of the semester, we will only provide the last month of data as the basic demo of our application service. And we will provide download link for that data, you can find them in resource section.
+
 ## 📙 Docs
 
 * [Server Api Document](https://minellius.evernightfireworks.com/document)
 * [Initiation Document (Chinese Assignment)](./doc/initiation_document.md)
 * [Software_Requirements_Specification.pdf (Chinese Assignment)](./doc/Software_Requirements_Specification.pdf)
 
-## ❔️ FAQ
-
-1. The range of the period event data you provide?
-  > We provide data from 2015.01.01 to 2018.12.26. But since we don't have a low-cost way to store such a large amount of data, after the end of the semester, we will only provide the last month of data as the basic demo of our application service. And we will provide download link for that data, you can find them in resource section.
-
 ## 🏷️ Resource & Reference
 
 1. [Course Information](http://liaoqing.me/comp3002.html)
-2. [Zipped Sql File from 2015.01.01 to 2018.01.26 Download]()
+2. [Zipped Sql File from 2015.01.01 to 2018.01.26 Download](https://pan.baidu.com/s/17WEgYuZ4G_X6Ofig3c-alg)
 3. [Promotional Video (Short Version)](https://pan.baidu.com/s/12Gwn7sP0eknQO9S_LTAAxA)
-4. [Promotional Video (Full Version)]()
+4. [Promotional Video (Full Version)](https://pan.baidu.com/s/1OakbX0BhmJC7Dv-BEC7icg)
+5. [Presentation Slides (Chinese Assignment)](https://pan.baidu.com/s/13AlfCgq6PM63Oo_okMUcSg)
 
 ## 😆 Contributors
 
