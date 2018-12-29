@@ -43,6 +43,8 @@ Minellius aims to help users understand the history, current, trend, ups and dow
 <li><a href="#language-support">&#x1F30F; Language Support</a></li>
 <li><a href="#source-code-reference-main">&#x1F449; Source Code Reference (Main)</a></li>
 <li><a href="#docs">&#x1F4D9; Docs</a></li>
+<li><a href="#%EF%B8%8F-faq">&#x2754;&#xFE0F; FAQ</a></li>
+<li><a href="#%EF%B8%8F-resource-reference">&#x1F3F7;&#xFE0F; Resource &amp; Reference</a></li>
 <li><a href="#contributors">&#x1F606; Contributors</a></li>
 <li><a href="#license">&#x1F4DC; License</a></li>
 </ul>
@@ -234,6 +236,18 @@ python go.py
 * [Initiation Document (Chinese Assignment)](./doc/initiation_document.md)
 * [Software_Requirements_Specification.pdf (Chinese Assignment)](./doc/Software_Requirements_Specification.pdf)
 
+## ❔️ FAQ
+
+1. The range of the period event data you provide?
+  > We provide data from 2015.01.01 to 2018.12.26. But since we don't have a low-cost way to store such a large amount of data, after the end of the semester, we will only provide the last month of data as the basic demo of our application service. And we will provide download link for that data, you can find them in resource section.
+
+## 🏷️ Resource & Reference
+
+1. [Course Information](http://liaoqing.me/comp3002.html)
+2. [Zipped Sql File from 2015.01.01 to 2018.01.26 Download]()
+3. [Promotional Video (Short Version)](https://pan.baidu.com/s/12Gwn7sP0eknQO9S_LTAAxA)
+4. [Promotional Video (Full Version)]()
+
 ## 😆 Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -243,7 +257,7 @@ python go.py
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## 📜 License
-This software is licensed under the [MIT](https://github.com/lonelyhentai/minellius/LICENSE.txt) 
+This software is licensed under the [MIT](./LICENSE.txt) 
 
 ```text
 MIT License
