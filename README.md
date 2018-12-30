@@ -41,6 +41,7 @@ Minellius aims to help users understand the history, current, trend, ups and dow
 </li>
 <li><a href="#platform-support">&#x1F4BB; Platform Support</a></li>
 <li><a href="#language-support">&#x1F30F; Language Support</a></li>
+<li><a href="#acknowledgement">&#x1F44D; Acknowledgement</a></li>
 <li><a href="#source-code-reference-main">&#x1F449; Source Code Reference (Main)</a></li>
 <li><a href="#%EF%B8%8F-faq">&#x2754;&#xFE0F; FAQ</a></li>
 <li><a href="#docs">&#x1F4D9; Docs</a></li>
@@ -188,6 +189,14 @@ python go.py
 
 &nbsp;&nbsp;&nbsp;More languages are coming soon...
 
+## 👍 Acknowledgement
+
+<!-- ALL-Acknowledgement-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/13409222?s=200&v=4" width="100px;"/><br /><sub><b>Electron</b></sub>](https://electronjs.org)<br />        | [<img src="https://angular.io/assets/images/logos/angular/angular.svg" width="100px;"/><br /><sub><b>Angular</b></sub>](https://angular.io)<br /> | [<img src="https://ng.ant.design/assets/img/logo.svg" width="100px;"/><br /><sub><b>NG-Zorro</b></sub>](https://ng.ant.design)<br />          |  [<img src="https://nestjs.com/logo-small.5d4d1c8f.svg" width="100px;"/><br /><sub><b>Nestjs</b></sub>](https://nestjs.com)<br />  |  [<img src="https://raw.githubusercontent.com/github/explore/6c6508f34230f0ac0d49e847a326429eefbfc030/topics/docker/docker.png" width="100px;"/><br /><sub><b>Docker</b></sub>](https://www.docker.com/)<br /> |  
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
+<!-- ALL-Acknowledgement-LIST:END -->
+
 ## 👉 Source Code Reference (Main)
 
 1. client
@@ -230,6 +239,7 @@ python go.py
     - module - `server/src/**/*.module.ts`
     - ...
 
+
 ## ❔️ FAQ
 
 1. The range of the period event data you provide?
@@ -253,7 +263,7 @@ python go.py
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/23011677?v=3" width="100px;"/><br /><sub><b>Zhou Yeheng</b></sub>](https://github.com/lonelyhentai)<br />        | [<img src="https://avatars3.githubusercontent.com/u/43856818?v=3" width="100px;"/><br /><sub><b>Cui Tianyu</b></sub>](https://github.com/HITFZ-cty)<br /> | [<img src="https://avatars0.githubusercontent.com/u/41630003?v=3" width="100px;"/><br /><sub><b>Cao Weihan</b></sub>](https://github.com/Cwhdly)<br />          |  [<img src="https://avatars0.githubusercontent.com/u/33949370?v=3" width="100px;"/><br /><sub><b>Lin jintao</b></sub>](https://github.com/dreamerlin)<br />  |  Fang an |  
+| [<img src="https://avatars3.githubusercontent.com/u/23011677?v=3" width="100px;"/><br /><sub><b>Zhou Yeheng</b></sub>](https://github.com/lonelyhentai)<br />        | [<img src="https://avatars3.githubusercontent.com/u/43856818?v=3" width="100px;"/><br /><sub><b>Cui Tianyu</b></sub>](https://github.com/HITFZ-cty)<br /> | [<img src="https://avatars0.githubusercontent.com/u/41630003?v=3" width="100px;"/><br /><sub><b>Cao Weihan</b></sub>](https://github.com/Cwhdly)<br />          |  [<img src="https://avatars0.githubusercontent.com/u/33949370?v=3" width="100px;"/><br /><sub><b>Lin jintao</b></sub>](https://github.com/dreamerlin)<br />  |  [<img src="https://avatars0.githubusercontent.com/u/44575939?v=3" width="100px;"/><br /><sub><b>Fang An</b></sub>](https://github.com/anhit)<br /> |  
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
